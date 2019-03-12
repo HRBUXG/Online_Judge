@@ -1,7 +1,7 @@
 <?php require_once("admin-header.php");
 if (!(isset($_SESSION[$OJ_NAME.'_'.'administrator']))&&!(isset($_SESSION[$OJ_NAME.'_'.'problem_editor']))){
-	echo "<a href='../loginpage.php'>Please Login First!</a>";
-	exit(1);
+    echo "<a href='../loginpage.php'>Please Login First!</a>";
+    exit(1);
 }
 ?>
 
@@ -16,44 +16,44 @@ if (!(isset($_SESSION[$OJ_NAME.'_'.'administrator']))&&!(isset($_SESSION[$OJ_NAM
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/component.css" />
     </head>
 
-<form action='problem_export_xml.php' method=post>
-	<h2 align="center">Export Problem</h2>
+    <form action='problem_export_xml.php' method=post>
+        <h2 align="center">Export Problem</h2>
 
-    <hr class="style-two"/><br/>
+        <hr class="style-two"/><br/>
 
-    <div class="container">
+        <div class="container">
 
-        <section class="content bgcolor-8">
+            <section class="content bgcolor-8">
             <span class="input input--isao">
 					<input class="input__field input__field--isao" type="text" id="input-38" />
 					<label class="input__label input__label--isao" for="input-38" data-content="from pid:">
 						<span class="input__label-content input__label-content--isao">from pid:</span>
 					</label>
 				</span>
-            <span class="input input--isao">
+                <span class="input input--isao">
 					<input class="input__field input__field--isao" type="text" id="input-39" />
 					<label class="input__label input__label--isao" for="input-39" data-content="to pid:">
 						<span class="input__label-content input__label-content--isao">to pid:</span>
 					</label>
 				</span>
-            <span class="input input--isao">
+                <span class="input input--isao">
 					<input class="input__field input__field--isao" type="text" id="input-40" />
 					<label class="input__label input__label--isao" for="input-40" data-content="or in">
 						<span class="input__label-content input__label-content--isao">or in</span>
 					</label>
 				</span>
-        </section>
-    </div>
+            </section>
+        </div>
 
-    <br/>
-	<input type='hidden' name='do' value='do'>
-	<input type=submit name=submit value='Export'  style="background:#3185b9;color:whitesmoke ">
-   <input type=submit value='Download' style="background:#3185b9;color:whitesmoke ">
-   <?php require_once("../include/set_post_key.php");?>
-</form>
-* from-to will working if empty IN <br>
-* if using IN,from-to will not working.<br>
-* IN can go with "," seperated problem_ids like [1000,1020]
+        <br/>
+        <input type='hidden' name='do' value='do'>
+        <input type=submit name=submit value='Export'  style="background:#3185b9;color:whitesmoke ">
+        <input type=submit value='Download' style="background:#3185b9;color:whitesmoke ">
+        <?php require_once("../include/set_post_key.php");?>
+    </form>
+    * from-to will working if empty IN <br>
+    * if using IN,from-to will not working.<br>
+    * IN can go with "," seperated problem_ids like [1000,1020]
 </div>
 
 
