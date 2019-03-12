@@ -1,0 +1,163 @@
+
+%well {
+  box-shadow:inset 1px 1px 1px rgba(0,0,0,0.5),inset -1px -1px 1px rgba(100,100,100,0.1);
+}
+
+%bump {
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.2), -1px -1px 1px rgba(100,100,100,0.3);
+}
+
+%outset {
+  border-top: 1px solid rgba(250,250,250,0.05);
+  border-left: 1px solid rgba(250,250,250,0.05);
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  border-right: 1px solid rgba(0,0,0,0.2);
+}
+
+%inset {
+  border-bottom: 1px solid rgba(250,250,250,0.05);
+  border-righ: 1px solid rgba(250,250,250,0.05);
+  border-top: 1px solid rgba(0,0,0,0.2);
+  border-left: 1px solid rgba(0,0,0,0.2);
+}
+
+%gplay_pseudo {
+    content: "";
+    display:block;
+    position:absolute;
+    top:0;
+    right:0;
+}
+@mixin button($bg: transparent, $color: #fff, $height: 32px, $fontSize:14px) {
+  background:$bg;
+  color:$color;
+  cursor: pointer;
+  display: inline-block;
+  position:relative;
+  font-size:$fontSize;
+  /* font-weight:100; */
+  line-height:$height;
+  height:$height;
+  padding: 0px $fontSize; 
+  text-transform: uppercase;
+  text-decoration:none;
+  &:hover, &:active {
+    background: darken($bg, 8%);
+    color: rgba(0,0,0,0.45);
+  }
+}
+
+%reactiveInset {
+  &:hover {
+    @extend %inset;
+  }
+  &:active {
+    @extend %inset;
+    @extend %well;
+  }
+}
+
+@mixin gplay($bg: #b3c833, $color: #fff, $height: 32px,$fontSize:16px) {
+	@include button($bg,$color,$height);
+  padding-right: ($height+3px);
+  &:before {
+    @extend %gplay_pseudo;
+    border-right:$height solid #f7f7f7;
+    border-bottom:$height solid transparent;
+    opacity: 0.25;
+  }
+  &:after {
+   @extend %gplay_pseudo;
+    border-right:$height solid #222;
+    border-top:$height solid transparent;
+    opacity: 0.3;
+  }
+  &:hover {
+    background:darken($bg,4%);
+  }
+  &:active {
+    background:darken($bg,6%);
+    border:none;
+    @extend %well;
+  }
+}
+
+@mixin borderbutton($color: #fff, $height: 32px, $fontSize: 16px, $border:2px ) {
+  @include button($color: $color,$height: $height, $fontSize:$fontSize);
+  border: $border solid;
+  line-height:($height - $border);
+  &:hover, &:active {
+    color: lighten($color,5%);
+  }
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {}
+
+.panel {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  padding: 2.5%;
+  
+  a {
+      margin:4px;
+  }
+  &-dark {
+    background:#272727;
+  }
+  &-light {
+    background:#f1f1f1;
+  }
+}
+
+.wrap {
+  padding: 12px;
+  margin: 18px auto;
+  max-width:600px;
+  text-align:center;
+  background:rgba(250,250,250,0.015);
+  @extend %well;
+}
+
+.panel-light .wrap {
+  background:#fafafa;
+}
+
+.plain { @include button(#f3c037);  }
+.jane { @include button(#0074D9); }
+.send { @include button(#e4653f); }
+.compose { @include button(#a5c83a); }
+
+.subtle { @include button($color:#888); @extend %outset; @extend %reactiveInset; }
+.simple { @include button($color:#888); @extend %outset; @extend %reactiveInset; }
+.minimal { @include button($color:#888); @extend %outset; @extend %reactiveInset; }
+.awesome { @include button($color:#888);  @extend %outset; @extend %reactiveInset; }
+
+.apps { @include gplay(#b3c833); }
+.games { @include gplay($bg: #11b1ff);}
+.books { @include gplay($bg: #FF851B); }
+.collections { @include gplay($bg: #FF4136); }
+
+.fashion,
+.style,
+.blog,
+.readmore {
+  @include borderbutton($color:#666);
+} 
+
+.apple { @include borderbutton($color:#FF4136, $border: 1px); }
+.bigblue { @include borderbutton($color:#FF851B, $border: 1px); }
+.ibm { @include borderbutton($color:#11b1ff, $border: 1px); } 
+.macintosh { @include borderbutton($color:#b3c833, $border: 1px); }
+
+.halt { @include button(#00a1cb);  }
+.and { @include button(#7db500); }
+.catch { @include button(#f18d05); }
+.fire { @include button(#e54028); }
+.go { @include button(#87318c);}

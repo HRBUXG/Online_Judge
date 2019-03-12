@@ -1,0 +1,586 @@
+.ChangePassWD:active, .Rejudge:active, .AddPrivilege:active, .PrivilegeList:active, .wrap, .AddVideo:active, .Video:active, .AddFile:active, .File:active {
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.5), inset -1px -1px 1px rgba(100, 100, 100, 0.1);
+}
+
+.ChangePassWD, .Rejudge, .AddPrivilege, .PrivilegeList {
+  border-top: 1px solid rgba(250, 250, 250, 0.05);
+  border-left: 1px solid rgba(250, 250, 250, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.ChangePassWD:hover, .Rejudge:hover, .AddPrivilege:hover, .PrivilegeList:hover, .ChangePassWD:active, .Rejudge:active, .AddPrivilege:active, .PrivilegeList:active {
+  border-bottom: 1px solid rgba(250, 250, 250, 0.05);
+  border-righ: 1px solid rgba(250, 250, 250, 0.05);
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.AddVideo:before, .AddVideo:after, .Video:before, .Video:after, .AddFile:before, .AddFile:after, .File:before, .File:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.panel {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  padding: 2.5%;
+}
+.panel a {
+  margin: 4px;
+}
+.panel-light {
+  background: #f1f1f1;
+}
+
+.wrap {
+  padding: 12px;
+  margin: 18px auto;
+  max-width: 900px;
+  text-align: center;
+  background: rgba(250, 250, 250, 0.015);
+}
+
+.panel-light .wrap {
+  background: #fafafa;
+}
+
+.SeeOJ {
+  background: #f3c037;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 14px;
+
+  text-decoration: none;
+}
+.SeeOJ:hover, .SeeOJ:active {
+  background: #f1b411;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.AddNews {
+  background: #0074D9;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 14px;
+
+  text-decoration: none;
+}
+.AddNews:hover, .AddNews:active {
+  background: #005eb0;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.NewsList {
+  background: #e4653f;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 14px;
+
+  text-decoration: none;
+}
+.NewsList:hover, .NewsList:active {
+  background: #db4a1f;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.UserList {
+  background: #a5c83a;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 14px;
+
+  text-decoration: none;
+}
+.UserList:hover, .UserList:active {
+  background: #8caa2f;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.ChangePassWD {
+  background: transparent;
+  color: #888;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 14px;
+
+  text-decoration: none;
+}
+.ChangePassWD:hover, .ChangePassWD:active {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.Rejudge {
+  background: transparent;
+  color: #888;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 14px;
+
+  text-decoration: none;
+}
+.Rejudge:hover, .Rejudge:active {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.AddPrivilege {
+  background: transparent;
+  color: #888;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 14px;
+
+  text-decoration: none;
+}
+.AddPrivilege:hover, .AddPrivilege:active {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.PrivilegeList {
+  background: transparent;
+  color: #888;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 14px;
+
+  text-decoration: none;
+}
+.PrivilegeList:hover, .PrivilegeList:active {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.AddVideo {
+  background: #b3c833;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 14px;
+
+  text-decoration: none;
+  padding-right: 35px;
+}
+.AddVideo:hover, .AddVideo:active {
+  background: #96a72b;
+  color: rgba(0, 0, 0, 0.45);
+}
+.AddVideo:before {
+  border-right: 32px solid #f7f7f7;
+  border-bottom: 32px solid transparent;
+  opacity: 0.25;
+}
+.AddVideo:after {
+  border-right: 32px solid #222;
+  border-top: 32px solid transparent;
+  opacity: 0.3;
+}
+.AddVideo:hover {
+  background: #a4b82f;
+}
+.AddVideo:active {
+  background: #9db02d;
+  border: none;
+}
+
+.Video {
+  background: #11b1ff;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 14px;
+
+  text-decoration: none;
+  padding-right: 35px;
+}
+.Video:hover, .Video:active {
+  background: #009be7;
+  color: rgba(0, 0, 0, 0.45);
+}
+.Video:before {
+  border-right: 32px solid #f7f7f7;
+  border-bottom: 32px solid transparent;
+  opacity: 0.25;
+}
+.Video:after {
+  border-right: 32px solid #222;
+  border-top: 32px solid transparent;
+  opacity: 0.3;
+}
+.Video:hover {
+  background: #00a9fc;
+}
+.Video:active {
+  background: #00a2f1;
+  border: none;
+}
+
+.AddFile {
+  background: #FF851B;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 14px;
+
+  text-decoration: none;
+  padding-right: 35px;
+}
+.AddFile:hover, .AddFile:active {
+  background: #f17000;
+  color: rgba(0, 0, 0, 0.45);
+}
+.AddFile:before {
+  border-right: 32px solid #f7f7f7;
+  border-bottom: 32px solid transparent;
+  opacity: 0.25;
+}
+.AddFile:after {
+  border-right: 32px solid #222;
+  border-top: 32px solid transparent;
+  opacity: 0.3;
+}
+.AddFile:hover {
+  background: #ff7a07;
+}
+.AddFile:active {
+  background: #fb7500;
+  border: none;
+}
+
+.File {
+  background: #FF4136;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 14px;
+
+  text-decoration: none;
+  padding-right: 35px;
+}
+.File:hover, .File:active {
+  background: #ff1a0d;
+  color: rgba(0, 0, 0, 0.45);
+}
+.File:before {
+  border-right: 32px solid #f7f7f7;
+  border-bottom: 32px solid transparent;
+  opacity: 0.25;
+}
+.File:after {
+  border-right: 32px solid #222;
+  border-top: 32px solid transparent;
+  opacity: 0.3;
+}
+.File:hover {
+  background: #ff2e22;
+}
+.File:active {
+  background: #ff2417;
+  border: none;
+}
+
+.AddPlays,
+.Plays,
+.AddProblem,
+.ProblemList {
+  background: transparent;
+  color: #666;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 16px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 16px;
+
+  text-decoration: none;
+  border: 2px solid;
+  line-height: 30px;
+}
+.AddPlays:hover, .AddPlays:active,
+.Plays:hover,
+.Plays:active,
+.AddProblem:hover,
+.AddProblem:active,
+.ProblemList:hover,
+.ProblemList:active {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.45);
+}
+.AddPlays:hover, .AddPlays:active,
+.Plays:hover,
+.Plays:active,
+.AddProblem:hover,
+.AddProblem:active,
+.ProblemList:hover,
+.ProblemList:active {
+  color: #737373;
+}
+
+.AddContest {
+  background: transparent;
+  color: #FF4136;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 16px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 16px;
+
+  text-decoration: none;
+  border: 1px solid;
+  line-height: 31px;
+}
+.AddContest:hover, .AddContest:active {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.45);
+}
+.AddContest:hover, .AddContest:active {
+  color: #ff5950;
+}
+
+.ContestList {
+  background: transparent;
+  color: #FF851B;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 16px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 16px;
+
+  text-decoration: none;
+  border: 1px solid;
+  line-height: 31px;
+}
+.ContestList:hover, .ContestList:active {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.45);
+}
+.ContestList:hover, .ContestList:active {
+  color: #ff9335;
+}
+
+.TeamGenerator {
+  background: transparent;
+  color: #11b1ff;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 16px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 16px;
+
+  text-decoration: none;
+  border: 1px solid;
+  line-height: 31px;
+}
+.TeamGenerator:hover, .TeamGenerator:active {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.45);
+}
+.TeamGenerator:hover, .TeamGenerator:active {
+  color: #2bb9ff;
+}
+
+.SetMessage {
+  background: transparent;
+  color: #b3c833;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 16px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 16px;
+
+  text-decoration: none;
+  border: 1px solid;
+  line-height: 31px;
+}
+.SetMessage:hover, .SetMessage:active {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.45);
+}
+.SetMessage:hover, .SetMessage:active {
+  color: #bcd045;
+}
+
+.GiveSource {
+  background: #00a1cb;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 14px;
+
+  text-decoration: none;
+}
+.GiveSource:hover, .GiveSource:active {
+  background: #0081a2;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.ExportProblem {
+  background: #7db500;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 14px;
+
+  text-decoration: none;
+}
+.ExportProblem:hover, .ExportProblem:active {
+  background: #618c00;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.ImportProblem {
+  background: #f18d05;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 14px;
+
+  text-decoration: none;
+}
+.ImportProblem:hover, .ImportProblem:active {
+  background: #c97604;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.UpdateDatabase {
+  background: #e54028;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 14px;
+
+  text-decoration: none;
+}
+.UpdateDatabase:hover, .UpdateDatabase:active {
+  background: #cc2f19;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.TagManage {
+  background: #87318c;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  /* font-weight:100; */
+  line-height: 32px;
+  height: 32px;
+  padding: 0px 14px;
+
+  text-decoration: none;
+}
+.TagManage:hover, .TagManage:active {
+  background: #6a266e;
+  color: rgba(0, 0, 0, 0.45);
+}
