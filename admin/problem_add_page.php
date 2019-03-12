@@ -28,7 +28,7 @@
     }
     ?>
     <?php
-    include_once("kindeditor.php");
+    include_once("ueditor.php");
 
     ?>
     <!--查询动态标签-->
@@ -159,7 +159,7 @@
                         <p align=left>
                             <?php echo $MSG_Input ?>:<br>
                             <!--<textarea class="kindeditor" rows=13 name=input cols=80 style="width:1px"></textarea>-->
-                            <textarea name="content" id="content"
+                            <textarea name="content" id="UEditor"
                                       style="width: 800px; height: 400px; margin: 0 auto;"></textarea>
 
                         </p>
@@ -355,8 +355,6 @@
             }
         }
     }
-
-    UE.getEditor('content', {initialFrameWidth: 800, initialFrameHeight: 200})
 </script>
 </body>
 </html>
