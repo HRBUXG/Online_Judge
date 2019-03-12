@@ -4,6 +4,6 @@
 <script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.js"></script>
 <script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"></script>
 <script>
-    UE.getEditor('content',{initialFrameWidth:800,initialFrameHeight:200});
-    var ue = UE.getEditor('content');
+    UE.getEditor('UEditor',{initialFrameWidth:800,initialFrameHeight:250});
+    var ue = UE.getEditor('UEditor');
 </script>
