@@ -1,3 +1,23 @@
+<script src='http://cdn.bootcss.com/socket.io/1.3.7/socket.io.js'></script>
+<script>
+    // 连接服务端，workerman.net:2120换成实际部署web-msg-sender服务的域名或者ip
+    var socket = io('http://' + document.domain + ':2120');
+    // uid可以是自己网站的用户id，以便针对uid推送以及统计在线人数
+    uid = <?php echo $_SESSION[$OJ_NAME . '_' . 'user_id'];?>;
+    // socket连接后以uid登录
+    socket.on('connect', function () {
+        socket.emit('login', uid);
+    });
+    // 后端推送来消息时
+    socket.on('new_msg', function (msg) {
+        console.log("收到消息：" + msg);
+        alert(msg);
+    });
+    // 后端推送来在线数据时
+    socket.on('update_online_count', function (online_stat) {
+        console.log(online_stat);
+    });
+</script>
 <?php
 $url = basename($_SERVER['REQUEST_URI']);
 $dir = basename(getcwd());
