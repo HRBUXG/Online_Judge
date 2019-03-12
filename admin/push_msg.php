@@ -2,16 +2,13 @@
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8">
-    <link href="main.css" rel="stylesheet" type="text/css"/>
     <script src='https://cdn.bootcss.com/socket.io/2.0.3/socket.io.js'></script>
     <script src='//cdn.bootcss.com/jquery/1.11.3/jquery.js'></script>
-    <script src='/notify.js'></script>
 </head>
 <body>
 
 <div class="notification sticky hide">
     <p id="content"></p>
-    <a class="close" href="javascript:"> <img src="./icon-close.png"/></a>
 </div>
 <div class="wrapper">
     <div style="width:850px;">
@@ -27,43 +24,34 @@
             <li>支持在线页面数实时统计推送（见页脚统计）</li>
         </ul>
         <h3>测试:</h3>
-        当前用户uid：<b class="uid"></b> <?php echo $_SESSION[$OJ_NAME . '_' . 'user_id'] ?><br>
-        可以通过url：<a id="send_to_one"
-                   href="http://192.168.200.129:2121/?type=publish&to=1445590039000&content=%E6%B6%88%E6%81%AF%E5%86%85%E5%AE%B9"
-                   target="_blank"><font style="color:#91BD09">http://<font class="domain"></font>:2121?type=publish&to=<b
-                        class="uid"></b>&content=消息内容</font></a> 向当前用户发送消息<br>
-        可以通过url：<a href="http://192.168.200.129:2121/?type=publish&to=&content=%E6%B6%88%E6%81%AF%E5%86%85%E5%AE%B9"
+
+        <p><input id="mytext" name="message" type="text" value="" style="width:500px; height:20px;" required /></p>
+        <p><input type="button" value="发送" onclick="send_to_all()"/></p>
+
+        可以通过url：
+        <button id="send_to_one">向指定用户发送消息</button>
+        <br>
+        可以通过url：<a href="http://39.105.19.50:2121/?type=publish&to=&content=%E6%B6%88%E6%81%AF%E5%86%85%E5%AE%B9"
                    target="_blank" id="send_to_all"><font style="color:#91BD09">http://<font class="domain"></font>:2121?type=publish&to=&content=消息内容</font></a>
         向所有在线用户推送消息<br>
-        <script>
-            // 使用时替换成真实的uid，这里方便演示使用时间戳
-            var uid = Date.parse(new Date());
-            $('#send_to_one').attr('href', 'http://' + document.domain + ':2121/?type=publish&content=%E6%B6%88%E6%81%AF%E5%86%85%E5%AE%B9&to=' + uid);
-            $('.uid').html(uid);
-            $('#send_to_all').attr('href', 'http://' + document.domain + ':2121/?type=publish&content=%E6%B6%88%E6%81%AF%E5%86%85%E5%AE%B9');
-            $('.uid').html(uid);
-            $('.domain').html(document.domain);
-        </script>
-    </div>
 
+    </div>
     <script>
-        $(document).ready(function () {
-            // 连接服务端
-            var socket = io('http://' + document.domain + ':2120');
-            // 连接后登录
-            socket.on('connect', function () {
-                socket.emit('login', uid);
-            });
-            // 后端推送来消息时
-            socket.on('new_msg', function (msg) {
-                $('#content').html('收到消息：' + msg);
-                $('.notification.sticky').notify();
-            });
-            // 后端推送来在线数据时
-            socket.on('update_online_count', function (online_stat) {
-                $('#online_box').html(online_stat);
-            });
-        });
+        function send_to_all() {
+            var uid = "16044325";
+            var message = $("#mytext").val();
+            alert(message);
+            window.open('http://' + document.domain + ':2121/?type=publish&content=' + message)
+            //$('#send_to_all').attr('href', 'http://' + document.domain + ':2121/?type=publish&content=' + message);
+            $('.uid').html(uid);
+            $('.domain').html(document.domain)
+        }
+
+
+        // 使用时替换成真实的uid，这里方便演示使用时间戳
+        /*     $('#send_to_one').attr('href', 'http://' + document.domain + ':2121/?type=publish&content=' + message + '&to=' + uid);
+             $('.uid').html(uid);*/
+
     </script>
 </body>
-</html>
+</html>;
