@@ -3452,7 +3452,7 @@ function dir_list_form() {
             <input type=button onclick=\"test_prompt(1)\" value=\"".et('CreateDir')."\">
             <input type=button onclick=\"test_prompt(2)\" value=\"".et('CreateArq')."\">
             <input type=button onclick=\"upload()\" value=\"".et('Upload')."\">
-            <b>$ip</b>
+            <b>$ip</b><a href=\"../problem.php?id=".$_SESSION['ppid']."\"><input name='返回' type='button'  value='Back'/></a>
             </nobr>";
         $uplink = "";
         if ($current_dir != $fm_current_root){
