@@ -11,6 +11,9 @@
 .idea/webServers.xml
 .idea/vcs.xml
 .idea/workspace.xml
+.idea/
+.gitingore
+.gitingore.swp
 
 
 # Generated files
