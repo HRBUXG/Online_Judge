@@ -24,17 +24,17 @@ echo "<center><h2>$MSG_CONTEST"."$MSG_LIST</h2></center>";
 echo "<div class=\"container\">";
 require_once("../include/set_get_key.php");
 $sql="SELECT max(`contest_id`) as upid, min(`contest_id`) as btid  FROM `contest`";
-$page_cnt=50;
-$result=pdo_query($sql);
-$row=$result[0];
-$base=intval($row['btid']);
-$cnt=intval($row['upid'])-$base;
-$cnt=intval($cnt/$page_cnt)+(($cnt%$page_cnt)>0?1:0);
+$page_cnt=50;//每页显示的条数
+$result=pdo_query($sql);//执行sql语句
+$row=$result[0];//代表最大的比赛ID号
+$base=intval($row['btid']);//代表最小的比赛ID号
+$cnt=intval($row['upid'])-$base;//计算出比赛的总次数
+$cnt=intval($cnt/$page_cnt)+(($cnt%$page_cnt)>0?1:0);//计算出一共可以分的页数
 if (isset($_GET['page'])){
         $page=intval($_GET['page']);
 }else $page=$cnt;
-$pstart=$base+$page_cnt*intval($page-1);
-$pend=$pstart+$page_cnt;
+$pstart=$base+$page_cnt*intval($page-1);//每页显示的最小ID号--开始ID
+$pend=$pstart+$page_cnt;//每页显示的最后一个比赛id
 /*
 for ($i=1;$i<=$cnt;$i++){
         if ($i>1) echo '&nbsp;';
@@ -55,7 +55,8 @@ if(isset($_GET['keyword'])){
 ?>
 <div style="float:left;">
 <form action=contest_list.php class="pagination" ><input name=keyword><input type=submit value="<?php echo $MSG_SEARCH?>" ></form>
-</div><div style="display:inline;">
+</div>
+<div style="display:inline;">
 <nav class="center"><ul class="pagination">
 <li class="page-item"><a href="contest_list.php?page=1">&lt;&lt;</a></li>
 <?php
