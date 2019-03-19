@@ -17,6 +17,9 @@
     <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+
+
 </head>
 
 <body>
@@ -52,7 +55,8 @@
             </form>
             ServerTime:<span id=nowdate></span>
             <?php echo $MSG_READYTORUN; ?>:<span><?php echo $count; ?></span>
-            <table class='table table-striped' width=90%>
+
+            <table class='table table-striped'  width=90%>
                 <thead>
                 <tr class=toprow align=center>
                     <td width=10%>ID
@@ -63,6 +67,7 @@
                     <td width=10%>Creator
                 </tr>
                 </thead>
+
                 <tbody>
                 <?php
                 $cnt = 0;
@@ -81,7 +86,7 @@
                 }
                 ?>
                 </tbody>
-            </table>
+            </--table>
         </center>
     </div>
 
