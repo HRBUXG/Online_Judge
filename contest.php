@@ -95,6 +95,10 @@ if (isset($_GET['cid'])) {
         $view_start_time = $row['start_time'];
         $view_end_time = $row['end_time'];
 
+        $sql_people_count="select count(distinct (`user_id`)) as num from `solution` where `contest_id`=?";
+        $result=pdo_query($sql_people_count,$cid);
+        $value=$result[0];
+        $contest_people_count=$value['num'];
 
         if (!isset($_SESSION[$OJ_NAME . '_' . 'administrator']) && $now < $start_time) {
             $view_errors = "<h2>$MSG_CONTESTTIME_WARNING</h2>";
@@ -118,9 +122,7 @@ if (isset($_GET['cid'])) {
                 ) problem
                 left join (select problem_id pid1,count(distinct(user_id)) accepted from solution where result=4 and contest_id=? group by pid1) p1 on problem.pid=p1.pid1
                 left join (select problem_id pid2,count(1) submit from solution where contest_id=? group by pid2) p2 on problem.pid=p2.pid2
-		order by pnum
-                
-                ";//AND `problem`.`defunct`='N'
+		order by pnum";//AND `problem`.`defunct`='N'
 
 
     $result = pdo_query($sql, $cid, $cid, $cid);
