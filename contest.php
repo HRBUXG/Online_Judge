@@ -191,8 +191,19 @@ if (isset($_GET['cid'])) {
     $i = 0;
     foreach ($result as $row) {
 
-        $view_contest[$i][0] = $row['contest_id'];
-        $view_contest[$i][1] = "<a href='contest.php?cid=" . $row['contest_id'] . "'>" . $row['title'] . "</a>";
+        // lst 注释$view_contest[$i][0] = $row['contest_id'];
+        // lst 注释$view_contest[$i][1] = "<a href='contest.php?cid=" . $row['contest_id'] . "'>" . $row['title'] . "</a>";
+
+        //lst新增样式
+        $view_contest[$i][0] = "<div align='left'><span style='padding-left: 22%;font-weight:bolder;font-size: large;color:#009393'>" . $row['title'] . "</span></br>"
+            . "<span style='padding-left: 22%'>主办方：" . $row['user_id'] . "</span>&nbsp;&nbsp;"
+            . "<span>ID: " . $row['contest_id'] . "</span></br>"
+            . "<span style='padding-left: 22%'>开始时间：" . $row['start_time'] . "</span></br>"
+            . "<span style='padding-left: 22%'>结束时间：" . $row['end_time'] . "</span></div>";
+
+        $view_contest[$i][1] = "<span>" . "<a class=\"btn btn-default\" href='contest.php?cid=" . $row['contest_id'] . "'>" . "start" . "</a>" . "</span></br>"
+            . "<span>距比赛开始:" . $row['start_time'] . "</span>";
+        //样式增加结束
         $start_time = strtotime($row['start_time']);
         $end_time = strtotime($row['end_time']);
         $now = time();
@@ -200,9 +211,10 @@ if (isset($_GET['cid'])) {
 
         $length = $end_time - $start_time;
         $left = $end_time - $now;
+        //lst 注释掉一部分代码
         // past
 
-        if ($now > $end_time) {
+        /*if ($now > $end_time) {
             $view_contest[$i][2] = "<span>" . $row['start_time'] . "</span>&nbsp;";
             $view_contest[$i][3] = "<span class=blue style='color:gray;font-weight:bold'>$MSG_Ended</span>";
             //$view_contest[$i][2].= "<span class=green style='color:green'>$MSG_TotalTime&nbsp;".formatTimeLength($length)."</span>";
@@ -228,7 +240,7 @@ if (isset($_GET['cid'])) {
             $view_contest[$i][4] = "<span class=red style='color:red'>$MSG_Public</span>";
         else
             $view_contest[$i][5] = "<span class=green style='color:green'>$MSG_Private</span>";
-        $view_contest[$i][6] = $row['user_id'];
+        $view_contest[$i][6] = $row['user_id'];*/
 
 
         $i++;
