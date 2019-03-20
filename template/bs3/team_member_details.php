@@ -17,124 +17,58 @@
     <![endif]-->
     <!-- <script src="http://html5media.googlecode.com/svn/trunk/src/html5media.min.js"></script>-->
     <?php
-    $conn = mysql_connect("localhost", "root", "HRBUXGOJ");
-    if (!$conn) {
-        alert("连接失败");
-    }
-    mysql_select_db("jol", $conn);
-    mysql_query("set names utf8");
-    ?>
-    <?php
     //根据id找地址
     if (isset($_GET["team_member_id"])) {
         $id = $_GET["team_member_id"];
 
+        $sql = "select picture,username,grade,email,professional,college,work,awards,introduce,post from former_players where user_id=?";
+        $result = pdo_query($sql, $id);
         //照片
-        $select_picture = "select picture from former_players where user_id='$id'";
-        $select_picture_res = mysql_query($select_picture, $conn);
-        $picture = mysql_result($select_picture_res, 0);
+        $picture = $result[0]['picture'];
         //名字:
-
-        $select_username = "select username from former_players where user_id='$id'";
-        $select_username_res = mysql_query($select_username, $conn);
-        $username = mysql_result($select_username_res, 0);
-
+        $username = $result[0]['username'];
         //年级
-        $select_grade = "select grade from former_players where user_id='$id'";
-        $select_grade_res = mysql_query($select_grade, $conn);
-        $grade = mysql_result($select_grade_res, 0);
-
+        $grade = $grade = $result[0]['grade'];
         //学院
-        $select_college = "select college from former_players where user_id='$id'";
-        $select_college_res = mysql_query($select_college, $conn);
-        $college = mysql_result($select_college_res, 0);
-
+        $college = $result[0]['college'];
         //专业
-        $sql6 = "select professional from former_players where user_id='$id'";
-        $res6 = mysql_query($sql6, $conn);
-        $professional = mysql_result($res6, 0);
-
+        $professional = $result[0]['professional'];
         //邮箱
-        $select_email = "select email class from former_players where user_id='$id'";
-        $select_email_res = mysql_query($select_email, $conn);
-        $email = mysql_result($select_email_res, 0);
-
+        $email = $result[0]['email'];
         //工作研究生就读学校
-        $select_work = "select work from former_players where user_id='$id'";
-        $select_work_res = mysql_query($select_work, $conn);
-        $work = mysql_result($select_work_res, 0);
-
+        $work = $result[0]['work'];
         //自我介绍
-        $select_introduce = "select introduce from former_players where user_id='$id'";
-        $select_introduce_res = mysql_query($select_introduce, $conn);
-        $introduce = mysql_result($select_introduce_res, 0);
-
+        $introduce = $result[0]['introduce'];
         //奖状
-        $select_awards = "select awards from former_players where user_id='$id'";
-        $select_awards_res = mysql_query($select_awards, $conn);
-        $awards = mysql_result($select_awards_res, 0);
-//********************************************修改开始*********************************************************
+        $awards = $result[0]['awards'];
         //职位
-        $select_post = "select post from former_players where user_id='$id'";
-        $select_post_res = mysql_query($select_post, $conn);
-        $post = mysql_result($select_post_res, 0);
-//********************************************修改结束*********************************************************
-
+        $post = $result[0]['post'];
     } else {
         $id = $_GET["now_team_member_id"];
-
+        $sql = "select picture,username,grade,email,professional,college,work,awards,introduce,post from now_players where user_id=?";
+        $result = pdo_query($sql, $id);
         //照片
-        $select_picture = "select picture from now_players where user_id='$id'";
-        $select_picture_res = mysql_query($select_picture, $conn);
-        $picture = mysql_result($select_picture_res, 0);
+        $picture = $result[0]['picture'];
         //名字:
-
-        $select_username = "select username from now_players where user_id='$id'";
-        $select_username_res = mysql_query($select_username, $conn);
-        $username = mysql_result($select_username_res, 0);
-
+        $username = $result[0]['username'];
         //年级
-        $select_grade = "select grade from now_players where user_id='$id'";
-        $select_grade_res = mysql_query($select_grade, $conn);
-        $grade = mysql_result($select_grade_res, 0);
-
+        $grade = $grade = $result[0]['grade'];
         //学院
-        $select_college = "select college from now_players where user_id='$id'";
-        $select_college_res = mysql_query($select_college, $conn);
-        $college = mysql_result($select_college_res, 0);
-
+        $college = $result[0]['college'];
         //专业
-        $sql6 = "select professional from now_players where user_id='$id'";
-        $res6 = mysql_query($sql6, $conn);
-        $professional = mysql_result($res6, 0);
-
+        $professional = $result[0]['professional'];
         //邮箱
-        $select_email = "select email class from now_players where user_id='$id'";
-        $select_email_res = mysql_query($select_email, $conn);
-        $email = mysql_result($select_email_res, 0);
-
+        $email = $result[0]['email'];
         //工作研究生就读学校
-        $select_work = "select work from now_players where user_id='$id'";
-        $select_work_res = mysql_query($select_work, $conn);
-        $work = mysql_result($select_work_res, 0);
-
+        $work = $result[0]['work'];
         //自我介绍
-        $select_introduce = "select introduce from now_players where user_id='$id'";
-        $select_introduce_res = mysql_query($select_introduce, $conn);
-        $introduce = mysql_result($select_introduce_res, 0);
-
+        $introduce = $result[0]['introduce'];
         //奖状
-        $sql9 = "select awards from now_players where user_id='$id'";
-        $res9 = mysql_query($sql9, $conn);
-        $awards = mysql_result($res9, 0);
-//********************************************修改开始**********************************************************
+        $awards = $result[0]['awards'];
         //职位
-        $select_post = "select post from now_players where user_id='$id'";
-        $select_post_res = mysql_query($select_post, $conn);
-        $post = mysql_result($select_post_res, 0);
-//********************************************修改结束*********************************************************
+        $post = $result[0]['post'];
     };
-    ?>>
+    ?>
     <?php
     function br2nl($text)
     {   //取消换行
@@ -159,9 +93,7 @@
             <td height="50" width="300">
                 <strong><?php echo $MSG_PLAYER_UNAME ?>：</strong>
                 <?php echo $username; ?>
-                <!--//*******************************************修改开始*****************************************************-->
                 <strong>(<?php echo $MSG_PLAYER_POST ?>: <?php echo $post; ?>)</strong>
-                <!--//*******************************************修改开始****************************************************-->
             </td>
             <td>
                 <strong><?php echo $MSG_PLAYER_GRADE ?>：</strong>
