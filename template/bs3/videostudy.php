@@ -10,14 +10,6 @@
     <link rel="stylesheet" href="../../highlight/page/paging.css">
     <title><?php echo $OJ_NAME ?></title>
     <?php include("template/$OJ_TEMPLATE/css.php"); ?>
-    <?php
-    $conn = mysql_connect("localhost", "root", "HRBUXGOJ");
-    if (!$conn) {
-        echo "连接失败";
-    }
-    mysql_select_db("jol", $conn);
-    mysql_query("set names utf8");
-    ?>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -29,7 +21,6 @@
 </head>
 
 <body>
-<!--//******************************************加style*******************************************************-->
 <div class="container" style="width:100%">
     <?php include("template/$OJ_TEMPLATE/nav.php"); ?>
     <!-- Main component for a primary marketing message or call to action -->
@@ -45,14 +36,17 @@
         if ($video_source) {
             $_SESSION["video_source"] = $video_source;
         }
-        $sql_source = "select count(*) from video 
-		 where video_source='$_SESSION[video_source]' 
-		 and (video_privilege='$_SESSION[first_team]' or video_privilege='$_SESSION[second_team]' or
-		 video_privilege='$_SESSION[new_players]')";
+        $sql_source = "select count(*) as sum from video 
+		 where video_source=? 
+		 and (video_privilege=? or video_privilege=? or
+		 video_privilege=?)";
         //$sql_source="select count(*) from video";
-
-        $count = mysql_query($sql_source, $conn);
-        $count = mysql_result($count, 0);
+        /* echo "$_SESSION[video_source]".$_SESSION[video_source]."<br/>";
+         echo "$_SESSION[first_team]".$_SESSION[first_team]."<br/>";
+         echo "$_SESSION[second_team]".$_SESSION[second_team]."<br/>";
+         echo "$_SESSION[new_players]".$_SESSION[new_players]."<br/>";*/
+        $count = pdo_query($sql_source, $_SESSION[video_source], $_SESSION[first_team], $_SESSION[second_team], $_SESSION[new_players]);
+        $count = $count[0]['sum'];
         $page_a = $_GET["page"];
 
         //echo "page_a:".$page_a;
@@ -70,24 +64,27 @@
             $total_page = floor($count / $page_row) + 1;
         }
 
-        if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
+        if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'root'])) {
             $sql = "select video_id,video_name,video_describe,video_source,video_framer,video_upload_time,video_total
-                from video where video_source='$_SESSION[video_source]' limit $begin_page,$page_row ";
+                from video where video_source=?" . " limit " . $begin_page . "," . $page_row . ";";
+            $res = pdo_query($sql, $video_source);
+            /*$sql = "select video_id,video_name,video_describe,video_source,video_framer,video_upload_time,video_total
+                from video where video_source=?";
+            $res = pdo_query($sql, $video_source);*/
         } else {
-
             $sql = "select video_id,video_name,video_describe,video_source,video_framer,video_upload_time,video_total 
 		from video 
-		where video_source='$_SESSION[video_source]' and
-		(video_privilege='$_SESSION[first_team]' or video_privilege='$_SESSION[second_team]' or
-		 video_privilege='$_SESSION[new_players]')
-		limit $begin_page,$page_row ";
+		where video_source=? and
+		(video_privilege=? or video_privilege=? or
+		 video_privilege=?)" . " limit " . $begin_page . "," . $page_row . ";";
+            $res = pdo_query($sql, $video_source, $_SESSION[first_team], $_SESSION[second_team], $_SESSION[new_players], $begin_page, $page_row);
         }
-        $res = mysql_query($sql, $conn);
-        $rows = mysql_affected_rows($conn);//获取行数
-        $colums = mysql_num_fields($res);//获取列数
+
+        /*$rows = mysql_affected_rows($conn);//获取行数
+        $colums = mysql_num_fields($res);//获取列数*/
         //echo "jol数据库的".$table_name."表的所有用户数据如下：<br/>";  
         // echo "共计".$rows."行 ".$colums."列<br/>";
-
+        echo count($res);
         ?>
         <br>
         <br>
@@ -109,19 +106,19 @@
             </thead>
             <tbody>
             <?php
-            while ($row = mysql_fetch_row($res)) {
+            $t = 1;
+            foreach ($res as $row) {
 
                 echo "<tr>";
-                echo "<td></td>";
-//********************************************修改开始******************************************************** 
-                echo "<td style='display:none'>$row[0]</td>";
-//********************************************修改结束********************************************************							
-                echo "<td class='Select' >$row[1]</td>";
-                for ($i = 2; $i < $colums - 1; $i++) {
-                    echo "<td class='hidden-xs' >$row[$i]</td>";
+                //echo "<td></td>";
+                echo "<td class='hidden-xs'>" . $row['video_id'] . "</td>";
+                echo "<td class='Select' >" . $row['video_name'] . "</td>";
+                echo "<td class='hidden-xs'>" . $row['video_describe'] . "</td>";
+                echo "<td class='hidden-xs'>" . $row['video_source'] . "</td>";
+                echo "<td class='hidden-xs'>" . $row['video_framer'] . "</td>";
+                echo "<td class='hidden-xs'>" . $row['video_upload_time'] . "</td>";
 
-                }
-                echo "<td class='hidden-xs' align='center'>$row[6]</td>";
+                echo "<td class='hidden-xs' align='center'>" . $row['video_total'] . "</td>";
                 ?>
                 <td class='hidden-xs' align="center"><input class="Select" type="button"
                                                             style='width:80px;height:30px;margin-right:10px;border-radius:5px;border:none;background:#00ffff;color:white;font-weight:bold;font-size:18px'
@@ -129,7 +126,6 @@
                 <?php
                 echo "</tr>";
             }
-
             ?>
             </tbody>
         </table>
@@ -150,21 +146,17 @@
         window.location.href = 'videostudy_source.php';
     }
 
-    //********************************************修改开始********************************************************
     $(function () {
         //$('table tr:not(:first)').remove();
         var len = $('table tr').length;
-        for (var i = 1; i < len; i++) {
+        for (var i = 0; i < len; i++) {
             $('table tr:eq(' + i + ') td:first').text(i);
         }
     });
-    //********************************************修改结束********************************************************
     $('.Select').click(function () {
         var tr = $(this).closest("tr");
-//********************************************td:eq(0)改成1********************************************************
-        var video_id = tr.find("td:eq(1)").text();
-//********************************************td:eq(1)改成2********************************************************
-        var video_name = tr.find("td:eq(2)").text();
+        var video_id = tr.find("td:eq(0)").text();
+        var video_name = tr.find("td:eq(1)").text();
         //alert(video_name);
         window.location.href = 'videoplay.php?video_id=' + video_id + '&video_name=' + video_name;
     });

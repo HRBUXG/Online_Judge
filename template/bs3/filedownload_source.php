@@ -10,14 +10,6 @@
     <link rel="stylesheet" href="../../highlight/page/paging.css">
     <title><?php echo $OJ_NAME ?></title>
     <?php include("template/$OJ_TEMPLATE/css.php"); ?>
-    <?php
-    $conn = mysql_connect("localhost", "root", "HRBUXGOJ");
-    if (!$conn) {
-        echo "连接失败";
-    }
-    mysql_select_db("jol", $conn);
-    mysql_query("set names utf8");
-    ?>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -29,7 +21,6 @@
 </head>
 
 <body>
-<!--//******************************************加style*******************************************************-->
 <div class="container" style="width:100%">
 
     <?php include("template/$OJ_TEMPLATE/nav.php"); ?>
@@ -40,9 +31,9 @@
             <?php
             $sql = "select file_id,file_source,file_framer,sum(file_download_total) from file
 		        group by file_source";
-            $res = mysql_query($sql, $conn);
-            $rows = mysql_affected_rows($conn);//获取行数
-            $colums = mysql_num_fields($res);//获取列数
+            $res = pdo_query($sql);
+            /*$rows = mysql_affected_rows($conn);//获取行数
+            $colums = mysql_num_fields($res);//获取列数*/
             //echo "jol数据库的".$table_name."表的所有用户数据如下：<br/>";
             // echo "共计".$rows."行 ".$colums."列<br/>";
 
@@ -61,20 +52,15 @@
                 </thead>
                 <tbody>
                 <?php
-                while ($row = mysql_fetch_row($res)) {
-
+                foreach ($res as $row) {
                     echo "<tr>";
-                    echo "<td></td>";
-                    echo "<td style='display:none'>$row[0]</td>";
-                    echo "<td class='Select' style='cursor:pointer'>$row[1]</td>";
-                    for ($i = 2; $i < $colums - 1; $i++) {
-                        echo "<td class='hidden-xs' >$row[$i]</td>";
-
-                    }
+                    //echo "<td></td>";
+                    echo "<td class='hidden-xs' align='right'>" . $row['file_id'] . "</td>";
+                    echo "<td class='Select' style='cursor:pointer'>" . $row['file_source'] . "</td>";
+                    echo "<td class='hidden-xs' align='right'>" . $row['file_framer'] . "</td>";
                     echo "<td class='hidden-xs' align='right'>$row[3]</td>";
                     echo "</tr>";
                 }
-
                 ?>
                 </tbody>
             </table>
@@ -91,13 +77,13 @@
     $(function () {
         //$('table tr:not(:first)').remove();
         var len = $('table tr').length;
-        for (var i = 1; i < len; i++) {
+        for (var i = 0; i < len; i++) {
             $('table tr:eq(' + i + ') td:first').text(i);
         }
     });
     $('.Select').click(function () {
         var tr = $(this).closest("tr");
-        var file_source = tr.find("td:eq(2)").text();
+        var file_source = tr.find("td:eq(1)").text();
         //alert(file_source);
         window.location.href = 'file_download.php?file_source=' + file_source;
     });

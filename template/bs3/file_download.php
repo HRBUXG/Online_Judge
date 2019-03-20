@@ -12,22 +12,16 @@
     <title><?php echo $OJ_NAME ?></title>
     <?php include("template/$OJ_TEMPLATE/css.php"); ?>
     <?php
-    $conn = mysql_connect("localhost", "root", "HRBUXGOJ");
-    if (!$conn) {
-        echo "连接失败";
-    }
-    mysql_select_db("jol", $conn);
-    mysql_query("set names utf8");
 
     $id = $_GET["file_id"];
-    $sql = "select file_download_total from file where file_id='$id'";
-    $data = mysql_query($sql, $conn);
-    $num = mysql_result($data, 0);
+    $sql = "select file_download_total from file where file_id=?";
+    $data = pdo_query($sql, $id);
+    $num = $data[0]['file_download_total'];
     /* echo "<script>alert('$num');</script>";*/
     $num = $num + 1;
     /*echo "<script>alert('$num');</script>";*/
-    $sql1 = "update file set file_download_total='$num' where file_id='$id'";
-    $data2 = mysql_query($sql1, $conn);
+    $sql1 = "update file set file_download_total=? where file_id=?";
+    $data2 = pdo_query($sql1, $num, $id);
 
     ?>
 
@@ -54,21 +48,17 @@
         if (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
             $sql =
                 "select file_address,file_id,file_name,file_describe,file_framer,file_upload_time,file_source,file_download_total
-          from file 
-		  where file_source='$_SESSION[file_source]'";
-        }//******************************************加了where限制条件**************************************************
-        else {
+          from file where file_source=?";
+            $res = pdo_query($sql, $_SESSION[file_source]);
+        } else {
             $sql =
                 "select file_address,file_id,file_name,file_describe,file_framer,file_upload_time,file_source,file_download_total 
-		from file 
-		where file_source='$_SESSION[file_source]' 
-		and (file_privilege='$_SESSION[first_team]' 
-		or file_privilege='$_SESSION[second_team]' 
-		or file_privilege='$_SESSION[new_players]')";
+		from file where file_source=? and (file_privilege=? or file_privilege=? or file_privilege=?)";
+            $res = pdo_query($sql, $_SESSION[file_source], $_SESSION[first_team], $_SESSION[second_team], $_SESSION[new_players]);
         }
-        $res = mysql_query($sql, $conn);
-        $rows = mysql_affected_rows($conn);//获取行数
-        $colums = mysql_num_fields($res);//获取列数
+        /*
+                $rows = mysql_affected_rows($conn);//获取行数
+                $colums = mysql_num_fields($res);//获取列数*/
         //echo "jol数据库的".$table_name."表的所有用户数据如下：<br/>";  
         // echo "共计".$rows."行 ".$colums."列<br/>";
 
@@ -97,8 +87,7 @@
                     <?php echo $MSG_FILE_SOURCE ?>
                 </th>
                 <th class='hidden-xs' style="cursor:hand" width='10%'>
-                    <!--//******************************************修改开始*******************************************************--> <?php echo $MSG_FILE_DOWNLOAD_TOTAL ?>
-                    <!--//******************************************修改结束*******************************************************-->
+                    <?php echo $MSG_FILE_DOWNLOAD_TOTAL ?>
                 </th>
                 <th class='hidden-xs' style="cursor:hand" width='10%'>
                     <?php echo "下载"; ?>
@@ -107,30 +96,28 @@
             </thead>
             <tbody>
             <?php
-            while ($row = mysql_fetch_row($res))
-            {
-            $t = 0;
-            echo "<tr>";
-            //********************************************修改开始********************************************************
-            echo "<td></td>";
-            echo "<td class='hidden-xs' style='display:none'>$row[0]</td>";
-            echo "<td class='hidden-xs' style='display:none'>$row[1]</td>";
-            //********************************************修改开始********************************************************
-            for ($i = 2; $i < $colums; $i++) {
-                echo "<td class='hidden-xs' >$row[$i]</td>";
-
-            }
-            ?>
-            <td class='hidden-xs'>
-                <button class="down"
-                        style='width:80px;height:30px;border-radius:5px;border:none;background:#00ffff;color:white;font-size:18px;font-weight:bold'>
-                    <a style='text-decoration:none;color:white' href="<?php echo($row[0]) ?>">下 载</a>
-                </button>
-                <?php
-                echo "</tr>";
-                }
+            foreach ($res as $row) {
+                $t = 0;
+                echo "<tr>";
+                echo "<td class='hidden-xs'>" . $row['file_id'] . "</td>";
+                echo "<td class='hidden-xs'>" . $row['file_name'] . "</td>";
+                echo "<td class='hidden-xs'>" . $row['file_describe'] . "</td>";
+                echo "<td class='hidden-xs'>" . $row['file_framer'] . "</td>";
+                echo "<td class='hidden-xs'>" . $row['file_upload_time'] . "</td>";
+                echo "<td class='hidden-xs'>" . $row['file_source'] . "</td>";
+                echo "<td class='hidden-xs'>" . $row['file_download_total'] . "</td>";
 
                 ?>
+                <td class='hidden-xs'>
+                    <button class="down"
+                            style='width:80px;height:30px;border-radius:5px;border:none;background:#00ffff;color:white;font-size:18px;font-weight:bold'>
+                        <a style='text-decoration:none;color:white' href="<?php echo($row[0]) ?>">下 载</a>
+                    </button>
+                </td>
+                <?php
+                echo "</tr>";
+            }
+            ?>
             </tbody>
         </table>
 
@@ -145,7 +132,6 @@
 <?php include("template/$OJ_TEMPLATE/js.php"); ?>
 <script type="text/javascript" src="include/jquery-2.1.4.min.js"></script>
 <script>
-    //********************************************修改开始****************************************************
     function back() {
         window.location.href = 'filedownload_source.php';
     }
@@ -157,11 +143,9 @@
             $('table tr:eq(' + i + ') td:first').text(i);
         }
     });
-    //********************************************修改结束****************************************************
     $('.down').click(function () {
         var tr = $(this).closest("tr");
-//*******************************************td:eq(1)改成2*****************************************************
-        var file_id = tr.find("td:eq(2)").text();
+        var file_id = tr.find("td:eq(0)").text();
         //alert(file_id);
         //window.location.href="filedown.php?file_id="+file_id;
         $.ajax

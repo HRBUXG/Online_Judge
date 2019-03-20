@@ -22,18 +22,6 @@ include_once("kindeditor.php") ;
 
     <!--<br>
     <div class="test-border"></div>-->
-
-<?php
-//连接数据库
-$link_manage_tag=mysql_connect("localhost","root","HRBUXGOJ");
-if(!$link_manage_tag)
-{  
-     /*echo "连接失败";*/
-}  
-mysql_select_db("jol",$link_manage_tag);
-mysql_query("set names utf8");
-
-?>
 <!--添加视频模块-->
 <table align="center" border="2" bordercolor="#000000">
 <form method=POST action="video_add.php" enctype="multipart/form-data">
@@ -54,14 +42,12 @@ mysql_query("set names utf8");
    <?php   
 	   //搜索数据库找标签
 	   $select_tag_video_describe="select tag_video_describe from tag_video_describe";  
-       $tag_video_describe_res=mysql_query($select_tag_video_describe,$link_manage_tag);
-	   $rows=mysql_affected_rows($link_manage_tag);//获取行数  
-       $colums=mysql_num_fields($link_manage_tag);//获取列数  
+       $tag_video_describe_res=pdo_query($select_tag_video_describe);
    
     ?>
    <select name="video_describe" style="width: 410px">
         <?php
-           while($row=mysql_fetch_row($tag_video_describe_res))
+           foreach ($tag_video_describe_res as $row)
 		   {    
                ?>  
               <option value="<?php echo $row[0];?>"><?php echo $row[0];?></option>  
@@ -78,14 +64,14 @@ mysql_query("set names utf8");
      <?php   
 	   //搜索数据库找标签
 	   $select_tag_video_source="select tag_video_source from tag_video_source";  
-       $tag_video_source_res=mysql_query($select_tag_video_source,$link_manage_tag);
-	   $rows=mysql_affected_rows($link_manage_tag);//获取行数  
-       $colums=mysql_num_fields($link_manage_tag);//获取列数  
+       $tag_video_source_res=pdo_query($select_tag_video_source);
+	   /*$rows=mysql_affected_rows($link_manage_tag);//获取行数
+       $colums=mysql_num_fields($link_manage_tag);//获取列数*/
    
     ?>
    <select name="video_source" style="width: 410px">
          <?php
-           while($row=mysql_fetch_row($tag_video_source_res))
+           foreach ($tag_video_source_res as $row)
 		   {    
                ?>  
               <option value="<?php echo $row[0];?>"><?php echo $row[0];?></option>  
@@ -101,14 +87,14 @@ mysql_query("set names utf8");
     <?php   
 	   //搜索数据库找标签
 	   $select_tag_video_framer="select tag_video_framer from tag_video_framer";  
-       $tag_video_framer_res=mysql_query($select_tag_video_framer,$link_manage_tag);
-	   $rows=mysql_affected_rows($link_manage_tag);//获取行数  
-       $colums=mysql_num_fields($link_manage_tag);//获取列数  
+       $tag_video_framer_res=pdo_query($select_tag_video_framer);
+	   /*$rows=mysql_affected_rows($link_manage_tag);//获取行数
+       $colums=mysql_num_fields($link_manage_tag);//获取列数*/
    
     ?>
       <select name="video_framer" style="width: 400px">
          <?php
-           while($row=mysql_fetch_row($tag_video_framer_res))
+           foreach ($tag_video_framer_res as $row)
 		   {    
                ?>  
               <option value="<?php echo $row[0];?>"><?php echo $row[0];?></option>  
@@ -123,14 +109,14 @@ mysql_query("set names utf8");
     <?php   
 	   //搜索数据库找标签
 	   $select_tag_privilege_name="select tag_privilege_name from tag_privilege";  
-       $tag_privilege_name_res=mysql_query($select_tag_privilege_name,$link_manage_tag);
-	   $rows=mysql_affected_rows($link_manage_tag);//获取行数  
-       $colums=mysql_num_fields($link_manage_tag);//获取列数  
+       $tag_privilege_name_res=pdo_query($select_tag_privilege_name);
+	   /*$rows=mysql_affected_rows($link_manage_tag);//获取行数
+       $colums=mysql_num_fields($link_manage_tag);//获取列数*/
    
     ?>
       <select name="video_privilege" style="width: 400px">
          <?php
-           while($row=mysql_fetch_row($tag_privilege_name_res))
+           foreach ($tag_privilege_name_res as $row)
 		   {    
                ?>  
               <option value="<?php echo $row[0];?>"><?php echo $row[0];?></option>  

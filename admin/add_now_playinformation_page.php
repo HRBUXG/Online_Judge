@@ -73,16 +73,6 @@ if (!(isset($_SESSION[$OJ_NAME.'_'.'administrator'])||isset($_SESSION[$OJ_NAME.'
 <?php
 include_once("kindeditor.php") ;
 ?>
-<?php
-//连接数据库
-$conn=mysql_connect("localhost","root","HRBUXGOJ");
-if(!$conn)
-{  
-     echo "连接失败";  
-}  
-mysql_select_db("jol",$conn);
-mysql_query("set names utf8");
-?>
 <!--添加队员标题-->
   <div id="header" style="padding:5px;background-color:#000; color:#FFF;text-align:center;">
     <h2><?php echo $MSG_ADD.$MSG_NOW_PLAYINFORMATION?></h2>
@@ -115,15 +105,15 @@ mysql_query("set names utf8");
              <?php   
 	         //搜索数据库找标签
 	         $select_tag_player_post="select tag_player_post from tag_player_post";  
-             $tag_player_post_res=mysql_query($select_tag_player_post,$conn);
-	         $rows=mysql_affected_rows($conn);//获取行数  
-             $colums=mysql_num_fields($conn);//获取列数 
+             $tag_player_post_res=pdo_query($select_tag_player_post);
+	         /*$rows=mysql_affected_rows($conn);//获取行数
+             $colums=mysql_num_fields($conn);//获取列数*/
 	    
    
              ?>
              <select name="u_post">
                <?php
-                  while($row=mysql_fetch_row($tag_player_post_res))
+                  foreach ($tag_player_post_res as $row)
 		          {    
                ?>  
                      <option value="<?php echo $row[0];?>"><?php echo $row[0];?></option>  
@@ -140,15 +130,15 @@ mysql_query("set names utf8");
              <?php   
 	         //搜索数据库找标签
 	         $select_tag_player_grade="select tag_player_grade from tag_player_grade";  
-             $tag_player_grade_res=mysql_query($select_tag_player_grade,$conn);
-	         $rows=mysql_affected_rows($conn);//获取行数  
-             $colums=mysql_num_fields($conn);//获取列数 
+             $tag_player_grade_res=pdo_query($select_tag_player_grade);
+	         /*$rows=mysql_affected_rows($conn);//获取行数
+             $colums=mysql_num_fields($conn);//获取列数 */
 	    
    
              ?>
              <select name="u_grade">
                <?php
-                  while($row=mysql_fetch_row($tag_player_grade_res))
+                  foreach ($tag_player_grade_res as $row)
 		          {    
                ?>  
                      <option value="<?php echo $row[0];?>"><?php echo $row[0];?></option>  
@@ -169,15 +159,15 @@ mysql_query("set names utf8");
               <?php   
 	         //搜索数据库找标签
 	         $select_tag_player_professional="select tag_player_professional from tag_player_professional";  
-             $tag_player_professional_res=mysql_query($select_tag_player_professional,$conn);
-	         $rows=mysql_affected_rows($conn);//获取行数  
-             $colums=mysql_num_fields($conn);//获取列数 
+             $tag_player_professional_res=pdo_query($select_tag_player_professional);
+	         /*$rows=mysql_affected_rows($conn);//获取行数
+             $colums=mysql_num_fields($conn);//获取列数*/
 	    
    
              ?>
              <select name="u_professional">
                <?php
-                  while($row=mysql_fetch_row($tag_player_professional_res))
+                  foreach ($tag_player_professional_res as $row)
 		          {    
                ?>  
                      <option value="<?php echo $row[0];?>"><?php echo $row[0];?></option>  
@@ -195,15 +185,15 @@ mysql_query("set names utf8");
               <?php   
 	         //搜索数据库找标签
 	         $select_tag_player_college="select tag_player_college from tag_player_college";  
-             $tag_player_college_res=mysql_query($select_tag_player_college,$conn);
-	         $rows=mysql_affected_rows($conn);//获取行数  
-             $colums=mysql_num_fields($conn);//获取列数 
+             $tag_player_college_res=pdo_query($select_tag_player_college);
+	         /*$rows=mysql_affected_rows($conn);//获取行数
+             $colums=mysql_num_fields($conn);//获取列数*/
 	    
    
              ?>
              <select name="u_college">
                <?php
-                  while($row=mysql_fetch_row($tag_player_college_res))
+                  foreach ($tag_player_college_res as $row)
 		          {    
                ?>  
                      <option value="<?php echo $row[0];?>" ><?php echo $row[0];?></option>  
