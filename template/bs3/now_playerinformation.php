@@ -22,14 +22,6 @@
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <?php
-    $conn = mysql_connect("localhost", "root", "HRBUXGOJ");
-    if (!$conn) {
-        echo "连接失败";
-    }
-    mysql_select_db("jol", $conn);
-    mysql_query("set names utf8");
-    ?>
-    <?php
     function br2nl($text)
     {
         return preg_replace('/<br\\s*?\/??>/i', '', $text);
@@ -46,9 +38,9 @@
         <?php
         //搜索历届队员信息
         $select_user_information = "select user_id,picture,username,grade,college,professional,post from now_players";
-        $select_user_information_res = mysql_query($select_user_information, $conn);
-        $rows = mysql_affected_rows($conn);//获取行数
-        $colums = mysql_num_fields($select_user_information_res);//获取列数
+        $select_user_information_res = pdo_query($select_user_information);
+        /*$rows = mysql_affected_rows($conn);//获取行数
+        $colums = mysql_num_fields($select_user_information_res);//获取列数*/
         ?>
         <!--<div id="header" style="padding:5px;background-color:#000; color:#FFF;text-align:center;">
             <h2><?php echo $MSG_NOW_PLAYINFORMATION ?></h2>
@@ -56,7 +48,7 @@
         <div id="page" class="container" style="width:100%;left:50%;top:50%;margin-left:100px;margin-top:0px;">
             <?php
             // echo "id:".$_SESSION[$OJ_NAME.'_'.'user_id'];
-            while ($row = mysql_fetch_row($select_user_information_res)) {
+            foreach ($select_user_information_res as $row) {
                 ?>
                 <div style="float:left;margin-left:10px;margin-top:0px;" align="center">
                     <br>
@@ -67,7 +59,7 @@
                             <?php
 
                             echo "<tr>";
-                            echo "<td rowspan='6' width='125px' style=border:0px'>
+                            echo "<td rowspan='6' width='125px' style='border:0'>
 							            <a href='team_member_details.php?now_team_member_id=$row[0]'>
 								           <img src='$row[1]' width='155px' height='210px' alt='无照片'>
 								        </a>

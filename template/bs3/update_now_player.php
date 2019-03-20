@@ -53,14 +53,6 @@
         return preg_replace('/<br\\s*?\/??>/i', '', $text);
     }
 
-    $conn = mysql_connect("localhost", "root", "HRBUXGOJ");
-    if (!$conn) {
-        echo "连接失败";
-    }
-    mysql_select_db("jol", $conn);
-    mysql_query("set names utf8");
-
-
     $id = $_GET["now_team_member_id"];
     $flagup = $_GET["flagup"];
     $flagupdate = $_GET["flagupdate"];
@@ -73,42 +65,26 @@
     echo "id: ".$id."</br>";
     echo "flagupdate: ".$flagupdate."</br>";*/
     //echo "flagup: ".$flagup."</br>";
+    $sql = "select picture,username,grade,email,professional,college,work,awards,introduce from now_players where user_id=?";
+    $result = pdo_query($sql, $id);
     //照片
-    $select_picture = "select picture from now_players where user_id='$id'";
-    $select_picture_res = mysql_query($select_picture, $conn);
-    $picture = mysql_result($select_picture_res, 0);
+    $picture = $result[0]['picture'];
     //姓名
-    $select_username = "select username from now_players where user_id='$id'";
-    $select_username_res = mysql_query($select_username, $conn);
-    $username = mysql_result($select_username_res, 0);
+    $username = $result[0]['username'];
     //年级
-    $select_grade = "select grade from now_players where user_id='$id'";
-    $select_grade_res = mysql_query($select_grade, $conn);
-    $grade = mysql_result($select_grade_res, 0);
+    $grade = $result[0]['grade'];
     //邮箱
-    $select_email = "select email from now_players where user_id='$id'";
-    $select_email_res = mysql_query($select_email, $conn);
-    $email = mysql_result($select_email_res, 0);
+    $email = $result[0]['email'];
     //专业
-    $select_professional = "select professional from now_players where user_id='$id'";
-    $select_professional_res = mysql_query($select_professional, $conn);
-    $professional = mysql_result($select_professional_res, 0);
+    $professional = $result[0]['professional'];
     //学院
-    $select_college = "select college from now_players where user_id='$id'";
-    $select_college_res = mysql_query($select_college, $conn);
-    $college = mysql_result($select_college_res, 0);
+    $college = $result[0]['college'];
     //工作
-    $select_work = "select work from now_players where user_id='$id'";
-    $select_work_res = mysql_query($select_work, $conn);
-    $work = mysql_result($select_work_res, 0);
+    $work = $result[0]['work'];
     //奖状
-    $select_awards = "select awards from now_players where user_id='$id'";
-    $select_awards_res = mysql_query($select_awards, $conn);
-    $awards = mysql_result($select_awards_res, 0);
+    $awards = $result[0]['awards'];
     //自我介绍
-    $select_introduce = "select introduce from now_players where user_id='$id'";
-    $select_introduce_res = mysql_query($select_introduce, $conn);
-    $introduce = mysql_result($select_introduce_res, 0);
+    $introduce = $result[0]['introduce'];
     //处理awards
     //echo $u_awards.'<br />';
     //$arr=explode("\n",$u_awards);
@@ -150,15 +126,15 @@
                     <?php
                     //搜索数据库找标签
                     $select_tag_player_grade = "select tag_player_grade from tag_player_grade";
-                    $tag_player_grade_res = mysql_query($select_tag_player_grade, $conn);
-                    $rows = mysql_affected_rows($conn);//获取行数
-                    $colums = mysql_num_fields($conn);//获取列数
+                    $tag_player_grade_res = pdo_query($select_tag_player_grade);
+                    /*$rows = mysql_affected_rows($conn);//获取行数
+                    $colums = mysql_num_fields($conn);//获取列数*/
 
                     ?>
                     <select name="u_grade">
                         <?php
 
-                        while ($row = mysql_fetch_row($tag_player_grade_res)) {
+                        foreach ($tag_player_grade_res as $row) {
                             ?>
                             <option <?php if ($row[0] == $grade) {
                                 echo("selected");
@@ -179,22 +155,17 @@
                         <?php
                         //搜索数据库找标签
                         $select_tag_player_professional = "select tag_player_professional from tag_player_professional";
-                        $tag_player_professional_res = mysql_query($select_tag_player_professional, $conn);
-                        $rows = mysql_affected_rows($conn);//获取行数
-                        $colums = mysql_num_fields($conn);//获取列数
-
-
+                        $tag_player_professional_res = pdo_query($select_tag_player_professional);
                         ?>
                         <select name="u_professional">
                             <?php
-                            while ($row = mysql_fetch_row($tag_player_professional_res)) {
+                            foreach ($tag_player_professional_res as $row) {
                                 ?>
                                 <option <?php if ($row[0] == $professional) {
                                     echo("selected");
                                 } ?> value="<?php echo $row[0]; ?>"><?php echo $row[0]; ?></option>
                                 <?php
                             }
-
                             ?>
                         </select>
                     </td>
@@ -205,15 +176,13 @@
                         <?php
                         //搜索数据库找标签
                         $select_tag_player_college = "select tag_player_college from tag_player_college";
-                        $tag_player_college_res = mysql_query($select_tag_player_college, $conn);
-                        $rows = mysql_affected_rows($conn);//获取行数
-                        $colums = mysql_num_fields($conn);//获取列数
-
-
+                        $tag_player_college_res = pdo_query($select_tag_player_college);
+                        /*$rows = mysql_affected_rows($conn);//获取行数
+                        $colums = mysql_num_fields($conn);//获取列数*/
                         ?>
                         <select name="u_college">
                             <?php
-                            while ($row = mysql_fetch_row($tag_player_college_res)) {
+                            foreach ($tag_player_college_res as $row) {
                                 ?>
                                 <option <?php if ($row[0] == $college) {
                                     echo("selected");
@@ -321,8 +290,6 @@ if ($flagup == "up") {
         $u_work = $_POST["u_work"];
         $u_awards = $_POST["u_awards"];
         $u_introduce = $_POST["u_introduce"];
-
-
         //echo $u_grade.'<br />';
         //echo $oddaddress.'<br />';
         //echo $u_id.'<br />';
@@ -349,14 +316,8 @@ if ($flagup == "up") {
         echo "u_work:".$u_work."<br>";
         echo "u_awards:".$u_awards."<br>";
         echo "u_introduce:".$u_introduce."<br>";*/
-        $sql10 =
-            "update now_players set 
-		  picture='$upload_toFileName',
-		  username='$u_uname',grade='$u_grade',email='$u_email'
-		   ,professional='$u_professional',college='$u_college'
-		   ,work='$u_work',awards='$new_u_awards',introduce='$new_u_introduce'
-	       where user_id='$id'";
-        $res10 = mysql_query($sql10, $conn);
+        $sql10 = "update now_players set picture=?,username=?,grade=?,email=?,professional=?,college=?,work=?,awards=?,introduce=? where user_id=?";
+        $res10 = pdo_query($sql10, $upload_toFileName, $u_uname, $u_grade, $u_email, $u_professional, $u_college, $u_work, $new_u_awards, $new_u_introduce, $id);
     if ($res10) {
         unlink($oddaddress);
         ?>
@@ -365,7 +326,6 @@ if ($flagup == "up") {
             //window.location.href="now_playerinformation.php";
         </script>
     <?php
-    mysql_close();
     echo "  判断上传是否成功:<br>";
     if (is_uploaded_file($_FILES['upfile']['tmp_name'])) {
         /*echo "<pre>";
@@ -451,13 +411,8 @@ if ($flagup == "up") {
      echo "u_work:".$u_work."<br>";
      echo "u_awards:".$u_awards."<br>";
      echo "u_introduce:".$u_introduce."<br>";*/
-    $sql11 =
-        "update now_players set 
-		  username='$u_uname',grade='$u_grade',email='$u_email'
-		   ,professional='$u_professional',college='$u_college'
-		   ,work='$u_work',awards='$new_u_awards',introduce='$new_u_introduce'
-	       where user_id='$id'";
-    $res11 = mysql_query($sql11, $conn);
+    $sql11 = "update now_players set username=?,grade=?,email=?,professional=?,college=?,work=?,awards=?,introduce=? where user_id=?";
+    $res11 = mysql_query($sql11, $u_uname, $u_grade, $u_email, $u_professional, $u_college, $u_work, $new_u_awards, $new_u_introduce, $id);
     if ($res11)
     {
     ?>
@@ -466,7 +421,6 @@ if ($flagup == "up") {
             window.location.href = "now_playerinformation.php";
         </script>
     <?php
-    mysql_close();
     }
     else
     {

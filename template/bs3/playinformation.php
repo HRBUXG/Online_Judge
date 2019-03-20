@@ -22,14 +22,6 @@
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <?php
-    $conn = mysql_connect("localhost", "root", "HRBUXGOJ");
-    if (!$conn) {
-        echo "连接失败";
-    }
-    mysql_select_db("jol", $conn);
-    mysql_query("set names utf8");
-    ?>
-    <?php
     function br2nl($text)
     {
         return preg_replace('/<br\\s*?\/??>/i', '', $text);
@@ -47,16 +39,16 @@
         //搜索历届队员信息
         $select_user_information = "select user_id,picture,username,grade,college,professional,post
 		                          from former_players";
-        $select_user_information_res = mysql_query($select_user_information, $conn);
-        $rows = mysql_affected_rows($conn);//获取行数
-        $colums = mysql_num_fields($select_user_information_res);//获取列数
+        $select_user_information_res = pdo_query($select_user_information);
+        /* $rows = mysql_affected_rows($conn);//获取行数
+         $colums = mysql_num_fields($select_user_information_res);//获取列数*/
         ?>
         <!-- <div id="header" style="padding:5px;background-color:#000; color:#FFF;text-align:center;">
             <h2><?php echo $MSG_PLAYINFORMATION ?></h2>
          </div>-->
         <div id="page" class="container" style="width:1300px;margin-left:100px;margin-top:0px;">
             <?php
-            while ($row = mysql_fetch_row($select_user_information_res)) {
+            foreach ($select_user_information_res as $row) {
                 ?>
                 <div style="float:left;margin-left:10px;margin-top:0px;" align="center">
                     <br>
@@ -67,7 +59,7 @@
                             <?php
                             //echo $row[0];
                             echo "<tr>";
-                            echo "<td rowspan='5' width='125px' style=border:0px'>
+                            echo "<td rowspan='5' width='125px' style='border:0'>
 							            <a href='team_member_details.php?team_member_id=$row[0]'>
 								           <img src='$row[1]' width='155px' height='210px' alt='无照片'>
 								        </a>
@@ -89,21 +81,6 @@
                             echo "<tr><td height='20px'>
 									       <strong>" . $MSG_PLAYER_POST . "：</strong>$row[6]
 									 </td></tr>";
-
-                            //	                       echo "<tr>
-                            //							         <td  height='70px' >
-                            //								        <strong>".$MSG_PLAYER_COLLEGE."：</strong>$row[4]
-                            //							    	 </td>
-                            //									 <td >
-                            //								        <strong>".$MSG_PLAYER_PROFESSIONAL."：</strong>$row[5]
-                            //							    	 </td>
-                            //								 </tr>";
-                            //							 echo "<tr>
-                            //							           <td colspan='2'   >
-                            //									       <strong>".$MSG_PLAYER_POST."：</strong>$row[6]
-                            //									   </td>
-                            //
-                            //								   </tr>";
                             echo "</table>";
                             ?>
 

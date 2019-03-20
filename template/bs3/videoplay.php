@@ -17,14 +17,6 @@
     </script>-->
     <title><?php echo $OJ_NAME . $MSG_VIDEOSTUDY ?></title>
     <?php include("template/$OJ_TEMPLATE/css.php"); ?>
-    <?php
-    $conn = mysql_connect("localhost", "root", "HRBUXGOJ");
-    if (!$conn) {
-        alert("连接失败");
-    }
-    mysql_select_db("jol", $conn);
-    mysql_query("set names utf8");
-    ?>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -34,14 +26,14 @@
 
     <?php
     $id = $_GET["video_id"];
-    $sql = "select video_total from video where video_id='$id'";
-    $data = mysql_query($sql, $conn);
-    $num = mysql_result($data, 0);
+    $sql = "select video_total from video where video_id=?";
+    $data = pdo_query($sql, $id);
+    $num = $data[0]['video_total'];
     /*echo "<script>alert('$num');</script>";*/
     $num = $num + 1;
     /*echo "<script>alert('$num');</script>";*/
-    $sql7 = "update video set video_total='$num' where video_id='$id'";
-    $data2 = mysql_query($sql7, $conn);
+    $sql7 = "update video set video_total=? where video_id=?";
+    $data2 = pdo_query($sql7, $num,$id);
 
     ?>
     <!-- <script src="http://html5media.googlecode.com/svn/trunk/src/html5media.min.js"></script>-->
@@ -63,9 +55,9 @@
                 $id = $_GET["video_id"];
                 $name = $_GET["video_name"];
                 //echo $name."</br>";
-                $sql = "select video_address from video where video_id='$id'";
-                $data = mysql_query($sql, $conn);
-                $address = "../" . mysql_result($data, 0);
+                $sql = "select video_address from video where video_id=''";
+                $data = pdo_query($sql, $id);
+                $address = "../" . $data[0]['video_address'];
                 //echo $address."</br>";
                 //$newname= ;
                 ?>
@@ -73,11 +65,9 @@
                 <div id="video_div" style="width:149%; height:600px">
 
                     <h2 align="center" style="color:#666">
-                        <!--//******************************************修改开始*******************************************************-->
                         <div style="float:left">
                             <button id="back" onClick="back()">Back</button>
                         </div>
-                        <!--//******************************************修改结束*******************************************************-->
                         <strong><?php echo $name; ?> </strong>
                     </h2>
 
@@ -134,18 +124,18 @@
             <div id="content_top_center" style="float:right; width:32%"><!--宽度在多出来一点都会把按钮覆盖-->
                 <?php
                 //根据id找source
-                $sql_source = "select video_source from video where video_id='$id'";
-                $source_data = mysql_query($sql_source, $conn);
-                $source = mysql_result($source_data, 0);
+                $sql_source = "select video_source from video where video_id=?";
+                $source_data = pdo_query($sql_source, $id);
+                $source = $source_data[0]['video_source'];
 
                 //搜索信息当source确定
                 $sql = "select video_id,video_name,video_upload_time,video_total from video 
-			  where video_source='$source' and
-		      (video_privilege='$_SESSION[first_team]' or video_privilege='$_SESSION[second_team]' or
-		      video_privilege='$_SESSION[new_players]')";
-                $res = mysql_query($sql, $conn);
-                $rows = mysql_affected_rows($conn);//获取行数
-                $colums = mysql_num_fields($res);//获取列数
+			  where video_source=? and
+		      (video_privilege=? or video_privilege=? or
+		      video_privilege=?)";
+                $res = pdo_query($sql, $source,$_SESSION[first_team],$_SESSION[second_team],$_SESSION[new_players]);
+                /*$rows = mysql_affected_rows($conn);//获取行数
+                $colums = mysql_num_fields($res);//获取列数*/
                 //echo "jol数据库的".$table_name."表的所有用户数据如下：<br/>";
                 // echo "共计".$rows."行 ".$colums."列<br/>";
 
@@ -170,15 +160,12 @@
                             <!--表头结束-->
                             <tbody>
                             <?php
-                            while ($row = mysql_fetch_row($res)) {
-                                $t = 0;
+                            foreach ($res as $row) {
                                 echo "<tr>";
-                                echo "<td class='hidden-xs' style='display:none'>$row[0]</td>";
-                                echo "<td class='Select' align=center >$row[1]</td>";
-                                for ($i = 2; $i < $colums; $i++) {
-                                    echo "<td class='hidden-xs' align=right>$row[$i]</td>";
-
-                                }
+                                echo "<td class='hidden-xs'>".$row['video_id']."</td>";
+                                echo "<td class='hidden-xs'>".$row['video_name']."</td>";
+                                echo "<td class='hidden-xs'>".$row['video_upload_time']."</td>";
+                                echo "<td class='hidden-xs'>".$row['video_total']."</td>";
                                 echo "</tr>";
                             }
 
@@ -211,13 +198,11 @@
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script type='text/javascript'>
-    //********************************************修改开始********************************************************
     //返回按钮
     function back() {
         window.location.href = 'videostudy.php';
     }
 
-    //********************************************修改结束********************************************************
     //对隐藏按钮的控制
 
     function show_hidden(obj1, obj2, objbut, sh) {
@@ -297,7 +282,7 @@
         } else {
             video1.pause();
         }
-    }
+    };
     swfobject.registerObject("FLVPlayer");
 </script>
 </body>
