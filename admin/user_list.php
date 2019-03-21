@@ -61,6 +61,41 @@ require("../oj-footer.php");
     <div style="width: 80%;padding-top: 20px">
         <!--以下为两个必须div元素-->
         <div id="table"></div>
+
+        <?php
+        echo "<title>User List</title>";
+        echo "<center><h2>User List</h2></center>";
+        echo "<center><table class='table table-striped' width=90% border=1>";
+        echo "<colgroup>
+                  <col width = '50'>
+                  <col width = '50'>
+                  <col width = '50'>
+                  <col width = '50'>
+                  <col width = '50'>
+                  <col width = '50'>
+              </colgroup>";
+        echo "<thead><tr><th>UserID</th><th>Nick</th><th>Status</th><th>RegTime</th><th>IP</th><th>School</th>";
+        echo "</tr>";
+        echo "</thead>";
+        foreach($result as $row){
+            echo "<tr>";
+            echo "<td><a href='../userinfo.php?user=".$row['user_id']."'>".$row['user_id']."</a>";
+            echo "<td>".$row['nick'];
+            $cid=$row['user_id'];
+            if(isset($_SESSION[$OJ_NAME.'_'.'administrator'])){
+                echo "<td><a href=user_df_change.php?cid=".$row['user_id']."&getkey=".$_SESSION[$OJ_NAME.'_'.'getkey'].">".($row['defunct']=="N"?"<span class=green>Available</span>":"<span class=red>Reserved</span>")."</a>";
+            }else{
+                echo "<td>No permissions";
+            }
+            echo "<td>".$row['reg_time'];
+            echo "<td>".$row['ip'];
+            echo "<td>".$row['school'];
+            echo "</tr>";
+        }
+        echo "</table></center>";
+        require("../oj-footer.php");
+
+        ?>
         <div id="pageBar"></div>
     </div>
 
@@ -73,8 +108,6 @@ require("../oj-footer.php");
 <script language="Javascript" src="../bootstrap/js/nicePage.js"></script>
 <script LANGUAGE="javascript">
     //标准json格式 目前只支持[{a:b,c:d},{a:b,c:d}]此种格式
-    foreach($result as $row)
-    {
         var json = [{
             "UserID": "<a>哈哈哈</a>",
             "Nick": "Tom",
@@ -209,7 +242,6 @@ require("../oj-footer.php");
          "IP": "12",
          "School": "12"
          }*/];
-    }
 
     //nameList与widthList的数组长度要一致
     var nameList = ['UserID', 'Nick', 'Status','RegTime', 'IP', 'School'] //table的列名
