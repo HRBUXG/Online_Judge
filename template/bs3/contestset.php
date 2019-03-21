@@ -17,14 +17,7 @@
     <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <!--lst新增样式-->
-    <style>
-        #lst {
-            width: 70%;
-            max-width: 100%;
-            margin-bottom: 20px
-        }
-    </style>
+
 
 
 </head>
@@ -63,22 +56,16 @@
             ServerTime:<span id=nowdate></span>
             <?php echo $MSG_READYTORUN; ?>:<span><?php echo $count; ?></span>
 
-            <!--此处添加lst样式-->
-            <table class='table table-striped' id="lst"  width=90%>
+            <table class='table table-striped'  width=90%>
                 <thead>
-                <tr class=toprow align="center">
-                    <td width=70%>比赛情况
-                    <td width=30%>报名入口
+                <tr class=toprow align=center>
+                    <td width=10%>ID
+                    <td width=35%>Name
+                    <td width=25%>Start Time
+                    <td width=10%>Status
+                    <td width=10%>Private
+                    <td width=10%>Creator
                 </tr>
-                <!-- 增加结束-->
-                <!-- <tr class=toprow align=center>
-                     <td width=10%>ID
-                     <td width=35%>Name
-                     <td width=25%>Start Time
-                     <td width=10%>Status
-                     <td width=10%>Private
-                     <td width=10%>Creator
-                 </tr>-->
                 </thead>
 
                 <tbody>
