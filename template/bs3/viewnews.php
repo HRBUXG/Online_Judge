@@ -85,7 +85,7 @@
         <h4>ACM要闻</h4>
     </div>
     <hr color="black" size="1"
-        style="border-style: dotted dotted none; border-bottom: medium 						none;">
+        style="border-style: dotted dotted none; border-bottom: medium none;">
     <table width='65%' align="center">
 
         <td>
@@ -119,6 +119,7 @@
                 <a href="viewnews.php">返回新闻列表&nbsp;&nbsp;</a>
             </td>
         </tr>
+    </table>
         <table>
 
             <br>
@@ -151,7 +152,7 @@
                     }
                     echo $c; ?>
 
-                    <table>
+                </table>
             </div>
             <?php }
 
