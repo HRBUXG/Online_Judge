@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <?php $conment = "<script src='tempate/$OJ_TEMPLATE/bootstrap.min.js'></script>";
+    <?php $conment = "<script src='template/$OJ_TEMPLATE/bootstrap.min.js'></script>";
     echo $conment;
     ?>
     <style type="text/css">
@@ -38,9 +38,8 @@
     <?php include("template/$OJ_TEMPLATE/nav.php"); ?>
     <!-- Main component for a primary marketing message or call to action -->
     <div>
-        <?php
-        include("admin/kindeditor.php");
-        ?>
+        <?php include_once("ueditor.php"); ?>
+
         <form method=POST action=createxml.php?parm=s>
 
 
@@ -97,8 +96,8 @@
                         <div class="panel-body">
                             <p align=center>
                                 <?php echo $MSG_Description ?>:
-                                <textarea class="kindeditor" rows=13 name=description cols=40
-                                          style="width:700px;height:300px;"></textarea>
+                                <textarea name="description" id="UEditor_Description"
+                                          style="width: 1200px; height: 300px;"></textarea>
                             </p>
                         </div>
                     </div>
@@ -116,8 +115,8 @@
                         <div class="panel-body">
                             <p align=center>
                                 <?php echo $MSG_Input ?>:
-                                <textarea class="kindeditor" rows=13 name=input cols=80
-                                          style="width:700px;height:300px;"></textarea>
+                                <textarea name="input" id="UEditor_Input"
+                                          style="width: 1200px; height: 300px;"></textarea>
                             </p>
                         </div>
                     </div>
@@ -135,8 +134,8 @@
                         <div class="panel-body">
                             <p align=center>
                                 <?php echo $MSG_Output ?>:
-                                <textarea class="kindeditor" rows=13 name=output cols=80
-                                          style="width:700px;height:300px;"></textarea>
+                                <textarea name="output" id="UEditor_Output"
+                                          style="width: 1200px; height: 300px;"></textarea>
                             </p>
                         </div>
                     </div>
@@ -174,8 +173,8 @@
                         <div class="panel-body">
                             <p align=center>
                                 <?php echo $MSG_HINT ?>:
-                                <textarea class="kindeditor" style="width:700px;height:300px;" rows=13 name=hint
-                                          cols=80></textarea>
+                                <textarea name="content" id="UEditor_Hint"
+                                          style="width: 1200px; height: 200px;"></textarea>
                             </p>
                         </div>
                     </div>
@@ -203,7 +202,7 @@
 
             <div align=center>
                 <?php require_once("include/set_post_key.php"); ?>
-                <input type=submit value=Submit name=submit>
+                <input type=submit value=Submit name=submit style="margin-bottom: 50px">
             </div>
         </form>
     </div>
