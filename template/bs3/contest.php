@@ -7,6 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <title><?php echo $OJ_NAME ?></title>
     <?php include("template/$OJ_TEMPLATE/css.php"); ?>
@@ -17,6 +18,32 @@
     <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+        .colockbox {
+            width: 283px;
+            height: 76px;
+            margin-left: 50px;
+            margin-top: 15px;
+            text-align: center;
+            background: url(image/colockbg.png) no-repeat;
+        }
+
+        .colockbox span {
+            float: left;
+            display: block;
+            width: 58px;
+            height: 48px;
+            line-height: 48px;
+            font-size: 26px;
+            text-align: center;
+            color: #ffffff;
+            margin: 0 17px 0 0;
+        }
+
+        .colockbox span.second {
+            margin: 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -28,8 +55,6 @@
         <div style="width: 70%;height:auto;float: right;overflow:hidden;float: left">
             <h3 style="text-align: center"><?php echo $view_title ?></h3>
             <p><?php echo $view_description ?></p>
-
-            <br>
             <table id='problemset' class='table table-striped' width='100%'>
                 <thead>
                 <tr align=center class='toprow'>
@@ -65,6 +90,12 @@
             </table>
         </div>
         <div style="width: 29%;height:auto;overflow:hidden;border:1px solid #e9e4e8;border-radius:4px;float: right">
+            <div class="colockbox" id="demo01" style="width: 100%;">
+                <span class="day">-</span>
+                <span class="hour">-</span>
+                <span class="minute">-</span>
+                <span class="second">-</span>
+            </div>
             <table width="100%" style="font-size: 16px">
                 <tr id="beginTime">
                     <td width="30%" align="right"
@@ -87,7 +118,7 @@
                 </tr>
                 <tr>
                     <td width="30%" align="right"
-                    style="padding-right: 5px;padding-top: 15px"><?php echo "Status: " ?></td>
+                        style="padding-right: 5px;padding-top: 15px"><?php echo "Status: " ?></td>
                     <td width="70%" align="left"
                         style="padding-left: 5px;padding-top: 15px;color: #993399">
                         <?php
@@ -113,13 +144,33 @@
                         ?>
                     </td>
                 </tr>
+                <tr>
+                    <td width="30%" align="right"
+                        style="padding-right: 5px;padding-top: 15px"><?php echo "People: " ?></td>
+                    <td width="70%" align="left"
+                        style="padding-left: 5px;padding-top: 15px;color: black">
+                        <?php echo "x ".$contest_people_count ?></td>
             </table>
-            <button class="">
-                <a href='status.php?cid=<?php echo $view_cid ?>'><i class="fa fa-pie-chart"></i>Status</a>
-            </button>
-            [<a href='status.php?cid=<?php echo $view_cid ?>'>Status</a>]
-            [<a href='contestrank.php?cid=<?php echo $view_cid ?>'>Standing</a>]
-            [<a href='conteststatistics.php?cid=<?php echo $view_cid ?>'>Statistics</a>]
+            <div style="width: 100%;padding-top: 15px;padding-left: 25px;padding-bottom: 20px">
+                <button class="btn btn-info">
+                    <a style="text-decoration-line: none" href='status.php?cid=<?php echo $view_cid ?>'><i
+                                class="fa fa-pie-chart"
+                                style="color:white"></i><span
+                                style='color:white;padding-left: 8px'>Status</span></a>
+                </button>
+                <butto class="btn btn-warning" style="margin-left: 10px">
+                    <a style="text-decoration-line: none" href='contestrank.php?cid=<?php echo $view_cid ?>'><i
+                                class="fa fa-bar-chart-o"
+                                style="color:white"></i><span
+                                style='color:white;padding-left: 8px'>Standing</span></a>
+                </butto>
+                <butto class="btn btn-primary" style="margin-left: 10px">
+                    <a style="text-decoration-line: none" href='conteststatistics.php?cid=<?php echo $view_cid ?>'><i
+                                class="fa fa-area-chart"
+                                style="color:white"></i><span
+                                style='color:white;padding-left: 8px'>Statistics</a>
+                </butto>
+            </div>
         </div>
     </div>
 
@@ -153,6 +204,36 @@
     }
 
     clock();
+    $(function () {
+        var endTime="<?php echo $view_end_time?>";
+        console.log(endTime);
+        countDown(endTime, "#demo01 .day", "#demo01 .hour", "#demo01 .minute", "#demo01 .second");
+    });
+
+    function countDown(time, day_elem, hour_elem, minute_elem, second_elem) {
+        //if(typeof end_time == "string")
+        var end_time = new Date(time).getTime(),//月份是实际月份-1
+            //current_time = new Date().getTime(),
+            sys_second = (end_time - new Date().getTime()) / 1000;
+        var timer = setInterval(function () {
+            if (sys_second > 0) {
+                sys_second -= 1;
+                var day = Math.floor((sys_second / 3600) / 24);
+                var hour = Math.floor((sys_second / 3600) % 24);
+                var minute = Math.floor((sys_second / 60) % 60);
+                var second = Math.floor(sys_second % 60);
+                day_elem && $(day_elem).text(day);//计算天
+                $(hour_elem).text(hour < 10 ? "0" + hour : hour);//计算小时
+                $(minute_elem).text(minute < 10 ? "0" + minute : minute);//计算分
+                $(second_elem).text(second < 10 ? "0" + second : second);// 计算秒
+
+            } else {
+                clearInterval(timer);
+            }
+        }, 1000);
+
+    }
+
 </script>
 </body>
 </html>
