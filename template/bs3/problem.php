@@ -7,12 +7,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-    <script src="template/bs3/jquery.min.js"></script><!-- 调用js目录下的jquery.js文件 -->
     <link rel="stylesheet" href="template/bs3/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="template/bs3/jquery.min.js"></script><!-- 调用js目录下的jquery.js文件 -->
     <script src="template/bs3/echarts.js"></script><!-- 调用js目录下的echarts.js文件 -->
     <script src="template/bs3/bootstrap.min.js"></script>
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <!-- <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
@@ -360,9 +360,10 @@
                     </tr>
                     </tbody>
                 </table>
-                <div>
-                    <a href="#Submit" class="btn btn-info" type="button" value="Submit"
-                       style="margin-top:10%;margin-left: 5%;margin-bottom: 10%">Submit</a>
+                <div style="margin-top: 50px;margin-bottom: 80px">
+                    <a href="#Submit" class="btn btn-info btn-sm" type="button" style="width:80px;height:30px;margin-top:10px;margin-bottom:10px;border-radius:5px;background:red;border-width:0px;margin-left:10px;cursor:pointer;outline:none;font-size:15px;color:white;bold:none;text-align:center">Submit</a>
+                    <a href="" class="btn btn-info btn-sm" type="button" style="width:80px;height:30px;margin-top:10px;margin-bottom:10px;border-radius:5px;background:#1e90ff;border-width:0px;margin-left:10px;cursor:pointer;outline:none;font-size:15px;color:white;bold:none;text-align:center">Answer</a>
+                    <a href="" class="btn btn-info btn-sm" type="button" style="width:80px;height:30px;margin-top:10px;margin-bottom:10px;border-radius:5px;background:#33ff00;border-width:0px;margin-left:10px;cursor:pointer;outline:none;font-size:15px;color:white;bold:none;text-align:center">Comment</a>
                 </div>
                 <?php /*require_once("template/bs3/test0311.php");*/ ?>
                 <div id="main" style="width: 100%;height: 400px;"></div>
@@ -445,7 +446,6 @@
             }
         });
     }
-
     $(document).ready(function () {
         $("#creator").load("problem-ajax.php?pid=<?php echo $id?>");
         var left = $("#sinputleft").height();
@@ -498,7 +498,6 @@
     var counts = [], qa_i = [], qs_i = [], qd_i = [];
     //初始化qa,qs，qd两个整型，qa用于进行做题次数计数，qs用于对做题正确次数计数,qd错误量计数
     var qa = 0, qs = 0, qd = 0;
-
     function TestAjax() {
         $.ajax({
             type: "post",   //向指定资源提交数据，请求服务器进行处理
@@ -525,7 +524,6 @@
             }
         })
     }
-
     //执行异步请求
     TestAjax();
     //=============================================================================================
@@ -597,7 +595,6 @@
     //初始化qa,qs，qd两个整型，qa用于进行做题次数计数，qs用于对做题正确次数计数,qd错误量计数
     var Accepted = 0, Presentation_Error = 0, Wrong_Answer = 0, Time_Limit_Exceed = 0, Memory_Limit_Exceed = 0,
         Output_Limit_Exceed = 0, Runtime_Error = 0, Compile_Error = 0;
-
     function TestAjax() {
         $.ajax({
             type: "post",   //向指定资源提交数据，请求服务器进行处理
@@ -640,7 +637,6 @@
             }
         })
     }
-
     //执行异步请求
     TestAjax();
     //=============================================================================================
@@ -708,7 +704,6 @@
             }
             d.interval = setInterval(k, c.refreshInterval);
             b(g);
-
             function k() {
                 g += i;
                 e++;
@@ -742,18 +737,15 @@
         onUpdate: null,
         onComplete: null
     };
-
     function formatter(b, a) {
         return b.toFixed(0)
     }
-
     $("#count-number").data("countToOptions", {
         formatter: function (b, a) {
             return b.toFixed(0).replace(/\B(?=(?:\d{3})+(?!\d))/g, ",")
         }
     });
     $(".timer").each(count);
-
     function count(a) {
         var b = $(this);
         a = $.extend({},

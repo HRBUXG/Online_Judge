@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <level id="1">
+        <total>100</total>
+    </level>
+    <level id="2">
+        <total>300</total>
+    </level>
+    <level id="3">
+        <total>500</total>
+    </level>
+    <level id="4">
+        <total>700</total>
+    </level>
+    </root>

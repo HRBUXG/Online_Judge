@@ -294,6 +294,14 @@ if (isset($OJ_LANG)) {
                     </div>
                 </li>
 
+                <li>
+                    <div style="text-indent:20px" class="buttuna">
+                        <a href="setlevel.php" target="main" title="">
+                            <b><?php echo "Set Level Rule" ?></b>
+                        </a>
+                    </div>
+                </li>
+
             </div>
         </div>
     <?php } ?>
@@ -411,7 +419,7 @@ if (isset($OJ_LANG)) {
                     <li>
                         <div style="text-indent:20px" class="buttuna">
                             <a href="edit_db_info.inc.php" target="main" title="Danger,Use it on your own risk">
-                                <b>Edit DB Information</b>
+                                <b>Edit Datebase Information</b>
                             </a>
                         </div>
                     </li>

@@ -28,13 +28,13 @@
         <p><input id="mytext" name="message" type="text" value="" style="width:500px; height:20px;" required /></p>
         <p><input type="button" value="发送" onclick="send_to_all()"/></p>
 
-        可以通过url：
+<!--        可以通过url：
         <button id="send_to_one">向指定用户发送消息</button>
         <br>
         可以通过url：<a href="http://39.105.19.50:2121/?type=publish&to=&content=%E6%B6%88%E6%81%AF%E5%86%85%E5%AE%B9"
                    target="_blank" id="send_to_all"><font style="color:#91BD09">http://<font class="domain"></font>:2121?type=publish&to=&content=消息内容</font></a>
         向所有在线用户推送消息<br>
-
+-->
     </div>
     <script>
         function send_to_all() {
@@ -54,4 +54,4 @@
 
     </script>
 </body>
-</html>;
+</html>

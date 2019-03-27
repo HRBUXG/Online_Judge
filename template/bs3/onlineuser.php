@@ -31,32 +31,49 @@
 <div class="container">
     <?php include("template/$OJ_TEMPLATE/nav.php"); ?>
     <!-- Main component for a primary marketing message or call to action -->
+
+    <?php
+
+    $doc = new DOMDocument();
+    $doc->load('template/bs3/level.xml');
+    $levelss = array();
+    $levels = $doc->getElementsByTagName("level");
+    //遍历
+    foreach ($levels as $level) {
+        //echo $level->getAttribute('id') . "-";
+        // echo $level->getElementsByTagName("total")->item(0)->nodeValue;
+        // echo "<br>";
+        array_push($levelss, $level->getElementsByTagName("total")->item(0)->nodeValue);
+    }
+    ?>
+
+
     <div class="jumbotron">
         <center>
             <div class="container1" style="padding: 100px 100px 50px;">
                 <button type="button" class="btn btn-primary" title="Popover title"
                         data-container="body" data-toggle="popover" data-placement="left"
-                        data-content="solve小于300道题目">新手上路
+                        data-content="solve小于<?php echo $levelss[0]; ?>道题目">新手上路
                 </button>
                 <!-- 表示一个成功的或积极的动作 -->
                 <button type="button" class="btn btn-success" title="Popover title"
                         data-container="body" data-toggle="popover" data-placement="top"
-                        data-content="solve超过300道题目">步入江湖
+                        data-content="solve小于<?php echo $levelss[1]; ?>道题目">步入江湖
                 </button>
                 <!-- 信息警告消息的上下文按钮 -->
                 <button type="button" class="btn btn-info" title="Popover title"
                         data-container="body" data-toggle="popover" data-placement="bottom"
-                        data-content="solve超过500道题目">小有名气
+                        data-content="solve小于<?php echo $levelss[2]; ?>道题目">小有名气
                 </button>
                 <!-- 表示应谨慎采取的动作 -->
                 <button type="button" class="btn btn-warning" title="Popover title"
                         data-container="body" data-toggle="popover" data-placement="top"
-                        data-content="solve超过1000道题目">灵魂人物
+                        data-content="solve小于<?php echo $levelss[3]; ?>道题目">灵魂人物
                 </button>
                 <!-- 表示一个危险的或潜在的负面动作 -->
                 <button type="button" class="btn btn-danger" title="Popover title"
                         data-container="body" data-toggle="popover" data-placement="right"
-                        data-content="solve超过1500道题目">传奇人物
+                        data-content="solve超过<?php echo $levelss[3]; ?>道题目">传奇人物
                 </button>
             </div>
         </center>
@@ -88,19 +105,15 @@
             echo "<tr>";
             foreach ($stmt as $row) {
                 echo "<td>";
-                if ($row['solved'] < 300) {
+                if ($row['solved'] <= $levelss[0]) {
                     echo "<span class=\"label label-primary\">";
-                }
-                if ($row['solved'] > 300 && $row['solved'] < 500) {
+                } elseif ($row['solved'] <= $levelss[1]) {
                     echo "<span class=\"label label-success\">";
-                }
-                if ($row['solved'] > 500 && $row['solved'] < 1000) {
+                } elseif ($row['solved'] <= $levelss[2]) {
                     echo "<span class=\"label label-info\">";
-                }
-                if ($row['solved'] > 1000 && $row['solved'] < 1500) {
+                } elseif ($row['solved'] <= $levelss[3]) {
                     echo "<span class=\"label label-warning\">";
-                }
-                if ($row['solved'] > 1500) {
+                } elseif ($row['solved'] > $levelss[3]) {
                     echo "<span class=\"label label-danger\">";
                 }
                 echo $row['nick'] . "</span>" . "</td>";
@@ -113,6 +126,7 @@
             echo "</tr>";
             ?>
         </table>
+
     </div>
 </div>
 

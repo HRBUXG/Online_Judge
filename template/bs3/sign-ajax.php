@@ -18,6 +18,7 @@ if ($_GET['do'] == 'check') {
 }
 
 if ($_GET['do'] == 'sign') {
+
     $db1 = new mysqli("localhost", "root", "HRBUXGOJ", "jol");
     //$uid = $_SESSION[$OJ_NAME.'_'.'user_id'];
     $date = date("Y-m-d");  //当前时间
@@ -25,9 +26,11 @@ if ($_GET['do'] == 'sign') {
     $insertSql = "INSERT INTO `sign` (`user_id`,`check_time`) VALUES ('{$uid}','{$date}') ";
     $insert = $db1->query($insertSql);
 
-    $db2 = new mysqli("localhost", "root", "HRBUXGOJ", "jol");
-    $updateSignSql = "UPDATE `users` SET `score` =`score` + 1 WHERE `user_id` = {$uid} ";
+     $db2 = new mysqli("localhost", "root", "HRBUXGOJ", "jol");
+    $updateSignSql = "UPDATE `users` SET `otherscore` =`otherscore` + 1 WHERE `user_id`='{$uid}'";
     $db2->query($updateSignSql);
+
+
 
 }
 ?>
