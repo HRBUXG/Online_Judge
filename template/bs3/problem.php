@@ -14,9 +14,9 @@
     <script src="template/bs3/bootstrap.min.js"></script>
     <!-- <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
     <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script language="javascript" type="text/javascript" src="include/jquery.flot.js"></script>
     <title>
         <?php echo $OJ_NAME ?>
     </title>
@@ -288,13 +288,24 @@
                     <tr>
                         <td class="td-left">
                             <div class="timer count-title" id="count-number"
-                                 data-to="<?php echo $row['accepted']; ?>"
+                                 data-to="<?php
+                                 if (empty($row['accepted'])) {
+                                     echo "0";
+                                 } else {
+                                     echo $row['accepted'];
+                                 }
+                                 ?>"
                                  data-speed="1500" decimals="0"></div>
                             <div>通过</div>
                         </td>
                         <td class="td-right">
                             <div class="timer count-title" id="count-number"
-                                 data-to="<?php echo $row['submit']; ?>"
+                                 data-to="<?php
+                                 if (empty($row['submit'])) {
+                                     echo "0";
+                                 } else {
+                                     echo $row['submit'];
+                                 }?>"
                                  data-speed="1500" decimals="0"></div>
                             <div>提交</div>
                         </td>
@@ -361,9 +372,12 @@
                     </tbody>
                 </table>
                 <div style="margin-top: 50px;margin-bottom: 80px">
-                    <a href="#Submit" class="btn btn-info btn-sm" type="button" style="width:80px;height:30px;margin-top:10px;margin-bottom:10px;border-radius:5px;background:red;border-width:0px;margin-left:10px;cursor:pointer;outline:none;font-size:15px;color:white;bold:none;text-align:center">Submit</a>
-                    <a href="" class="btn btn-info btn-sm" type="button" style="width:80px;height:30px;margin-top:10px;margin-bottom:10px;border-radius:5px;background:#1e90ff;border-width:0px;margin-left:10px;cursor:pointer;outline:none;font-size:15px;color:white;bold:none;text-align:center">Answer</a>
-                    <a href="" class="btn btn-info btn-sm" type="button" style="width:80px;height:30px;margin-top:10px;margin-bottom:10px;border-radius:5px;background:#33ff00;border-width:0px;margin-left:10px;cursor:pointer;outline:none;font-size:15px;color:white;bold:none;text-align:center">Comment</a>
+                    <a href="#Submit" class="btn btn-info btn-sm" type="button"
+                       style="width:80px;height:30px;margin-top:10px;margin-bottom:10px;border-radius:5px;background:red;border-width:0px;margin-left:10px;cursor:pointer;outline:none;font-size:15px;color:white;bold:none;text-align:center">Submit</a>
+                    <a href="./answer.php" target="_blank" class="btn btn-info btn-sm" type="button"
+                       style="width:80px;height:30px;margin-top:10px;margin-bottom:10px;border-radius:5px;background:#1e90ff;border-width:0px;margin-left:10px;cursor:pointer;outline:none;font-size:15px;color:white;bold:none;text-align:center">Answer</a>
+                    <a href="./comment.php" target="_blank" class="btn btn-info btn-sm" type="button"
+                       style="width:80px;height:30px;margin-top:10px;margin-bottom:10px;border-radius:5px;background:#33ff00;border-width:0px;margin-left:10px;cursor:pointer;outline:none;font-size:15px;color:white;bold:none;text-align:center">Comment</a>
                 </div>
                 <?php /*require_once("template/bs3/test0311.php");*/ ?>
                 <div id="main" style="width: 100%;height: 400px;"></div>
@@ -446,6 +460,7 @@
             }
         });
     }
+
     $(document).ready(function () {
         $("#creator").load("problem-ajax.php?pid=<?php echo $id?>");
         var left = $("#sinputleft").height();
@@ -498,6 +513,7 @@
     var counts = [], qa_i = [], qs_i = [], qd_i = [];
     //初始化qa,qs，qd两个整型，qa用于进行做题次数计数，qs用于对做题正确次数计数,qd错误量计数
     var qa = 0, qs = 0, qd = 0;
+
     function TestAjax() {
         $.ajax({
             type: "post",   //向指定资源提交数据，请求服务器进行处理
@@ -524,6 +540,7 @@
             }
         })
     }
+
     //执行异步请求
     TestAjax();
     //=============================================================================================
@@ -595,6 +612,7 @@
     //初始化qa,qs，qd两个整型，qa用于进行做题次数计数，qs用于对做题正确次数计数,qd错误量计数
     var Accepted = 0, Presentation_Error = 0, Wrong_Answer = 0, Time_Limit_Exceed = 0, Memory_Limit_Exceed = 0,
         Output_Limit_Exceed = 0, Runtime_Error = 0, Compile_Error = 0;
+
     function TestAjax() {
         $.ajax({
             type: "post",   //向指定资源提交数据，请求服务器进行处理
@@ -637,6 +655,7 @@
             }
         })
     }
+
     //执行异步请求
     TestAjax();
     //=============================================================================================
@@ -704,18 +723,19 @@
             }
             d.interval = setInterval(k, c.refreshInterval);
             b(g);
+
             function k() {
                 g += i;
                 e++;
                 b(g);
-                if (typeof(c.onUpdate) == "function") {
+                if (typeof (c.onUpdate) == "function") {
                     c.onUpdate.call(j, g)
                 }
                 if (e >= h) {
                     f.removeData("countTo");
                     clearInterval(d.interval);
                     g = c.to;
-                    if (typeof(c.onComplete) == "function") {
+                    if (typeof (c.onComplete) == "function") {
                         c.onComplete.call(j, g)
                     }
                 }
@@ -737,15 +757,18 @@
         onUpdate: null,
         onComplete: null
     };
+
     function formatter(b, a) {
         return b.toFixed(0)
     }
+
     $("#count-number").data("countToOptions", {
         formatter: function (b, a) {
             return b.toFixed(0).replace(/\B(?=(?:\d{3})+(?!\d))/g, ",")
         }
     });
     $(".timer").each(count);
+
     function count(a) {
         var b = $(this);
         a = $.extend({},
@@ -754,6 +777,6 @@
         b.countTo(a)
     };
 </script>
-
+<script language="javascript" type="text/javascript" src="include/jquery.flot.js"></script>
 </body>
 </html>

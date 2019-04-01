@@ -107,6 +107,25 @@ if (isset($OJ_LANG)) {
                         </div>
                     </li>
                 <?php } ?>
+                <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) { ?>
+                    <li>
+                        <div style="text-indent:20px" class="buttuna">
+                            <a href="upload_standard_solution.php" target="main" title="<?php echo $MSG_HELP_ADD_PROBLEM ?>">
+                                <b><?php echo "Upload Standard Solution" ?></b>
+                            </a>
+                        </div>
+                    </li>
+                <?php } ?>
+                <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) { ?>
+                    <li>
+                        <div style="text-indent:20px" class="buttuna">
+                            <a href="comments_manager.php" target="main" title="<?php echo $MSG_HELP_ADD_PROBLEM ?>">
+                                <b><?php echo "Comments Manager" ?></b>
+                            </a>
+                        </div>
+                    </li>
+                <?php } ?>
+
             </div>
         </div>
     <?php } ?>
