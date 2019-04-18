@@ -205,7 +205,10 @@
                 });
 
                 function doCheck() {
-                    var uid = String(<?php echo $_SESSION[$OJ_NAME . '_' . 'user_id'];?>);
+                    <?php
+                    $uid=$_SESSION[$OJ_NAME . '_' . 'user_id'];
+                    echo "var uid=\"$uid\";";
+                    ?>
                     $.post("template/bs3/sign-ajax.php?do=check&uid=" + uid, {}, function (data) {
                         //$("#days").html(data);
                         if (data == 1) {

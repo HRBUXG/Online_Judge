@@ -3,7 +3,10 @@
     // 连接服务端，workerman.net:2120换成实际部署web-msg-sender服务的域名或者ip
     var socket = io('http://' + document.domain + ':2120');
     // uid可以是自己网站的用户id，以便针对uid推送以及统计在线人数
-    uid = <?php echo $_SESSION[$OJ_NAME . '_' . 'user_id'];?>;
+    <?php
+    $uid=$_SESSION[$OJ_NAME . '_' . 'user_id'];
+    echo "var uid=\"$uid\";";
+    ?>
     // socket连接后以uid登录
     socket.on('connect', function () {
         socket.emit('login', uid);
