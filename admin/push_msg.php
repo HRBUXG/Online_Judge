@@ -23,30 +23,43 @@
             <li>支持在线用户数实时统计推送（见页脚统计）</li>
             <li>支持在线页面数实时统计推送（见页脚统计）</li>
         </ul>
-        <h3>测试:</h3>
+        <h3>向所有人发送:</h3>
 
-        <p><input id="mytext" name="message" type="text" value="" style="width:500px; height:20px;" required /></p>
+        <p><input id="all_text" name="all_message" type="text" value="" style="width:500px; height:20px;" required/></p>
         <p><input type="button" value="发送" onclick="send_to_all()"/></p>
 
-<!--        可以通过url：
-        <button id="send_to_one">向指定用户发送消息</button>
-        <br>
-        可以通过url：<a href="http://39.105.19.50:2121/?type=publish&to=&content=%E6%B6%88%E6%81%AF%E5%86%85%E5%AE%B9"
-                   target="_blank" id="send_to_all"><font style="color:#91BD09">http://<font class="domain"></font>:2121?type=publish&to=&content=消息内容</font></a>
-        向所有在线用户推送消息<br>
--->
+        <h3>向单用户发送:</h3>
+        <p><input id="one_uid" name="one_uid" type="text" value="" style="width:500px; height:20px;" required/></p>
+        <p><input id="one_text" name="one_message" type="text" value="" style="width:500px; height:20px;" required/></p>
+        <p><input type="button" value="发送" onclick="send_to_one()"/></p>
+        <!--        可以通过url：
+                <button id="send_to_one">向指定用户发送消息</button>
+                <br>
+                可以通过url：<a href="http://39.105.19.50:2121/?type=publish&to=&content=%E6%B6%88%E6%81%AF%E5%86%85%E5%AE%B9"
+                           target="_blank" id="send_to_all"><font style="color:#91BD09">http://<font class="domain"></font>:2121?type=publish&to=&content=消息内容</font></a>
+                向所有在线用户推送消息<br>
+        -->
     </div>
     <script>
         function send_to_all() {
-            var uid = "16044325";
-            var message = $("#mytext").val();
-            alert(message);
+            var uid = "";
+            var message = $("#all_text").val();
+            alert("发送给所有人：" + message);
             window.open('http://' + document.domain + ':2121/?type=publish&content=' + message)
             //$('#send_to_all').attr('href', 'http://' + document.domain + ':2121/?type=publish&content=' + message);
             $('.uid').html(uid);
             $('.domain').html(document.domain)
         }
 
+        function send_to_one() {
+            var uid = $("#one_uid").val();
+            var message = $("#one_text").val();
+            alert("发送给：" + uid + message);
+            window.open('http://' + document.domain + ':2121/?type=publish&content=' + message + '&to=' + uid)
+            //$('#send_to_all').attr('href', 'http://' + document.domain + ':2121/?type=publish&content=' + message);
+            $('.uid').html(uid);
+            $('.domain').html(document.domain)
+        }
 
         // 使用时替换成真实的uid，这里方便演示使用时间戳
         /*     $('#send_to_one').attr('href', 'http://' + document.domain + ':2121/?type=publish&content=' + message + '&to=' + uid);

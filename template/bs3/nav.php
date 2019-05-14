@@ -1,10 +1,14 @@
+<html>
+<!--<link rel="stylesheet" type="text/css" href="template/bs3/xcConfirm.css"/>
+<script src="include/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="template/bs3/xcConfirm.js" type="text/javascript" charset="utf-8"></script>-->
 <script src='http://cdn.bootcss.com/socket.io/1.3.7/socket.io.js'></script>
 <script>
     // 连接服务端，workerman.net:2120换成实际部署web-msg-sender服务的域名或者ip
     var socket = io('http://' + document.domain + ':2120');
     // uid可以是自己网站的用户id，以便针对uid推送以及统计在线人数
     <?php
-    $uid=$_SESSION[$OJ_NAME . '_' . 'user_id'];
+    $uid = $_SESSION[$OJ_NAME . '_' . 'user_id'];
     echo "var uid=\"$uid\";";
     ?>
     // socket连接后以uid登录
@@ -15,12 +19,14 @@
     socket.on('new_msg', function (msg) {
         console.log("收到消息：" + msg);
         alert(msg);
+        //window.wxc.xcConfirm(msg, window.wxc.xcConfirm.typeEnum.info);
     });
     // 后端推送来在线数据时
     socket.on('update_online_count', function (online_stat) {
         console.log(online_stat);
     });
 </script>
+
 <?php
 $url = basename($_SERVER['REQUEST_URI']);
 $dir = basename(getcwd());
@@ -192,3 +198,4 @@ $count = $result1[0]['count'];
     </div><!--/.container-fluid -->
 </nav>
 
+</html>
