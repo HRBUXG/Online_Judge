@@ -110,7 +110,8 @@ if (isset($OJ_LANG)) {
                 <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) { ?>
                     <li>
                         <div style="text-indent:20px" class="buttuna">
-                            <a href="upload_standard_solution.php" target="main" title="<?php echo $MSG_HELP_ADD_PROBLEM ?>">
+                            <a href="upload_standard_solution.php" target="main"
+                               title="<?php echo $MSG_HELP_ADD_PROBLEM ?>">
                                 <b><?php echo "Upload Standard Solution" ?></b>
                             </a>
                         </div>
@@ -452,7 +453,114 @@ if (isset($OJ_LANG)) {
                         </div>
                     </li>
                 <?php } ?>
-
+                <!--   起始-->
+                <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
+                    <li>
+                        <div style="text-indent:20px" class="buttuna">
+                            <a href="input.php" target="main" title="Danger,Use it on your own risk">
+                                <b>折线图</b>
+                            </a>
+                        </div>
+                    </li>
+                <?php } ?>
+                <!--结束-->
+                <!--   起始-->
+                <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
+                    <li>
+                        <div style="text-indent:20px" class="buttuna">
+                            <a href="Ranking.php" target="main" title="Danger,Use it on your own risk">
+                                <b>通过输入题号，标签，难度系数，AC率，来源来筛选出符合要求的题</b>
+                            </a>
+                        </div>
+                    </li>
+                <?php } ?>
+                <!--结束-->
+                <!--   起始-->
+                <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
+                    <li>
+                        <div style="text-indent:20px" class="buttuna">
+                            <a href="PJ.php" target="main" title="Danger,Use it on your own risk">
+                                <b>不同年级的同一学年的情况统计</b>
+                            </a>
+                        </div>
+                    </li>
+                <?php } ?>
+                <!--结束-->
+                <!--   起始-->
+                <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
+                    <li>
+                        <div style="text-indent:20px" class="buttuna">
+                            <a href="AC_shuxing.php" target="main" title="Danger,Use it on your own risk">
+                                <b>查看某道题在某个年级的情况</b>
+                            </a>
+                        </div>
+                    </li>
+                <?php } ?>
+                <!--结束-->
+                <!--   起始-->
+                <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
+                    <li>
+                        <div style="text-indent:20px" class="buttuna">
+                            <a href="PM.php" target="main" title="Danger,Use it on your own risk">
+                                <b>排名</b>
+                            </a>
+                        </div>
+                    </li>
+                <?php } ?>
+                <!--结束-->
+                <!--   起始-->
+                <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
+                    <li>
+                        <div style="text-indent:20px" class="buttuna">
+                            <a href="Analysis.php" target="main" title="Danger,Use it on your own risk">
+                                <b>题库每个标签的情况</b>
+                            </a>
+                        </div>
+                    </li>
+                <?php } ?>
+                <!--结束-->
+                <!--   起始-->
+                <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
+                    <li>
+                        <div style="text-indent:20px" class="buttuna">
+                            <a href="BGSY.php" target="main" title="Danger,Use it on your own risk">
+                                <b>查看某一年级的做题情况</b>
+                            </a>
+                        </div>
+                    </li>
+                <?php } ?>
+                <!--结束-->
+                <!--   起始-->
+                <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
+                    <li>
+                        <div style="text-indent:20px" class="buttuna">
+                            <a href="all_nianji_san.php" target="main" title="Danger,Use it on your own risk">
+                                <b>某一年级大一到大四的做题情况</b>
+                            </a>
+                        </div>
+                    </li>
+                <?php } ?>
+                <!--结束-->
+                <!--   起始-->
+                <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
+                    <li>
+                        <div style="text-indent:20px" class="buttuna">
+                            <a href="all_biaoqian_AC_and_class_biaoqian_AC.php" target="main" title="Danger,Use it on your own risk">
+                                <b>查看某个年级某个专业某个班的标签水平</b>
+                            </a>
+                        </div>
+                    </li>
+                <?php } ?>
+                <!--结束-->
+                <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
+                    <li>
+                        <div style="text-indent:20px" class="buttuna">
+                            <a href="CSTEST.php" target="main" title="Danger,Use it on your own risk">
+                                <b>综合推荐</b>
+                            </a>
+                        </div>
+                    </li>
+                <?php } ?>
             </div>
         </div>
     <?php } ?>

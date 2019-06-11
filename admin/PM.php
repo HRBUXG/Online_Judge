@@ -49,7 +49,7 @@
             $PM = $_GET['pm'] . "";
 
 //==================================================================
-            $con = new mysqli('localhost', 'root', '', 'test');
+            $con = new mysqli('localhost', 'root', 'HRBUXGOJ', 'jol');
             if (!$con) {
                 die('Could not connect: ' . mysql_error());
             }
