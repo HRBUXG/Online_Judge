@@ -43,12 +43,32 @@
     <script>
         function send_to_all() {
             var uid = "";
+            var groupflag="true";
             var message = $("#all_text").val();
             alert("发送给所有人：" + message);
-            window.open('http://' + document.domain + ':2121/?type=publish&content=' + message)
+            window.open('http://' + document.domain + ':2121/?type=publish&content=' + message);
             //$('#send_to_all').attr('href', 'http://' + document.domain + ':2121/?type=publish&content=' + message);
             $('.uid').html(uid);
-            $('.domain').html(document.domain)
+            $('.domain').html(document.domain);
+          //  window.location.href('insert_push_msg.php?message='+message+'&groupflag='+groupflag)
+            //window.open('insert_push_msg.php);
+            $.ajax({
+                type: "post",   //向指定资源提交数据，请求服务器进行处理
+                async: false,   //异步执行
+                url: "insert_push_msg.php", //SQL数据库文件
+                data: {
+                    message: message,
+                    groupflag: false,
+                },           //发送给数据库的数据
+                dataType: "json",   //json类型
+                success: function (result) {
+                    if (result) {
+                        alert("success database");
+                    } else {
+                        alert("false database");
+                    }
+                }
+            })
         }
 
         function send_to_one() {
@@ -59,6 +79,7 @@
             //$('#send_to_all').attr('href', 'http://' + document.domain + ':2121/?type=publish&content=' + message);
             $('.uid').html(uid);
             $('.domain').html(document.domain)
+
         }
 
         // 使用时替换成真实的uid，这里方便演示使用时间戳
