@@ -453,6 +453,15 @@ if (isset($OJ_LANG)) {
                         </div>
                     </li>
                 <?php } ?>
+                <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
+                    <li>
+                        <div style="text-indent:20px" class="buttuna">
+                            <a href="push_msg_manager.php" target="main" title="Danger,Use it on your own risk">
+                                <b>Push Message Manager</b>
+                            </a>
+                        </div>
+                    </li>
+                <?php } ?>
                 <!--   起始-->
                 <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
                     <li>

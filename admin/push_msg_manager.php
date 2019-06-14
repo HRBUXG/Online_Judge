@@ -1,3 +1,11 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: wwj
+ * Date: 2019/6/14
+ * Time: 9:17
+ */ ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +34,7 @@ mysqli_select_db($conn, "jol");
 
 //------------分页开始-------------------
 //1.求出总条数
-$sql = "select count(*) as count from comment";
+$sql = "select count(*) as count from pushmsg where groupflag='true'";
 $result = mysqli_query($conn, $sql);
 $pageRes = mysqli_fetch_assoc($result);
 #var_dump($pageRes);   //13
@@ -46,24 +54,22 @@ $offset = ($page - 1) * $num;  //$page默认为 1, 下一步设置
 
 
 //6.修改sql语句
-$sql = "select * from comment limit " . $offset . ',' . $num;
+$sql = "select * from pushmsg where groupflag='true' limit " . $offset . ',' . $num;
 
 #$sql = "select * from bbs_user";
 $obj = mysqli_query($conn, $sql);
 echo "<center>";
-echo "<div id=\"header\" style=\"padding:5px;background-color:#000; color:#FFF;text-align:center;\">
-    <h2>Comments Manager</h2>
-</div><br />";
+echo "<h2>Comments Manager</h2>";
 echo "<table class=\"table table-hover\" border = 1 cellspacing = '0' cellpadding = '10'>";
-echo "<!--<th>编号</th>--><th>用户编号</th><th>题目题号</th><th>评论内容</th><th>发布时间</th><th>操作</th>";
+//echo "<th>用户编号</th><th>题目题号</th><th>评论内容</th><th>发布时间</th><th>操作</th>";
+echo "<th>消息内容</th><th>发布时间</th><th>操作</th>";
 while ($row = mysqli_fetch_assoc($obj)) {
     echo "<tr>";
-    /*    echo '<td>' . $row['id'] . '</td>';*/
-    echo '<td>' . $row['user_id'] . '</td>';
-    echo '<td>' . $row['problem_id'] . '</td>';
+   // echo '<td>' . $row['user_id'] . '</td>';
     echo '<td>' . $row['content'] . '</td>';
+  //  echo '<td>' . $row['groupflag'] . '</td>';
     echo '<td>' . $row['sendtime'] . '</td>';
-    echo '<td><a href = "comments_del.php?id=' . $row['id'] . '">删除</a></td>';
+    echo '<td><a href = "push_msg_manager.php?id=' . $row['id'] . '">删除</a></td>';
     echo "</tr>";
 }
 
@@ -89,11 +95,11 @@ mysqli_close($conn);
 
 <!--7.添加首页、上一页、下一页、尾页(href没有链接)-->
 <!--9.给定链接,首页和尾页写死，首页就是page=1，尾页是总页数，上一页先用$prev表示，下一步设置，下一页同上一页-->
-<a href="comments_manager.php?page=1">首页</a>&nbsp;&nbsp;&nbsp;
-<a href="comments_manager.php?page=<?php echo $prev; ?>">上一页</a>&nbsp;&nbsp;&nbsp;
+<a href="push_msg_manager.php?page=1">首页</a>&nbsp;&nbsp;&nbsp;
+<a href="push_msg_manager.php?page=<?php echo $prev; ?>">上一页</a>&nbsp;&nbsp;&nbsp;
 <!--混编简写-->
-<a href="comments_manager.php?page=<?= $next; ?>">下一页</a>&nbsp;&nbsp;&nbsp;
-<a href="comments_manager.php?page=<?= $pageCount; ?>">尾页</a>
+<a href="push_msg_manager.php?page=<?= $next; ?>">下一页</a>&nbsp;&nbsp;&nbsp;
+<a href="push_msg_manager.php?page=<?= $pageCount; ?>">尾页</a>
 
 </body>
 </html>

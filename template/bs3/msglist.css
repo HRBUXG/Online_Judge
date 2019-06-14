@@ -1,0 +1,20 @@
+@charset "utf-8";
+/* CSS Document */
+*{padding:0px;margin:0px auto;}
+body{padding:0px;margin:0px auto;font-size:12px;font-family:"微软雅黑";}
+ul, li, ol, dl, dt, dd, div, p, span, h1, h2, h3, h4, h5, h6, a{padding:0px;margin:0px;}
+ul,li,ol{list-style:none;}
+a{text-decoration:none;color:#000000;}
+
+/* qq-client */
+.qq-client{position:fixed;right:0px;top:50%;margin-top:-80px;}
+.qq-client a{width:50px;height:160px;text-align:center;border:#ebebeb solid 1px;padding:0px 0px;line-height:40px;display:block;}
+.qq-client-content{position:fixed;right:-250px;top:38%;border:#ebebeb solid 1px;width:200px;display:none;background:#ffffff;}
+.qq-client-content h1{font-size:14px;width:90%;margin:0px auto;text-align:center;height:50px;line-height:50px;border-bottom:#ebebeb solid 1px;position:relative;}
+.qq-client-content h1 span{font-size:12px;font-weight:normal;position:absolute;left:-30px;top:-20px;cursor:pointer;background:#ffffff;border:#ebebeb solid 1px;width:40px;height:40px;line-height:40px;border-radius:20px;text-align:center;}
+.qq-client-list{background:#ffffff;}
+.client-list{overflow:hidden;line-height:40px;width:90%;margin:0px auto;border-bottom:dashed 1px #ebebeb;}
+.client-list a{display:block;}
+.client-list a:hover{color:red;}
+.client-list span{float:left;}
+.client-list label{float:left;width:60px;text-align:right;padding-right:10px;}

@@ -1,4 +1,21 @@
 <html>
+<link rel="stylesheet" type="text/css"  href="template/bs3/msglist.css"/>
+<script type="text/javascript" src="template/bs3/jquery.min.js"></script>
+<script type="text/javascript" src="template/bs3/msglist.js"></script>
+<div class="qq-client">
+    <a href="javascript:void(0);" class="qq-client-open">消<br/>息<br/>盒<br/>子</a>
+</div>
+
+<div class="qq-client-content"  style="z-index: 999">
+    <h1>在线客户<span class="qq-client-close">关闭</span></h1>
+    <div class="qq-client-list">
+        <div class="client-list"><a href="#1"><label>小明：</label><span>点击联系</span></a> </div>
+        <div class="client-list"><a href="#2"><label>小明：</label><span>点击联系</span></a> </div>
+        <div class="client-list"><a href="#3"><label>小明：</label><span>点击联系</span></a> </div>
+        <div class="client-list"><a href="#4"><label>小明：</label><span>点击联系</span></a> </div>
+        <div class="client-list" style="border-bottom: none"><a href="#5"><label>小明：</label><span>点击联系</span></a> </div>
+    </div>
+</div>
 <!--<link rel="stylesheet" type="text/css" href="template/bs3/xcConfirm.css"/>
 <script src="include/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="template/bs3/xcConfirm.js" type="text/javascript" charset="utf-8"></script>-->
