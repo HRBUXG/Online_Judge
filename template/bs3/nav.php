@@ -1,25 +1,42 @@
 <html>
-<link rel="stylesheet" type="text/css"  href="template/bs3/msglist.css"/>
+<link rel="stylesheet" type="text/css" href="template/bs3/msglist.css"/>
 <script type="text/javascript" src="template/bs3/jquery.min.js"></script>
 <script type="text/javascript" src="template/bs3/msglist.js"></script>
 <div class="qq-client">
     <a href="javascript:void(0);" class="qq-client-open">消<br/>息<br/>盒<br/>子</a>
 </div>
 
-<div class="qq-client-content"  style="z-index: 999">
-    <h1>在线客户<span class="qq-client-close">关闭</span></h1>
+<div class="qq-client-content">
+    <h1>最新消息<span class="qq-client-close">关闭</span></h1>
     <div class="qq-client-list">
-        <div class="client-list"><a href="#1"><label>小明：</label><span>点击联系</span></a> </div>
-        <div class="client-list"><a href="#2"><label>小明：</label><span>点击联系</span></a> </div>
-        <div class="client-list"><a href="#3"><label>小明：</label><span>点击联系</span></a> </div>
-        <div class="client-list"><a href="#4"><label>小明：</label><span>点击联系</span></a> </div>
-        <div class="client-list" style="border-bottom: none"><a href="#5"><label>小明：</label><span>点击联系</span></a> </div>
+        <div class="client-list"><a class="a_link" href="pushmsglist.php" title="查看更多"></a>
+        </div>
+
     </div>
 </div>
 <!--<link rel="stylesheet" type="text/css" href="template/bs3/xcConfirm.css"/>
 <script src="include/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="template/bs3/xcConfirm.js" type="text/javascript" charset="utf-8"></script>-->
 <script src='http://cdn.bootcss.com/socket.io/1.3.7/socket.io.js'></script>
+
+<script>
+    $.getJSON("template/bs3/msg_ajax.php", function (json) {
+        console.log(json);
+
+        function sort(a, b) {
+            return a.int - b.int;
+        }
+
+        json.sort(sort);//进行数据排序
+        $.each(json, function (index, array) {
+            var data = array["content"] + "<br />";
+            $(".a_link").append(data);
+            var time = array["sendtime"];
+            $(".client-list").append(time);
+        });
+    });
+</script>
+
 <script>
     // 连接服务端，workerman.net:2120换成实际部署web-msg-sender服务的域名或者ip
     var socket = io('http://' + document.domain + ':2120');
@@ -36,7 +53,7 @@
     socket.on('new_msg', function (msg) {
         console.log("收到消息：" + msg);
         alert(msg);
-        //window.wxc.xcConfirm(msg, window.wxc.xcConfirm.typeEnum.info);
+        window.wxc.xcConfirm(msg, window.wxc.xcConfirm.typeEnum.info);
     });
     // 后端推送来在线数据时
     socket.on('update_online_count', function (online_stat) {
@@ -94,7 +111,8 @@ $count = $result1[0]['count'];
 	      
               <li <?php if ($url == "viewnews.php") echo " $ACTIVE"; ?>><a href="<?php echo $path_fix ?>viewnews.php"><?php echo $MSG_VIEWNEWS ?></a></li>
 	      -->
-                <!--<li <?php if ($url == "faqs.php") echo " $ACTIVE"; ?>><a href="<?php echo $path_fix ?>faqs.php"><?php echo $MSG_FAQ ?></a></li>-->
+                <li <?php if ($url == "faqs.cn.php") echo " $ACTIVE"; ?>><a
+                            href="<?php echo $path_fix ?>faqs.cn.php"><?php echo $MSG_FAQ ?></a></li>
                 <?php if (isset($OJ_PRINTER) && $OJ_PRINTER) { ?>
                     <li <?php if ($url == "printer.php") echo " $ACTIVE"; ?>><a
                                 href="<?php echo $path_fix ?>printer.php"><?php echo $MSG_PRINTER ?></a></li>
@@ -158,6 +176,8 @@ $count = $result1[0]['count'];
                 <?php } ?>
                 <li <?php if ($url == "onlineuser.php") echo " $ACTIVE"; ?>><a
                             href="<?php echo $path_fix ?>onlineuser.php"><?php echo "OnlineUesr"; ?></a></li>
+                <li <?php if ($url == "pushmsglist.php") echo " $ACTIVE"; ?>><a
+                            href="<?php echo $path_fix ?>pushmsglist.php"><?php echo "PushmsgList"; ?></a></li>
                 <li <?php
                 if (isset($_SESSION[$OJ_NAME . '_' . 'XML_creator']) == true) {
                     if ($url == "createxml.php") echo " $ACTIVE";

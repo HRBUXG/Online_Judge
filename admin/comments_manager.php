@@ -33,7 +33,7 @@ $pageRes = mysqli_fetch_assoc($result);
 $count = $pageRes['count'];
 
 //2.每页显示数(5)
-$num = 5;
+$num = 20;
 
 //3.根据每页显示数求出总页数
 $pageCount = ceil($count / $num);  //向上取整

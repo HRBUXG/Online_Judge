@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <compiler id="1">
+        <content>gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.3)</content>
+    </compiler>
+    <compiler id="2">
+        <content>glibc 2.19</content>
+    </compiler>
+    <compiler id="3">
+        <content>Free Pascal Compiler version 2.6.2</content>
+    </compiler>
+    <compiler id="4">
+        <content>openjdk 1.7.0_155</content>
+    </compiler>
+</root>

@@ -34,14 +34,14 @@ mysqli_select_db($conn, "jol");
 
 //------------分页开始-------------------
 //1.求出总条数
-$sql = "select count(*) as count from pushmsg where groupflag='true'";
+$sql = "select count(*) as count from pushmsg where groupflag='true' ";
 $result = mysqli_query($conn, $sql);
 $pageRes = mysqli_fetch_assoc($result);
 #var_dump($pageRes);   //13
 $count = $pageRes['count'];
 
 //2.每页显示数(5)
-$num = 5;
+$num = 20;
 
 //3.根据每页显示数求出总页数
 $pageCount = ceil($count / $num);  //向上取整
@@ -54,7 +54,7 @@ $offset = ($page - 1) * $num;  //$page默认为 1, 下一步设置
 
 
 //6.修改sql语句
-$sql = "select * from pushmsg where groupflag='true' limit " . $offset . ',' . $num;
+$sql = "select * from pushmsg where groupflag='true' order by sendtime desc limit " . $offset . ',' . $num;
 
 #$sql = "select * from bbs_user";
 $obj = mysqli_query($conn, $sql);
@@ -65,11 +65,11 @@ echo "<table class=\"table table-hover\" border = 1 cellspacing = '0' cellpaddin
 echo "<th>消息内容</th><th>发布时间</th><th>操作</th>";
 while ($row = mysqli_fetch_assoc($obj)) {
     echo "<tr>";
-   // echo '<td>' . $row['user_id'] . '</td>';
+    // echo '<td>' . $row['user_id'] . '</td>';
     echo '<td>' . $row['content'] . '</td>';
-  //  echo '<td>' . $row['groupflag'] . '</td>';
+    //  echo '<td>' . $row['groupflag'] . '</td>';
     echo '<td>' . $row['sendtime'] . '</td>';
-    echo '<td><a href = "push_msg_manager.php?id=' . $row['id'] . '">删除</a></td>';
+    echo '<td><a href = "push_msg_del.php?id=' . $row['id'] . '">删除</a></td>';
     echo "</tr>";
 }
 

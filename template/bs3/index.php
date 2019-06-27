@@ -74,7 +74,7 @@
                                 <div class="qiandao-left">
                                     <div class="qiandao-left-top clear">
                                         <div class="current-date">2016年1月6日</div>
-                                        <div class="qiandao-history qiandao-tran qiandao-radius" id="js-qiandao-history">我的签到</div>
+                                        <!--<div class="qiandao-history qiandao-tran qiandao-radius" id="js-qiandao-history">我的签到</div>-->
                                     </div>
                                     <div class="qiandao-main" id="js-qiandao-main">
                                         <ul class="qiandao-list" id="js-qiandao-list">

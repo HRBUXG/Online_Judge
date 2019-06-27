@@ -278,6 +278,15 @@ if (isset($OJ_LANG)) {
                         </a>
                     </div>
                 </li>
+                <?php if (isset($_SESSION[$OJ_NAME . '_' . 'root'])) { ?>
+                <li>
+                    <div style="text-indent:20px" class="buttuna">
+                        <a href="changemypass.php" target="main" title="<?php echo $MSG_HELP_SETPASSWORD ?>">
+                            <b><?php echo "ChangeMyPassWD" ?></b>
+                        </a>
+                    </div>
+                </li>
+                <?php } ?>
                 <li>
                     <div style="text-indent:20px" class="buttuna">
                         <a href="add_playinformation_page.php" target="main"
@@ -458,6 +467,15 @@ if (isset($OJ_LANG)) {
                         <div style="text-indent:20px" class="buttuna">
                             <a href="push_msg_manager.php" target="main" title="Danger,Use it on your own risk">
                                 <b>Push Message Manager</b>
+                            </a>
+                        </div>
+                    </li>
+                <?php } ?>
+                <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor']) || isset($_SESSION[$OJ_NAME . '_' . 'contest_creator'])) { ?>
+                    <li>
+                        <div style="text-indent:20px" class="buttuna">
+                            <a href="compiler_info.php" target="main" title="Danger,Use it on your own risk">
+                                <b>Compiler info</b>
                             </a>
                         </div>
                     </li>
