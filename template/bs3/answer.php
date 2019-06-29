@@ -18,9 +18,8 @@
 
 
     <script src="template/bs3/jquery.min.js"></script>
-    <script src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 
-  <!--  <link rel="stylesheet" href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <!--  <link rel="stylesheet" href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
 
     <!-- <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
     <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
@@ -33,36 +32,33 @@
     <?php include("template/$OJ_TEMPLATE/nav.php"); ?>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
-        <div id="myCarousel" class="carousel slide">
-            <!-- 轮播（Carousel）指标 -->
-            <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-            </ol>
-            <!-- 轮播（Carousel）项目 -->
-            <div class="carousel-inner">
-                <div class="item active">
-                    <img src="./image/slide1.png" alt="First slide">
-                </div>
-                <div class="item">
-                    <img src="./image/slide1.png" alt="Second slide">
-                </div>
-                <div class="item">
-                    <img src="./image/slide1.png" alt="Third slide">
-                </div>
-            </div>
-            <!-- 轮播（Carousel）导航 -->
-            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <?php
+                    $con = mysqli_connect('localhost', 'root', 'HRBUXGOJ');
+                    if (!$con) {
+                        die('连接失败: ' . mysqli_error($con));
+                    }
 
+                    mysqli_select_db($con, 'jol');
+                    mysqli_query($con, "set names utf8");
+                    session_start();   //开启一个session会话SESSION是全局变量，只要被声明，在不关闭网页或者没有到SESSION的周期在所有页面都是可用的
+                    $pid = $_SESSION['ppid'];
+                    $sql = "select * FROM problem_solution where problem_id=" . $pid;
+                    $result = mysqli_query($con, $sql);
+                    foreach ($result as $row) {
+                        echo $row['problem_id'] . $row['problem_title'];
+                        $anglyse = $row['problem_analyse'];
+                    }
+
+                    ?>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <?php echo $anglyse ?>
+            </div>
+        </div>
     </div>
 </div>
 <!-- Bootstrap core JavaScript

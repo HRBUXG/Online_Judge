@@ -38,6 +38,7 @@
         $page = empty($_GET['page']) ? 1 : $_GET['page'];
         $conn = mysqli_connect("localhost", "root", "HRBUXGOJ");
         mysqli_query($conn, "set names utf8");
+        mysqli_query($conn,"SET time_zone = '+8:00'");
         if (!$conn) {
             echo "失败";
         }

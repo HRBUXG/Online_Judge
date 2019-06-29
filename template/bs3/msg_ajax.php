@@ -13,6 +13,7 @@ if (!$con) {
 
 mysqli_select_db($con, 'jol');
 mysqli_query($con, "set names utf8");
+mysqli_query($con,"SET time_zone = '+8:00'");
 
 $sql = "select * from pushmsg where groupflag='true' order by sendtime desc  limit 1";
 $result = mysqli_query($con, $sql);

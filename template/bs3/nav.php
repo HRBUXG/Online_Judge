@@ -6,7 +6,7 @@
     <a href="javascript:void(0);" class="qq-client-open">消<br/>息<br/>盒<br/>子</a>
 </div>
 
-<div class="qq-client-content">
+<div class="qq-client-content" style="z-index: 999;">
     <h1>最新消息<span class="qq-client-close">关闭</span></h1>
     <div class="qq-client-list">
         <div class="client-list"><a class="a_link" href="pushmsglist.php" title="查看更多"></a>
@@ -14,27 +14,30 @@
 
     </div>
 </div>
-<!--<link rel="stylesheet" type="text/css" href="template/bs3/xcConfirm.css"/>
-<script src="include/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="template/bs3/xcConfirm.js" type="text/javascript" charset="utf-8"></script>-->
+<link rel="stylesheet" type="text/css" href="template/bs3/xcConfirm.css"/>
+<!--<script src="include/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>-->
+<script src="template/bs3/jquery.min.js"></script>
+<script src="template/bs3/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
 <script src='http://cdn.bootcss.com/socket.io/1.3.7/socket.io.js'></script>
 
 <script>
-    $.getJSON("template/bs3/msg_ajax.php", function (json) {
-        console.log(json);
+    setInterval("test()", 2000);
 
-        function sort(a, b) {
-            return a.int - b.int;
-        }
+    function test() {
+        $.getJSON("template/bs3/msg_ajax.php", function (json) {
+            console.log(json);
 
-        json.sort(sort);//进行数据排序
-        $.each(json, function (index, array) {
-            var data = array["content"] + "<br />";
-            $(".a_link").append(data);
-            var time = array["sendtime"];
-            $(".client-list").append(time);
+            function sort(a, b) {
+                return a.int - b.int;
+            }
+
+            json.sort(sort);//进行数据排序
+            $.each(json, function (index, array) {
+                var data = array["content"] + "<br />" + array["sendtime"];
+                $(".a_link").html(data);
+            });
         });
-    });
+    }
 </script>
 
 <script>
@@ -52,7 +55,7 @@
     // 后端推送来消息时
     socket.on('new_msg', function (msg) {
         console.log("收到消息：" + msg);
-        alert(msg);
+        //alert(msg);
         window.wxc.xcConfirm(msg, window.wxc.xcConfirm.typeEnum.info);
     });
     // 后端推送来在线数据时
