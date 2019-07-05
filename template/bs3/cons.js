@@ -1,6 +1,8 @@
 $(document).ready(function () {
     //   var text=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$/
-    $.getJSON("template/bs3/comment_data.php", function (json) {
+
+
+   /* $.getJSON("template/bs3/comment_data.php", function (json) {
         console.log(json);
 
         function sort(a, b) {
@@ -12,7 +14,7 @@ $(document).ready(function () {
             var data = "<li><p>" + "用户" + array["user_id"] + ":" + "</p><span>" + array["content"] + "</span><a>" + array["sendtime"] + "</a></li>";
             $(".ul").append(data);
         });
-    });
+    });*/
 
     /* $(".con .uid").blur(function () {
          if (!text.test($(".con .uid").val())) {

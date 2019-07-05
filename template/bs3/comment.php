@@ -15,8 +15,16 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
     <link rel="stylesheet" type="text/css" href="template/bs3/bootstrap.min.css"/>
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<!--    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css" media="screen" />-->
+    <link rel="stylesheet" type="text/css" href="template/bs3/style.css" />
+    <link rel="stylesheet" type="text/css" href="template/bs3/barrager.css">
+    <link rel="stylesheet" type="text/css" href="template/bs3/pick-a-color-1.2.3.min.css">
+    <link type="text/css" rel="stylesheet" href="template/bs3/shCoreDefault.css"/>
     <script language="javascript" type="text/javascript" src="template/bs3/jquery.min.js"></script>
     <script language="javascript" type="text/javascript" src="template/bs3/bootstrap.min.js"></script>
+
     <style>
         * {
             margin: 0;
@@ -125,6 +133,10 @@
     <?php include("template/$OJ_TEMPLATE/nav.php"); ?>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
+        <marquee style="margin-top:10px" id="broadcast" scrollamount="1" scrolldelay="50" onmouseover="this.stop()"
+                 onmouseout="this.start()" class="toprow">﻿
+            请注意评论文明礼仪，禁止脏话谩骂以及恶意灌水行为！管理员一经发现或他人举报将会进行惩罚措施！
+        </marquee>
         <div class="box">
             <p><b>发表评论</b></p>
 
@@ -144,6 +156,39 @@
         </div>
         <ul class="ul"></ul>
 
+
+    </div>
+    <div class="container" style="align:center">
+        <div class="demo">
+            <div id="content">
+                <?php
+                $con = mysqli_connect('localhost', 'root', 'HRBUXGOJ');
+                if (!$con) {
+                    die('连接失败: ' . mysqli_error($con));
+                }
+
+                mysqli_select_db($con, 'jol');
+                mysqli_query($con, "set names utf8");
+                session_start();   //开启一个session会话SESSION是全局变量，只要被声明，在不关闭网页或者没有到SESSION的周期在所有页面都是可用的
+                $pid = $_SESSION['ppid'];
+                $sql = "select * FROM comment where problem_id=" . $pid . " order by sendtime desc limit 10";
+                $result = mysqli_query($con, $sql);
+
+                /*    while ($row = mysqli_fetch_array($result)) {
+                        $datas[] = array("user_id" => $row['user_id'], "problem_id" => $row['problem_id'], "content" => $row['content'], "sendtime" => $row['sendtime']);
+
+                    }
+                    echo json_encode($datas);//以json格式编码*/
+                foreach ($result as $row) {
+                    echo "<p>" . $row['user_id'] . $row['problem_id'] . $row['content'] . $row['sendtime'] . "</p>";
+                }
+
+
+                ?>
+            </div>
+            <div id="pages"><a id="next" href="page.php?page=1">下一页</a></div>
+            <div class="loading"></div>
+        </div>
     </div>
 </div> <!-- /container -->
 
@@ -153,36 +198,116 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <?php include("../../template/$OJ_TEMPLATE/js.php"); ?>
 <!--折叠面板-->
+<!--ajax评论-->
 <script src="template/bs3/cons.js"></script>
+<!--鼠标特性-->
 <script type="text/javascript">
-/* 鼠标特效 */
-var a_idx = 0;
-jQuery(document).ready(function ($) {
-$("body").click(function (e) {
-var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
-var $i = $("<span/>").text(a[a_idx]);
-a_idx = (a_idx + 1) % a.length;
-var x = e.pageX,
-y = e.pageY;
-$i.css({
-"z-index": 999999999999999999999999999999999999999999999999999999999999999999999,
-"top": y - 20,
-"left": x,
-"position": "absolute",
-"font-weight": "bold",
-"color": "#ff6651"
-});
-$("body").append($i);
-$i.animate({
-"top": y - 180,
-"opacity": 0
-},
-1500,
-function () {
-$i.remove();
-});
-});
-});
+    /* 鼠标特效 */
+    var a_idx = 0;
+    jQuery(document).ready(function ($) {
+        $("body").click(function (e) {
+            var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+            var $i = $("<span/>").text(a[a_idx]);
+            a_idx = (a_idx + 1) % a.length;
+            var x = e.pageX,
+                y = e.pageY;
+            $i.css({
+                "z-index": 999999999999999999999999999999999999999999999999999999999999999999999,
+                "top": y - 20,
+                "left": x,
+                "position": "absolute",
+                "font-weight": "bold",
+                "color": "#ff6651"
+            });
+            $("body").append($i);
+            $i.animate({
+                    "top": y - 180,
+                    "opacity": 0
+                },
+                1500,
+                function () {
+                    $i.remove();
+                });
+        });
+    });
+</script>
+<!--无限加载-->
+<script src="template/bs3/debug.js"></script>
+<script src="template/bs3/jquery.infinitescroll.js"></script>
+<script type="text/javascript">
+    $('#content').infinitescroll({
+        loading: {
+            msgText: "",
+            img: "template/bs3/loading.gif",
+            finishedMsg: '没有新数据了哦...',
+            selector: '.loading' //loading选择器
+        },
+        navSelector: "#pages", //导航的选择器，会被隐藏
+        nextSelector: "#next", //包含下一页链接的选择器
+        itemSelector: "p", //你将要取回的选项(内容块)
+        debug: true, //启用调试信息，若启用必须引入debug.js
+        dataType: 'html', //格式要和itemSelector保持一致
+        maxPage: 15, //最大加载的页数
+        // animate: true, //当有新数据加载进来的时候，页面是否有动画效果，默认没有
+        extraScrollPx: 150, //滚动条距离底部多少像素的时候开始加载，默认150
+        // bufferPx: 40, //载入信息的显示时间，时间越大，载入信息显示时间越短
+        errorCallback: function () { //加载完数据后的回调函数
+
+        },
+        path: function (index) { //获取下一页方法
+            return "page.php?p=" + index;
+        },
+    }, function (newElements, data, url) { //回调函数
+        //console.log(data);
+        //alert(url);
+    });
+</script>
+
+<!--弹幕-->
+<script type="text/javascript" src="template/bs3/jquery.barrager.js"></script>
+<script type="text/javascript" src="template/bs3/tinycolor-0.9.15.min.js"></script>
+<script type="text/javascript" src="template/bs3/shCore.js"></script>
+<script type="text/javascript" src="template/bs3/shBrushJScript.js"></script>
+<script type="text/javascript" src="template/bs3/shBrushPhp.js"></script>
+<script type="text/javascript" src="template/bs3/pick-a-color-1.2.3.min.js"></script>
+
+<script type="text/javascript">
+    $.ajaxSettings.async = false;
+    $.getJSON('comment_barrages.php?mode=2', function (data) {
+
+//每条弹幕发送间隔
+        var looper_time = 3 * 1000;
+        var items = data;
+//弹幕总数
+        var total = data.length;
+//是否首次执行
+        var run_once = true;
+//弹幕索引
+        var index = 0;
+//先执行一次
+        barrager();
+
+        function barrager() {
+
+
+            if (run_once) {
+                //如果是首次执行,则设置一个定时器,并且把首次执行置为false
+                looper = setInterval(barrager, looper_time);
+                run_once = false;
+            }
+            //发布一个弹幕
+            $('body').barrager(items[index]);
+            //索引自增
+            index++;
+            //所有弹幕发布完毕，清除计时器。
+            if (index == total) {
+
+                clearInterval(looper);
+                return false;
+            }
+
+        }
+    });
 </script>
 </body>
 </html>

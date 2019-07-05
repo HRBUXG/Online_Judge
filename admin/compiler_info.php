@@ -31,9 +31,10 @@
     ?>
     <form action="edit_compiler.php" method="post">
         <div>
-            <span class="label label-default">C</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"
-                                                                                                                   name="c"
-                                                                                                                   value="<?php echo $levelss[0] ?>"
+            <span class="label label-default">C</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                    type="text"
+                    name="c"
+                    value="<?php echo $levelss[0] ?>"
             />
         </div>
         <br/>
@@ -44,12 +45,12 @@
             />
         </div>
         <br/>
-        <!--<div>
+        <div>
             <span class="label label-default">Pascal</span>&nbsp;&nbsp;&nbsp;<input type="text"
                                                                                     name="pascal"
-                                                                                    value="<?php /*echo $levelss[2] */?>"
+                                                                                    value="<?php echo $levelss[2] ?>"
             />
-        </div>-->
+        </div>
         <br/>
         <div>
             <span class="label label-default">Java</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"

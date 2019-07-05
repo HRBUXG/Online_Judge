@@ -55,144 +55,146 @@
             <div id=submission style="width:80%;height:300px"></div>
         </center>
         <center>
-            <div class="panel panel-default" style="width: 80%;margin: 3%">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <div data-toggle="collapse" data-target="#no2" data-parent="#accordion">👉点击查看签到日历👈</div>
-                    </h4>
-                </div>
+            <?php if (!isset($_SESSION[$OJ_NAME . '_' . 'root'])) { ?>
+                <div class="panel panel-default" style="width: 80%;margin: 3%">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <div data-toggle="collapse" data-target="#no2" data-parent="#accordion">👉点击查看签到日历👈</div>
+                        </h4>
+                    </div>
 
-                <div id="no2" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <p align=left>
-                            <?php /*echo $MSG_Description*/ ?><!--:<br>
+                    <div id="no2" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <p align=left>
+                                <?php /*echo $MSG_Description*/ ?><!--:<br>
                             <textarea class="kindeditor" rows=13 name=description cols=80 style="width:1px" ></textarea>-->
-                        </p>
+                            </p>
 
-                        <div>
-                            <div class="qiandao-con clear">
-                                <div class="qiandao-left">
-                                    <div class="qiandao-left-top clear">
-                                        <div class="current-date">2016年1月6日</div>
-                                        <!--<div class="qiandao-history qiandao-tran qiandao-radius" id="js-qiandao-history">我的签到</div>-->
-                                    </div>
-                                    <div class="qiandao-main" id="js-qiandao-main">
-                                        <ul class="qiandao-list" id="js-qiandao-list">
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="qiandao-right">
-                                    <div class="qiandao-top">
-                                        <div class="just-qiandao qiandao-sprits" id="js-just-qiandao">
+                            <div>
+                                <div class="qiandao-con clear">
+                                    <div class="qiandao-left">
+                                        <div class="qiandao-left-top clear">
+                                            <div class="current-date">2016年1月6日</div>
+                                            <!--<div class="qiandao-history qiandao-tran qiandao-radius" id="js-qiandao-history">我的签到</div>-->
+                                        </div>
+                                        <div class="qiandao-main" id="js-qiandao-main">
+                                            <ul class="qiandao-list" id="js-qiandao-list">
+                                            </ul>
                                         </div>
                                     </div>
-                                    <div class="qiandao-bottom">
-                                        <div class="qiandao-rule-list">
-                                            <br>
-                                            <h4>签到规则</h4>
-                                            <p>日常签到获得1积分奖励</p>
-                                            <p>花费积分可以购买题解</p>
-                                            <p>AC题目也可以获得积分</p>
+                                    <div class="qiandao-right">
+                                        <div class="qiandao-top">
+                                            <div class="just-qiandao qiandao-sprits" id="js-just-qiandao">
+                                            </div>
+                                        </div>
+                                        <div class="qiandao-bottom">
+                                            <div class="qiandao-rule-list">
+                                                <br>
+                                                <h4>签到规则</h4>
+                                                <p>日常签到获得1积分奖励</p>
+                                                <p>花费积分可以购买题解</p>
+                                                <p>AC题目也可以获得积分</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- 我的签到 layer start -->
-                    <div class="qiandao-layer qiandao-history-layer">
-                        <div class="qiandao-layer-con qiandao-radius">
-                            <a href="javascript:;" class="close-qiandao-layer qiandao-sprits"></a>
-                            <ul class="qiandao-history-inf clear">
-                                <li>
-                                    <p>连续签到</p>
-                                    <h4>5</h4>
-                                </li>
-                                <li>
-                                    <p>本月签到</p>
-                                    <h4>17</h4>
-                                </li>
-                                <li>
-                                    <p>总共签到数</p>
-                                    <h4>28</h4>
-                                </li>
-                                <li>
-                                    <p>签到累计奖励</p>
-                                    <h4>30</h4>
-                                </li>
-                            </ul>
-                           <!-- <div class="qiandao-history-table">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th>签到日期</th>
-                                        <th>奖励</th>
-                                        <th>说明</th>
-                                    </tr>
-                                    </thead>
-                                    <table>
-                                        <tr>
-                                            <td>2016-1-6 14:23:45</td>
-                                            <td>0.20</td>
-                                            <td>连续签到19天奖励</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2016-1-6 14:23:45</td>
-                                            <td>0.20</td>
-                                            <td>分享奖励</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2016-1-6 14:23:45</td>
-                                            <td>0.20</td>
-                                            <td>连续签到19天奖励</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2016-1-6 14:23:45</td>
-                                            <td>0.20</td>
-                                            <td>连续签到19天奖励</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2016-1-6 14:23:45</td>
-                                            <td>0.20</td>
-                                            <td>连续签到19天奖励</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2016-1-6 14:23:45</td>
-                                            <td>0.20</td>
-                                            <td>连续签到19天奖励</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2016-1-6 14:23:45</td>
-                                            <td>0.20</td>
-                                            <td>连续签到19天奖励</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2016-1-6 14:23:45</td>
-                                            <td>0.20</td>
-                                            <td>连续签到19天奖励</td>
-                                        </tr>
-                                    </table>
-                                </table>
-                            </div>-->
-                        </div>
-                        <div class="qiandao-layer-bg"></div>
-                    </div>
-                    <!-- 我的签到 layer end -->
-                    <!-- 签到 layer start -->
-                    <div class="qiandao-layer qiandao-active">
-                        <div class="qiandao-layer-con qiandao-radius">
-                            <a href="javascript:;" class="close-qiandao-layer qiandao-sprits"></a>
-                            <div class="qiandao-jiangli qiandao-sprits">
-                                <span class="qiandao-jiangli-num">0.55<em>元</em></span>
+                        <!-- 我的签到 layer start -->
+                        <div class="qiandao-layer qiandao-history-layer">
+                            <div class="qiandao-layer-con qiandao-radius">
+                                <a href="javascript:;" class="close-qiandao-layer qiandao-sprits"></a>
+                                <ul class="qiandao-history-inf clear">
+                                    <li>
+                                        <p>连续签到</p>
+                                        <h4>5</h4>
+                                    </li>
+                                    <li>
+                                        <p>本月签到</p>
+                                        <h4>17</h4>
+                                    </li>
+                                    <li>
+                                        <p>总共签到数</p>
+                                        <h4>28</h4>
+                                    </li>
+                                    <li>
+                                        <p>签到累计奖励</p>
+                                        <h4>30</h4>
+                                    </li>
+                                </ul>
+                                <!-- <div class="qiandao-history-table">
+                                     <table>
+                                         <thead>
+                                         <tr>
+                                             <th>签到日期</th>
+                                             <th>奖励</th>
+                                             <th>说明</th>
+                                         </tr>
+                                         </thead>
+                                         <table>
+                                             <tr>
+                                                 <td>2016-1-6 14:23:45</td>
+                                                 <td>0.20</td>
+                                                 <td>连续签到19天奖励</td>
+                                             </tr>
+                                             <tr>
+                                                 <td>2016-1-6 14:23:45</td>
+                                                 <td>0.20</td>
+                                                 <td>分享奖励</td>
+                                             </tr>
+                                             <tr>
+                                                 <td>2016-1-6 14:23:45</td>
+                                                 <td>0.20</td>
+                                                 <td>连续签到19天奖励</td>
+                                             </tr>
+                                             <tr>
+                                                 <td>2016-1-6 14:23:45</td>
+                                                 <td>0.20</td>
+                                                 <td>连续签到19天奖励</td>
+                                             </tr>
+                                             <tr>
+                                                 <td>2016-1-6 14:23:45</td>
+                                                 <td>0.20</td>
+                                                 <td>连续签到19天奖励</td>
+                                             </tr>
+                                             <tr>
+                                                 <td>2016-1-6 14:23:45</td>
+                                                 <td>0.20</td>
+                                                 <td>连续签到19天奖励</td>
+                                             </tr>
+                                             <tr>
+                                                 <td>2016-1-6 14:23:45</td>
+                                                 <td>0.20</td>
+                                                 <td>连续签到19天奖励</td>
+                                             </tr>
+                                             <tr>
+                                                 <td>2016-1-6 14:23:45</td>
+                                                 <td>0.20</td>
+                                                 <td>连续签到19天奖励</td>
+                                             </tr>
+                                         </table>
+                                     </table>
+                                 </div>-->
                             </div>
-                            <a href="#" class="qiandao-share qiandao-tran">分享获取双倍收益</a>
+                            <div class="qiandao-layer-bg"></div>
                         </div>
-                        <div class="qiandao-layer-bg"></div>
-                    </div>
-                    <!-- 签到 layer end -->
+                        <!-- 我的签到 layer end -->
+                        <!-- 签到 layer start -->
+                        <div class="qiandao-layer qiandao-active">
+                            <div class="qiandao-layer-con qiandao-radius">
+                                <a href="javascript:;" class="close-qiandao-layer qiandao-sprits"></a>
+                                <div class="qiandao-jiangli qiandao-sprits">
+                                    <span class="qiandao-jiangli-num">0.55<em>元</em></span>
+                                </div>
+                                <a href="#" class="qiandao-share qiandao-tran">分享获取双倍收益</a>
+                            </div>
+                            <div class="qiandao-layer-bg"></div>
+                        </div>
+                        <!-- 签到 layer end -->
 
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
     </div>
     </center>
     <script>
@@ -206,7 +208,7 @@
 
                 function doCheck() {
                     <?php
-                    $uid=$_SESSION[$OJ_NAME . '_' . 'user_id'];
+                    $uid = $_SESSION[$OJ_NAME . '_' . 'user_id'];
                     echo "var uid=\"$uid\";";
                     ?>
                     $.post("template/bs3/sign-ajax.php?do=check&uid=" + uid, {}, function (data) {

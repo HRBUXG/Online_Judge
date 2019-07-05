@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="template/bs3/jquery.min.js"></script><!-- 调用js目录下的jquery.js文件 -->
     <script src="template/bs3/bootstrap.min.js"></script>
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!--    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
     <script src="template/bs3/echarts.min.js"></script><!-- 调用js目录下的echarts.js文件 -->
     <title>
         <?php echo $OJ_NAME ?>
@@ -647,7 +647,7 @@
                             if (counts[i] === '4') {
                                 qs++;
                             }
-                            qa
+                            qa++;
                             qa_i[0] = qa;//qa_i = [],获取qa值,qs_i = [];获取qs值,qd_i = [];获取qd值,qa用于进行做题次数计数，qs用于对做题正确次数计数,qd错误量计数
                             qs_i[0] = qs;
 

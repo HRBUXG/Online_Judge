@@ -1,11 +1,14 @@
 <html>
-<link rel="stylesheet" type="text/css" href="template/bs3/msglist.css"/>
-<script type="text/javascript" src="template/bs3/jquery.min.js"></script>
-<script type="text/javascript" src="template/bs3/msglist.js"></script>
+<link rel="stylesheet" type="text/css" href="./template/bs3/xcConfirm.css"/>
+<link rel="stylesheet" type="text/css" href="./template/bs3/msglist.css"/>
+<script src="./template/bs3/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="./template/bs3/msglist.js"></script>
+<script src="./template/bs3/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<script src='./template/bs3//socket.io.js'></script>
+<script src='http://cdn.bootcss.com/socket.io/1.3.7/socket.io.js'></script>
 <div class="qq-client">
-    <a href="javascript:void(0);" class="qq-client-open">消<br/>息<br/>盒<br/>子</a>
+    <a href="javascript:void(0);" class="qq-client-open" style="color:#eeeeee ">消<br/>息<br/>盒<br/>子</a>
 </div>
-
 <div class="qq-client-content" style="z-index: 999;">
     <h1>最新消息<span class="qq-client-close">关闭</span></h1>
     <div class="qq-client-list">
@@ -14,14 +17,9 @@
 
     </div>
 </div>
-<link rel="stylesheet" type="text/css" href="template/bs3/xcConfirm.css"/>
-<!--<script src="include/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>-->
-<script src="template/bs3/jquery.min.js"></script>
-<script src="template/bs3/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
-<script src='http://cdn.bootcss.com/socket.io/1.3.7/socket.io.js'></script>
-
 <script>
-    setInterval("test()", 2000);
+    test();
+    setInterval("test()", 5000);
 
     function test() {
         $.getJSON("template/bs3/msg_ajax.php", function (json) {
@@ -39,7 +37,6 @@
         });
     }
 </script>
-
 <script>
     // 连接服务端，workerman.net:2120换成实际部署web-msg-sender服务的域名或者ip
     var socket = io('http://' + document.domain + ':2120');
@@ -114,8 +111,8 @@ $count = $result1[0]['count'];
 	      
               <li <?php if ($url == "viewnews.php") echo " $ACTIVE"; ?>><a href="<?php echo $path_fix ?>viewnews.php"><?php echo $MSG_VIEWNEWS ?></a></li>
 	      -->
-                <li <?php if ($url == "faqs.cn.php") echo " $ACTIVE"; ?>><a
-                            href="<?php echo $path_fix ?>faqs.cn.php"><?php echo $MSG_FAQ ?></a></li>
+                <!--    <li <?php /*if ($url == "faqs.cn.php") echo " $ACTIVE"; */ ?>><a
+                            href="<?php /*echo $path_fix */ ?>faqs.cn.php"><?php /*echo $MSG_FAQ */ ?></a></li>-->
                 <?php if (isset($OJ_PRINTER) && $OJ_PRINTER) { ?>
                     <li <?php if ($url == "printer.php") echo " $ACTIVE"; ?>><a
                                 href="<?php echo $path_fix ?>printer.php"><?php echo $MSG_PRINTER ?></a></li>
@@ -153,14 +150,14 @@ $count = $result1[0]['count'];
                 <?php } ?>
                 <!--视频学习-->
                 <?php if (!isset($OJ_ON_SITE_CONTEST_ID)) { ?>
-                    <li <?php if ($url == "videostudy_source.php") echo " $ACTIVE"; ?>><a
-                                href="<?php echo $path_fix ?>videostudy_source.php"><?php echo $MSG_VIDEOSTUDY ?></a>
-                    </li>
+                    <!--    <li <?php /*if ($url == "videostudy_source.php") echo " $ACTIVE"; */ ?>><a
+                                href="<?php /*echo $path_fix */ ?>videostudy_source.php"><?php /*echo $MSG_VIDEOSTUDY */ ?></a>
+                    </li>-->
                     <!--下载学习资源-->
                     <!--下载学习资源-->
-                    <li <?php if ($url == "filedownload_source.php") echo " $ACTIVE"; ?>><a
-                                href="<?php echo $path_fix ?>filedownload_source.php"><?php echo $MSG_FILESTUDY ?></a>
-                    </li>
+                    <!--<li <?php /*if ($url == "filedownload_source.php") echo " $ACTIVE"; */ ?>><a
+                                href="<?php /*echo $path_fix */ ?>filedownload_source.php"><?php /*echo $MSG_FILESTUDY */ ?></a>
+                    </li>-->
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span><?php echo $MSG_PLAYER ?></span><span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
@@ -176,11 +173,36 @@ $count = $result1[0]['count'];
                             </li>
                         </ul>
                     </li>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span><?php echo "More Function" ?></span><span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <!--在线用户等级-->
+                            <li class="dropdown"<?php if ($url == "onlineuser.php") echo " $ACTIVE"; ?>><a
+                                        href="<?php echo $path_fix ?>onlineuser.php"><?php echo "onlineuser" ?></a>
+                            </li>
+                            <!--推送消息历史记录-->
+                            <li class="dropdown"<?php if ($url == "pushmsglist.php") echo " $ACTIVE"; ?>><a
+                                        href="<?php echo $path_fix ?>pushmsglist.php"><?php echo "PushmsgList" ?></a>
+                            </li>
+                            <!--  FAQ-->
+                            <li class="dropdown"<?php if ($url == "faqs.cn.php") echo " $ACTIVE"; ?>><a
+                                        href="<?php echo $path_fix ?>faqs.cn.php"><?php echo $MSG_FAQ ?></a>
+                            </li>
+                            <!--视频-->
+                            <li class="dropdown"<?php if ($url == "videostudy_source.php") echo " $ACTIVE"; ?>><a
+                                        href="<?php echo $path_fix ?>videostudy_source.php"><?php echo $MSG_VIDEOSTUDY ?></a>
+                            </li>
+                            <!--文件下载-->
+                            <li class="dropdown"<?php if ($url == "filedownload_source.php") echo " $ACTIVE"; ?>><a
+                                        href="<?php echo $path_fix ?>filedownload_source.php"><?php echo $MSG_FILESTUDY ?></a>
+                            </li>
+                            <!--我的购买题解记录-->
+                            <li class="dropdown"<?php if ($url == "filedownload_source.php") echo " $ACTIVE"; ?>><a
+                                        href="<?php echo $path_fix ?>filedownload_source.php"><?php echo "My purchase Record" ?></a>
+                            </li>
+                        </ul>
+                    </li>
                 <?php } ?>
-                <li <?php if ($url == "onlineuser.php") echo " $ACTIVE"; ?>><a
-                            href="<?php echo $path_fix ?>onlineuser.php"><?php echo "OnlineUesr"; ?></a></li>
-                <li <?php if ($url == "pushmsglist.php") echo " $ACTIVE"; ?>><a
-                            href="<?php echo $path_fix ?>pushmsglist.php"><?php echo "PushmsgList"; ?></a></li>
                 <li <?php
                 if (isset($_SESSION[$OJ_NAME . '_' . 'XML_creator']) == true) {
                     if ($url == "createxml.php") echo " $ACTIVE";
