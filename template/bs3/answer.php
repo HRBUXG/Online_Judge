@@ -33,7 +33,7 @@
     <?php include("template/$OJ_TEMPLATE/nav.php"); ?>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
-        <div class="panel panel-default">
+        <div id="top" class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
                     <?php
@@ -95,6 +95,7 @@
             </div>
         </div>
     </div>
+
 </div>
 <!-- Bootstrap core JavaScript
 ================================================== -->

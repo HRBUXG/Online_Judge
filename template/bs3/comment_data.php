@@ -13,6 +13,5 @@ $result = mysqli_query($con, $sql);
 
 while ($row = mysqli_fetch_array($result)) {
     $datas[] = array("user_id" => $row['user_id'], "problem_id" => $row['problem_id'], "content" => $row['content'], "sendtime" => $row['sendtime']);
-
 }
 echo json_encode($datas);//以json格式编码

@@ -28,7 +28,7 @@ foreach ($result as $row) {
 
 
 /////////////////////////Template
-require("template/" . $OJ_TEMPLATE . "/onlineuser.php");
+require("template/" . $OJ_TEMPLATE . "/bonus_score.php");
 /////////////////////////Common foot
 if (file_exists('./include/cache_end.php'))
     require_once('./include/cache_end.php');

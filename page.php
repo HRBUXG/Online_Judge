@@ -22,8 +22,17 @@ $result = mysqli_query($con, $sql);
     }
     echo json_encode($datas);//以json格式编码*/
 foreach ($result as $row) {
-    echo "<p>" . $row['user_id'] . $row['problem_id'] . $row['content'] . $row['sendtime'] . "</p>";
+    echo '<li><div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">用户：' . $row['user_id'] . '
+		</h3>
+	</div>
+	<div class="panel-body">
+		' . $row['content'] . '<br/><p style="text-align:right">评论时间：' . $row['sendtime'] . '
+	</p></div>
+</div></li>';
 }
+
 
 
 

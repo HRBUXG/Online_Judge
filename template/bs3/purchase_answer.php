@@ -24,10 +24,10 @@ $result = mysqli_query($con, $sql_purchase_status);
 foreach ($result as $row) {
     $purchase_status = $row['purchase_status'];
 }
-$sql_user_score = "select score from users where user_id='" . $user_id . "'";
+$sql_user_score = "select otherscore from users where user_id='" . $user_id . "'";
 $result2 = mysqli_query($con, $sql_user_score);
 foreach ($result2 as $row) {
-    $user_score = $row['score'];
+    $user_score = $row['otherscore'];
 }
 
 if ($purchase_status == 1) {

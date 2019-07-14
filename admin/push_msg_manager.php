@@ -1,4 +1,4 @@
-y<?php
+<?php
 /**
  * Created by PhpStorm.
  * User: wwj
@@ -17,6 +17,9 @@ y<?php
 </head>
 
 <body>
+<div id="header" style="padding:5px;background-color:#000; color:#FFF;text-align:center;">
+    <h2>Push message Manager</h2>
+</div>
 <?php
 
 //5.设置$page的默认值
@@ -59,7 +62,6 @@ $sql = "select * from pushmsg where groupflag='true' order by sendtime desc limi
 #$sql = "select * from bbs_user";
 $obj = mysqli_query($conn, $sql);
 echo "<center>";
-echo "<h2>Comments Manager</h2>";
 echo "<table class=\"table table-hover\" border = 1 cellspacing = '0' cellpadding = '10'>";
 //echo "<th>用户编号</th><th>题目题号</th><th>评论内容</th><th>发布时间</th><th>操作</th>";
 echo "<th>消息内容</th><th>发布时间</th><th>操作</th>";

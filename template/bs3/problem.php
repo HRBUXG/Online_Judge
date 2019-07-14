@@ -331,7 +331,8 @@
                             </tbody>
                         </table>
                         <div>
-                            <a href="#Submit" class="btn btn-info btn-sm" type="button"
+                            <a href="#
+22 " class="btn btn-info btn-sm" type="button"
                                style="width:80px;height:30px;margin-top:10px;margin-bottom:10px;border-radius:5px;background:red;border-width:0px;margin-left:10px;cursor:pointer;outline:none;font-size:15px;color:white;bold:none;text-align:center">Submit</a>
 
                             <a href="./answer.php" target="_blank" class="btn btn-info btn-sm" type="button"

@@ -55,7 +55,7 @@
             <div id=submission style="width:80%;height:300px"></div>
         </center>
         <center>
-            <?php if (!isset($_SESSION[$OJ_NAME . '_' . 'root'])) { ?>
+            <?php if (isset($_SESSION[$OJ_NAME . '_' . '00'])) { ?>
                 <div class="panel panel-default" style="width: 80%;margin: 3%">
                     <div class="panel-heading">
                         <h4 class="panel-title">
@@ -184,9 +184,10 @@
                             <div class="qiandao-layer-con qiandao-radius">
                                 <a href="javascript:;" class="close-qiandao-layer qiandao-sprits"></a>
                                 <div class="qiandao-jiangli qiandao-sprits">
-                                    <span class="qiandao-jiangli-num">0.55<em>元</em></span>
+                                    <span class="qiandao-jiangli-num">1.00<em>积分</em></span>
                                 </div>
-                                <a href="#" class="qiandao-share qiandao-tran">分享获取双倍收益</a>
+                                <p class="qiandao-share qiandao-tran">再接再厉哦</p>
+                                <!--                                <a href="#" class="qiandao-share qiandao-tran">分享获取双倍收益</a>-->
                             </div>
                             <div class="qiandao-layer-bg"></div>
                         </div>

@@ -16,9 +16,9 @@
     <link rel="icon" href="../../favicon.ico">
     <link rel="stylesheet" type="text/css" href="template/bs3/bootstrap.min.css"/>
 
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<!--    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css" media="screen" />-->
-    <link rel="stylesheet" type="text/css" href="template/bs3/style.css" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <!--    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css" media="screen" />-->
+    <link rel="stylesheet" type="text/css" href="template/bs3/style.css"/>
     <link rel="stylesheet" type="text/css" href="template/bs3/barrager.css">
     <link rel="stylesheet" type="text/css" href="template/bs3/pick-a-color-1.2.3.min.css">
     <link type="text/css" rel="stylesheet" href="template/bs3/shCoreDefault.css"/>
@@ -32,13 +32,13 @@
         }
 
         .box {
-            width: 600px;
+            width: 100%;
             height: 300px;
             margin: 50px auto;
         }
 
         .box p {
-            width: 600px;
+            width: 100%;
             height: 40px;
             border-bottom: 1px solid #999;
         }
@@ -80,7 +80,7 @@
             height: 30px;
             line-height: 30px;
             display: block;
-            margin: 20px 0 0 80px;
+            /*margin: 20px 0 0 80px;*/
         }
 
         .ul li {
@@ -115,6 +115,65 @@
             font-size: 12px;
             display: inline-block;
         }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        a, img {
+            border: 0;
+        }
+
+        body {
+            background: url(images/blog7year_videobg.png);
+            font: 12px/180% Arial, Helvetica, sans-serif, "新宋体";
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        a, img {
+            border: 0;
+        }
+
+        body {
+            background: url(images/blog7year_videobg.png);
+            font: 12px/180% Arial, Helvetica, sans-serif, "新宋体";
+        }
+
+
+        /* actGotop */
+        .actGotop {
+            position: fixed;
+            _position: absolute;
+            bottom: 100px;
+            right: 50px;
+            width: 150px;
+            height: 195px;
+            display: none;
+        }
+
+        .actGotop a, .actGotop a:link {
+            width: 150px;
+            height: 195px;
+            display: inline-block;
+            background: url(template/bs3/images/blog7year_gotop.png) no-repeat;
+            _background: url(template/bs3/images/blog7year_gotop.gif) no-repeat;
+            outline: none;
+        }
+
+        .actGotop a:hover {
+            background: url(template/bs3/images/blog7year_gotopd.gif) no-repeat;
+            outline: none;
+        }
+
     </style>
     <title><?php echo "Develop" ?></title>
     <?php include("template/$OJ_TEMPLATE/css.php"); ?>
@@ -129,7 +188,7 @@
 </head>
 
 <body>
-<div class="container">
+<div id="top" class="container">
     <?php include("template/$OJ_TEMPLATE/nav.php"); ?>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
@@ -138,28 +197,36 @@
             请注意评论文明礼仪，禁止脏话谩骂以及恶意灌水行为！管理员一经发现或他人举报将会进行惩罚措施！
         </marquee>
         <div class="box">
-            <p><b>发表评论</b></p>
+            <h4>
+                <button type="button" id="clear" class="label label-danger">弹幕清屏</button>
+            </h4>
+            <h4>
+                <button type="button" id="close" class="label label-danger" style="float: right;">弹幕关闭</button>
+            </h4>
+            <center>
+                <p><b>发表评论</b></p>
 
-            <div class="con">
-                题目号：
-                <label class="pid"><?php echo $_SESSION['ppid']; ?></label>
-                <br><br>
-                用户名：<!--<input type="text" class="name">
+                <div class="con ">
+                    <label class="label label-info">题目号：</label>
+                    <label class="pid "><?php echo $_SESSION['ppid']; ?></label>
+                    <label class="label label-info">用户名：</label><!--<input type="text" class="name">
                 <small>请输入6到15位字母加数字用户名</small>-->
 
-                <label class="uid"><?php echo $_SESSION[$OJ_NAME . '_' . 'user_id']; ?></label>
-
-                <br><br>
-                评论区：<textarea cols="40" rows="6" class="text" placeholder="请说出您的建议和意见，最多不超过60个字"></textarea>
-                <input type="button" value="提交" class="btn">
-            </div>
+                    <label class="uid"><?php echo $_SESSION[$OJ_NAME . '_' . 'user_id']; ?></label>
+                    <br>
+                    <label class="label label-info"> 评论区： </label>
+                    <br>
+                    <br><textarea cols="60" rows="6" class="text"
+                                  placeholder="请说出您的建议和意见，最多不超过60个字"></textarea>
+                    <input type="button" value="发送" class="btn btn-primary">
+                </div>
+            </center>
         </div>
-        <ul class="ul"></ul>
-
-
     </div>
+
     <div class="container" style="align:center">
         <div class="demo">
+            <ul class="ull"></ul>
             <div id="content">
                 <?php
                 $con = mysqli_connect('localhost', 'root', 'HRBUXGOJ');
@@ -171,7 +238,7 @@
                 mysqli_query($con, "set names utf8");
                 session_start();   //开启一个session会话SESSION是全局变量，只要被声明，在不关闭网页或者没有到SESSION的周期在所有页面都是可用的
                 $pid = $_SESSION['ppid'];
-                $sql = "select * FROM comment where problem_id=" . $pid . " order by sendtime desc limit 10";
+                $sql = "select * FROM comment where `lock` =0 and  `problem_id`=" . $pid . " order by sendtime desc limit 10";
                 $result = mysqli_query($con, $sql);
 
                 /*    while ($row = mysqli_fetch_array($result)) {
@@ -180,16 +247,27 @@
                     }
                     echo json_encode($datas);//以json格式编码*/
                 foreach ($result as $row) {
-                    echo "<p>" . $row['user_id'] . $row['problem_id'] . $row['content'] . $row['sendtime'] . "</p>";
+                    echo '<li><div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">用户：' . $row['user_id'] . '
+		</h3>
+	</div>
+	<div class="panel-body">
+		' . $row['content'] . '<br/><p style="text-align:right">评论时间：' . $row['sendtime'] . '
+	</p></div>
+</div></li>';
                 }
-
-
                 ?>
             </div>
-            <div id="pages"><a id="next" href="page.php?page=1">下一页</a></div>
+            <div id="pages"><a id="next" href="page.php?page=1"></a></div>
             <div class="loading"></div>
         </div>
     </div>
+  <!--  <h3><a href="#top" class="label label-danger" style="z-index:9999999;position:fixed;float:left;bottom:30%;">返回顶部</a>
+
+    </h3>-->
+    <div class="actGotop"><a href="javascript:;" title="返回顶部"></a></div>
+
 </div> <!-- /container -->
 
 
@@ -244,7 +322,7 @@
         },
         navSelector: "#pages", //导航的选择器，会被隐藏
         nextSelector: "#next", //包含下一页链接的选择器
-        itemSelector: "p", //你将要取回的选项(内容块)
+        itemSelector: "li", //你将要取回的选项(内容块)
         debug: true, //启用调试信息，若启用必须引入debug.js
         dataType: 'html', //格式要和itemSelector保持一致
         maxPage: 15, //最大加载的页数
@@ -270,7 +348,7 @@
 <script type="text/javascript" src="template/bs3/shBrushJScript.js"></script>
 <script type="text/javascript" src="template/bs3/shBrushPhp.js"></script>
 <script type="text/javascript" src="template/bs3/pick-a-color-1.2.3.min.js"></script>
-
+<!--关闭弹幕-->
 <script type="text/javascript">
     $.ajaxSettings.async = false;
     $.getJSON('comment_barrages.php?mode=2', function (data) {
@@ -305,8 +383,43 @@
                 clearInterval(looper);
                 return false;
             }
+            $("#close").click(function () {
+                //通过点击dom结点调用函数
+                $.fn.barrager.removeAll();
+                clearInterval(looper);
+                return false;
+            })
+
 
         }
+
+
+    });
+</script>
+<!--清屏弹幕-->
+<script>
+    $(document).ready(function () {
+        $("#clear").click(function () {
+            //通过点击dom结点调用函数
+            $.fn.barrager.removeAll();
+        })
+
+    })
+
+</script>
+<!--返回顶部-->
+<script type="text/javascript">
+    $(function () {
+        $(window).scroll(function () {
+            if ($(window).scrollTop() >= 100) {
+                $('.actGotop').fadeIn(300);
+            } else {
+                $('.actGotop').fadeOut(300);
+            }
+        });
+        $('.actGotop').click(function () {
+            $('html,body').animate({scrollTop: '0px'}, 800);
+        });
     });
 </script>
 </body>
