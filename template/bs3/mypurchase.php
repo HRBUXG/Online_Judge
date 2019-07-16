@@ -14,7 +14,7 @@
  */ ?>
 
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
@@ -159,9 +159,11 @@
 
 
             </div>
-            <div class="tab-pane fade" id="search">
-                <div class="loader">
-                    <div class="text">Loading...</div>
+
+
+            <div class="tab-pane fade" id="search" onclick="load()">
+                <div id="loading" class="loader">
+                    <div class="text">双击进入推荐</div>
                     <div class="horizontal">
                         <div class="circlesup">
                             <div class="circle"></div>
@@ -194,14 +196,35 @@
                             <div class="circle"></div>
                         </div>
                     </div>
-                </div>
 
+                </div>
+                <div id="recommend">
+                    <?php
+                    $sql = "select distinct t.problem_id,p.title,p.tags,p.difficulty 
+from
+ (select * from solution where result!=4 and user_id=" . $user_id . " order by judgetime) t,problem p 
+ where t.problem_id <> all (select problem_id from purchase_record) and p.problem_id=t.problem_id and p.problem_id!=0 
+ order by judgetime desc limit 10";
+                    $result = pdo_query($sql);
+                    echo "<table class=\"table table-responsive\" border = 1 cellspacing = '0' cellpadding = '10'>";
+                    //echo "<th>用户编号</th><th>题目题号</th><th>评论内容</th><th>发布时间</th><th>操作</th>";
+                    //                echo "<th>消息内容</th><th>发布时间</th>";
+                    echo "<thead><tr><td>problem_id<td>title<td>tags<td>difficulty</tr></thead>";
+                    foreach ($result as $row) {
+                        echo "<tr>";
+                        echo "<td>" . $row['problem_id'];
+                        echo "<td>" . $row['title'];
+                        echo "<td>" . $row['tags'];
+                        echo "<td>" . $row['difficulty'];
+                        echo "</tr>";
+                    } ?>
+                    </table>
+                </div>
             </div>
 
 
         </div>
     </div>
-</div>
 </div> <!-- /container -->
 
 <!--<script>
@@ -298,27 +321,32 @@
             // url: "template/bs3/purchase_sql.php", //SQL数据库文件
             url: "template/bs3/purchase_rate_sql.php?uid=" +<?php echo $user_id?>, //SQL数据库文件
             data: {},           //发送给数据库的数据
-            dataType: "json",   //json类型
+            dataType: "text",   //json类型
             success: function (result) {
                 console.log(result);
-                if (result) {
-                    for (var i = 0; i < result.length; i++) {
-                        counts.push(result[i].result_i);//push()向数组的末尾添加一个或多个元素，并返回新的长度。
-                        console.log(result[i].result_i);//控制台输出
-                        if (counts[i] <= 3) {
-                            Accepted++;
-                        } else if (counts[i] <= 6) {
-                            Presentation_Error++;
-                        } else {
-                            Wrong_Answer++;
+                var app = {};
+                app.title = '仪表';//标题
+                option2 = null;
+                option2 = {
+                    tooltip: {
+                        formatter: "{a} <br/>{b} : {c}%"
+                    },
+                    toolbox: {
+                        feature: {
+                            restore: {},
+                            saveAsImage: {}
                         }
-                    }
-                    Accepted_i[0] = Accepted;
-                    Presentation_Error_i[0] = Presentation_Error;
-                    Wrong_Answer_i[0] = Wrong_Answer;
-                    // Time_Limit_Exceed_i[0] = Time_Limit_Exceed;
-                    // Memory_Limit_Exceed_i[0] = Memory_Limit_Exceed;
-                }
+                    },
+                    series: [
+                        {
+                            name: '购买率',
+                            type: 'gauge',
+                            detail: {formatter: '{value}%'},
+                            data: [{value: result, name: '题解财富排行'}]
+                        }
+                    ]
+                };
+                myChart2.setOption(option2, true);
             }
         })
     }
@@ -326,33 +354,11 @@
     //执行异步请求
     TestAjax();
 
-    var app = {};
-    app.title = '仪表';//标题
-    option2 = null;
-    option2 = {
-        tooltip: {
-            formatter: "{a} <br/>{b} : {c}%"
-        },
-        toolbox: {
-            feature: {
-                restore: {},
-                saveAsImage: {}
-            }
-        },
-        series: [
-            {
-                name: '购买率',
-                type: 'gauge',
-                detail: {formatter: '{value}%'},
-                data: [{value: 50, name: '题解财富排行'}]
-            }
-        ]
-    };
 
-    setInterval(function () {
-        option2.series[0].data[0].value = 20;
-        myChart2.setOption(option2, true);
-    }, 2000);
+    // setInterval(function () {
+    //     option2.series[0].data[0].value = 20;
+    //
+    // }, 2000);
 
 
 </script>
@@ -515,6 +521,23 @@
                 });
             }
         })
+    }
+
+</script>
+<!--隐藏加载动画-->
+<script>
+    $(document).ready(function(){
+        document.getElementById("recommend").style.display = 'none';
+    });
+    function load() {
+        
+        var a = setTimeout("loading.style.transition='opacity 0.3s'", 0)
+        //设置透明度改变的过渡时间为0.3秒
+        var b = setTimeout("loading.style.opacity=0", 200)
+        //0.5秒后加载动画开始变为透明
+        var c = setTimeout("loading.style.display='none'", 800)
+        //当透明度为0的时候，隐藏掉它
+        document.getElementById("recommend").style.display = 'block';
     }
 
 </script>

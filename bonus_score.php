@@ -6,20 +6,13 @@ require_once('./include/cache_start.php');
 require_once('./include/db_info.inc.php');
 ini_set("display_errors", "Off");
 require_once('./include/setlang.php');
-require_once('./include/online.php');
-$on = new online();
 $view_title = "Welcome To Online Judge";
-require_once('./include/iplocation.php');
-$ip = new IpLocation();
-$users = $on->getAll();
-
 $user_id = $_SESSION[$OJ_NAME . '_' . 'user_id'];
-$sql = "select solved from users where user_id=" . $user_id;
+$sql = "select distinct s.problem_id,judgetime,difficulty from solution as s,problem as p where result=4 and s.problem_id=p.problem_id and user_id=" . $user_id . " order by judgetime desc";
 $result = pdo_query($sql);
 foreach ($result as $row) {
     $count_solved = $row['solved'];
 }
-
 
 ?>
 

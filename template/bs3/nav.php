@@ -195,18 +195,45 @@ $count = $result1[0]['count'];
                             <li class="dropdown"<?php if ($url == "onlineuser.php") echo " $ACTIVE"; ?>><a
                                         href="<?php echo $path_fix ?>onlineuser.php"><?php echo "OnlineUser" ?></a>
                             </li>
-                            <li class="dropdown"<?php if ($url == "bonus_score.php") echo " $ACTIVE"; ?>><a
-                                        href="<?php echo $path_fix ?>bonus_score.php"><?php echo "Bonus Score" ?></a>
-                            </li>
                             <!--推送消息历史记录-->
                             <li class="dropdown"<?php if ($url == "pushmsglist.php") echo " $ACTIVE"; ?>><a
                                         href="<?php echo $path_fix ?>pushmsglist.php"><?php echo "PushmsgList" ?></a>
                             </li>
 
-                            <!--我的购买题解记录-->
-                            <li class="dropdown"<?php if ($url == "mypurchase.php") echo " $ACTIVE"; ?>><a
-                                        href="<?php echo $path_fix ?>mypurchase.php"><?php echo "My purchase Record" ?></a>
-                            </li>
+                            <li <?php
+                            if (!isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
+                                if ($url == "bonus_score.php") echo " $ACTIVE";
+                                echo "><a href='bonus_score.php'> Bonus Scoree </a></li>";
+                            } else {
+                                echo "></li>";
+                            }
+                            ?>
+                            <li <?php
+                            if (!isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
+                                if ($url == "mypurchase.php") echo " $ACTIVE";
+                                echo "><a href='mypurchase.php'> Answer Record </a></li>";
+                            } else {
+                                echo "></li>";
+                            }
+                            ?>
+
+
+                            <!--                            <!-- 签到和积分-->
+                            <!--                            <li class="dropdown"-->
+                            <?php //if ($url == "bonus_score.php") echo " $ACTIVE"; ?><!-->
+                            <a-->
+                                <!--                                        href="-->
+                                <?php //echo $path_fix ?><!--bonus_score.php">-->
+                                <?php //echo "Bonus Score" ?><!--</a>-->
+                                <!--                            </li>-->
+                                <!--                            <!--我的购买题解记录-->
+                                <!--                            <li class="dropdown"-->
+                                <?php //if ($url == "mypurchase.php") echo " $ACTIVE"; ?><!-->
+                                <a-->
+                                    <!--                                        href="-->
+                                    <?php //echo $path_fix ?><!--mypurchase.php">-->
+                                    <?php //echo "My purchase Record" ?><!--</a>-->
+                                    <!--                            </li>-->
                         </ul>
                     </li>
                 <?php } ?>

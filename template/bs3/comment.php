@@ -192,6 +192,12 @@
     <?php include("template/$OJ_TEMPLATE/nav.php"); ?>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
+        <?php
+        $con = mysqli_connect('localhost', 'root', 'HRBUXGOJ', 'jol');
+        mysqli_query($con, "set names utf8");
+
+
+        ?>
         <marquee style="margin-top:10px" id="broadcast" scrollamount="1" scrolldelay="50" onmouseover="this.stop()"
                  onmouseout="this.start()" class="toprow">﻿
             请注意评论文明礼仪，禁止脏话谩骂以及恶意灌水行为！管理员一经发现或他人举报将会进行惩罚措施！
@@ -214,9 +220,9 @@
 
                     <label class="uid"><?php echo $_SESSION[$OJ_NAME . '_' . 'user_id']; ?></label>
                     <br>
-                    <label class="label label-info"> 评论区： </label>
+                    <!--                    <label class="label label-info"> 评论区： </label>-->
                     <br>
-                    <br><textarea cols="60" rows="6" class="text"
+                    <br><textarea cols="60" rows="6" class="text" style="width: 40%"
                                   placeholder="请说出您的建议和意见，最多不超过60个字"></textarea>
                     <input type="button" value="发送" class="btn btn-primary">
                 </div>
@@ -263,21 +269,95 @@
             <div class="loading"></div>
         </div>
     </div>
-  <!--  <h3><a href="#top" class="label label-danger" style="z-index:9999999;position:fixed;float:left;bottom:30%;">返回顶部</a>
+    <!--  <h3><a href="#top" class="label label-danger" style="z-index:9999999;position:fixed;float:left;bottom:30%;">返回顶部</a>
 
-    </h3>-->
+      </h3>-->
     <div class="actGotop"><a href="javascript:;" title="返回顶部"></a></div>
-
+    <?php
+    $sql = "select * from shieldwords where status=1";
+    $result = mysqli_query($con, $sql);
+    $str = "";
+    foreach ($result as $row) {
+        $str = $str . $row['keywords'] . '|';
+    }
+    ?>
 </div> <!-- /container -->
 
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+
 <?php include("../../template/$OJ_TEMPLATE/js.php"); ?>
 <!--折叠面板-->
 <!--ajax评论-->
-<script src="template/bs3/cons.js"></script>
+
+<!--<script src="template/bs3/cons.js"></script>-->
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $(".btn").click(function () {
+            function p(s) {
+                return s < 10 ? '0' + s : s;
+            }
+
+            var myDate = new Date();
+            var year = myDate.getFullYear();
+            var month = myDate.getMonth() + 1;
+            var date = myDate.getDate();
+            var h = myDate.getHours();
+            var m = myDate.getMinutes();
+            var s = myDate.getSeconds();
+            var now = year + '-' + p(month) + "-" + p(date) + " " + p(h) + ':' + p(m) + ":" + p(s);
+            var oT = $(".box .text").val();
+            var primary = oT;
+            //var re = /中华人民共和国|发红包|看到没/g;
+            var re = /<?php echo $str;?>|看到没/g;
+
+            var regexed = "";
+            regexed = oT.replace(re, function (str) {
+                //函数中的第一个参数是整个正则表达式,第二个是第一个子项....
+                var result = '';
+                for (var i = 0; i < str.length; i++) {
+                    result += '*';
+                }
+                console.log(result);
+                return result;
+            });
+            if ($(".box .text").val().length == 0) {
+                alert("请说出您宝贵的意见和建议")
+            } else {
+
+                $.ajax({
+                    type: "POST",
+                    url: "template/bs3/send_comment.php",
+                    data: {
+                        "user_id": $(".con .uid").html(),
+                        "problem_id": $(".con .pid").html(),
+                        "content_primary": primary,
+                        "content": regexed,
+                        "sendtime": now
+                    },
+                    success: function (data) {
+                        //var str = "<li><p>" + "用户" + $(".con .uid").html() + ":" + "</p><span>" + $(".box .text").val() + "</span><a>" + now + "</a></li>";
+                        var str = '<li><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">' + '用户:' + $(".con .uid").html() + ':' + '</h3></div><div class="panel-body">' +/* $(".box .text").val()*/regexed + '<br/><p style="text-align:right">评论时间：' + now + '</p></div></div></li>';
+
+                        $(".ull").prepend(str);
+                        alert(data);
+
+                    },
+                    error: function () {
+                        console.log("失败，请稍后再试！");
+                    },
+                });
+            }
+        })
+    })
+</script>
+
 <!--鼠标特性-->
 <script type="text/javascript">
     /* 鼠标特效 */

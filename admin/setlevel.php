@@ -11,7 +11,7 @@
 <div id="header" style="padding:5px;background-color:#000; color:#FFF;text-align:center;">
     <h2>Set Level Rule</h2>
 </div>
-<br />
+<br/>
 <!--<center><h1>Set Level Rule</h1></center>-->
 
 <div style="width: 80%;text-align:center;margin:0 auto">
@@ -31,31 +31,39 @@
     ?>
     <form action="edit_levelxml.php" method="post">
         <div>
-            <span class="label label-default">level 1</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"
-                                                                                                 name="level1"
-                                                                                                 value="<?php echo $levelss[0] ?>"
-                                                                                                 onkeyup="if(/\D/g.test(this.value)){alert('只能整数');this.value='';}"/>
+            <span class="label label-default">level 1</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;解决&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                    type="text"
+                    name="level1"
+                    value="<?php echo $levelss[0] ?>"
+                    onkeyup="if(/\D/g.test(this.value)){alert('只能整数');this.value='';}"/>
+            题
         </div>
         <br/>
         <div>
-            <span class="label label-default">level 2</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"
-                                                                                                 name="level2"
-                                                                                                 value="<?php echo $levelss[1] ?>"
-                                                                                                 onkeyup="if(/\D/g.test(this.value)){alert('只能整数');this.value='';}"/>
+            <span class="label label-default">level 2</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;解决&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                    type="text"
+                    name="level2"
+                    value="<?php echo $levelss[1] ?>"
+                    onkeyup="if(/\D/g.test(this.value)){alert('只能整数');this.value='';}"/>
+            题
         </div>
         <br/>
         <div>
-            <span class="label label-default">level 3</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"
-                                                                                                 name="level3"
-                                                                                                 value="<?php echo $levelss[2] ?>"
-                                                                                                 onkeyup="if(/\D/g.test(this.value)){alert('只能整数');this.value='';}"/>
+            <span class="label label-default">level 3</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;解决&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                    type="text"
+                    name="level3"
+                    value="<?php echo $levelss[2] ?>"
+                    onkeyup="if(/\D/g.test(this.value)){alert('只能整数');this.value='';}"/>
+            题
         </div>
         <br/>
         <div>
-            <span class="label label-default">level 4</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"
-                                                                                                 name="level4"
-                                                                                                 value="<?php echo $levelss[3] ?>"
-                                                                                                 onkeyup="if(/\D/g.test(this.value)){alert('只能整数');this.value='';}"/>
+            <span class="label label-default">level 4</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;解决&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                    type="text"
+                    name="level4"
+                    value="<?php echo $levelss[3] ?>"
+                    onkeyup="if(/\D/g.test(this.value)){alert('只能整数');this.value='';}"/>
+            题
         </div>
         <br/>
         <input class="btn btn-primary" type="submit" value="提交"/>

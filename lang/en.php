@@ -26,7 +26,7 @@ $MSG_SET_LOGIN_IP = "SetLoginIP";
 //	新加常亮
 $MSG_DEGREE_OF_DIFFICULTY = "Difficulty";
 $MSG_PROBLEM_LABEL = "Label";
-$MSG_SCORE = "Score";
+$MSG_SCORE = "Point";
 $MSG_OTHEROJAC = "ContestOJ";
 $MSG_USERIDS = "OJ Platform Account";
 $MSG_NEWCODE = "New Code";

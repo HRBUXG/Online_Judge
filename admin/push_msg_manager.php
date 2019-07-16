@@ -62,16 +62,16 @@ $sql = "select * from pushmsg where groupflag='true' order by sendtime desc limi
 #$sql = "select * from bbs_user";
 $obj = mysqli_query($conn, $sql);
 echo "<center>";
-echo "<table class=\"table table-hover\" border = 1 cellspacing = '0' cellpadding = '10'>";
+echo "<table style='text-align:center;' class=\"table table-hover\" border = 1 cellspacing = '0' cellpadding = '10'>";
 //echo "<th>用户编号</th><th>题目题号</th><th>评论内容</th><th>发布时间</th><th>操作</th>";
-echo "<th>消息内容</th><th>发布时间</th><th>操作</th>";
+echo "<th style='text-align:center;' >消息内容</th><th  style='text-align:center;width: 10%'>发布时间</th><th  style='text-align:center;width: 8%'>操作</th>";
 while ($row = mysqli_fetch_assoc($obj)) {
     echo "<tr>";
     // echo '<td>' . $row['user_id'] . '</td>';
     echo '<td>' . $row['content'] . '</td>';
     //  echo '<td>' . $row['groupflag'] . '</td>';
     echo '<td>' . $row['sendtime'] . '</td>';
-    echo '<td><a href = "push_msg_del.php?id=' . $row['id'] . '">删除</a></td>';
+    echo '<td><a href = "push_msg_del.php?id=' . $row['id'] . '">【删除】</a></td>';
     echo "</tr>";
 }
 

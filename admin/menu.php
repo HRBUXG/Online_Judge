@@ -110,7 +110,7 @@ if (isset($OJ_LANG)) {
                 <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) { ?>
                     <li>
                         <div style="text-indent:20px" class="buttuna">
-                            <a href="upload_standard_solution.php" target="main"
+                            <a href="upload_problem_solution.php" target="main"
                                title="<?php echo $MSG_HELP_ADD_PROBLEM ?>">
                                 <b><?php echo "Upload Standard Solution" ?></b>
                             </a>
@@ -122,6 +122,13 @@ if (isset($OJ_LANG)) {
                         <div style="text-indent:20px" class="buttuna">
                             <a href="comments_manager.php" target="main" title="<?php echo $MSG_HELP_ADD_PROBLEM ?>">
                                 <b><?php echo "Comments Manager" ?></b>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div style="text-indent:20px" class="buttuna">
+                            <a href="shieldwords_manager.php" target="main" title="<?php echo $MSG_HELP_ADD_PROBLEM ?>">
+                                <b><?php echo "Shieldwords Manager" ?></b>
                             </a>
                         </div>
                     </li>

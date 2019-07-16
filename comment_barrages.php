@@ -16,7 +16,7 @@ mysqli_select_db($con, 'jol');
 mysqli_query($con, "set names utf8");
 session_start();   //开启一个session会话SESSION是全局变量，只要被声明，在不关闭网页或者没有到SESSION的周期在所有页面都是可用的
 $pid = $_SESSION['ppid'];
-$sql = "select substring(content,1,20) as sub_content FROM comment where `lock`=0 and `problem_id`=" . $pid . " order by sendtime desc";
+$sql = "select substring(content,1,20) as sub_content FROM comment where `content`=`content_primary` and `lock`=0 and `problem_id`=" . $pid . " order by sendtime desc";
 $result = mysqli_query($con, $sql);
 
 /*    while ($row = mysqli_fetch_array($result)) {
