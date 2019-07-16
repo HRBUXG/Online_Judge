@@ -212,7 +212,7 @@ from
                     echo "<thead><tr><td>problem_id<td>title<td>tags<td>difficulty</tr></thead>";
                     foreach ($result as $row) {
                         echo "<tr>";
-                        echo "<td>" . $row['problem_id'];
+                        echo "<td><a href='problem.php?id=" . $row['problem_id'] . "'>" . $row['problem_id'] . "</a>" ;
                         echo "<td>" . $row['title'];
                         echo "<td>" . $row['tags'];
                         echo "<td>" . $row['difficulty'];
