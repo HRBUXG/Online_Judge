@@ -171,11 +171,6 @@ $count = $result1[0]['count'];
                             <li class="dropdown"<?php if ($url == "now_playerinformation.php") echo " $ACTIVE"; ?>><a
                                         href="<?php echo $path_fix ?>now_playerinformation.php"><?php echo $MSG_NOW_PLAYINFORMATION ?></a>
                             </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <span><?php echo "More Function" ?></span><span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
                             <!--视频-->
                             <li class="dropdown"<?php if ($url == "videostudy_source.php") echo " $ACTIVE"; ?>><a
                                         href="<?php echo $path_fix ?>videostudy_source.php"><?php echo $MSG_VIDEOSTUDY ?></a>
@@ -184,6 +179,12 @@ $count = $result1[0]['count'];
                             <li class="dropdown"<?php if ($url == "filedownload_source.php") echo " $ACTIVE"; ?>><a
                                         href="<?php echo $path_fix ?>filedownload_source.php"><?php echo $MSG_FILESTUDY ?></a>
                             </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span><?php echo "More Function" ?></span><span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+
                             <!--题源标签-->
                             <li <?php if ($url == "category.php") echo " $ACTIVE"; ?>><a
                                         href="<?php echo $path_fix ?>category.php"><?php echo $MSG_SOURCE ?></a></li>
@@ -191,19 +192,23 @@ $count = $result1[0]['count'];
                             <li class="dropdown"<?php if ($url == "faqs.cn.php") echo " $ACTIVE"; ?>><a
                                         href="<?php echo $path_fix ?>faqs.cn.php"><?php echo $MSG_FAQ ?></a>
                             </li>
-                            <!--在线用户等级-->
-                            <li class="dropdown"<?php if ($url == "onlineuser.php") echo " $ACTIVE"; ?>><a
-                                        href="<?php echo $path_fix ?>onlineuser.php"><?php echo "OnlineUser" ?></a>
-                            </li>
+
                             <!--推送消息历史记录-->
                             <li class="dropdown"<?php if ($url == "pushmsglist.php") echo " $ACTIVE"; ?>><a
-                                        href="<?php echo $path_fix ?>pushmsglist.php"><?php echo "PushmsgList" ?></a>
+                                        href="<?php echo $path_fix ?>pushmsglist.php"><?php echo "Radio List" ?></a>
                             </li>
-
+                            <!--我的评论-->
+                            <li class="dropdown"<?php if ($url == "mycomments.php") echo " $ACTIVE"; ?>><a
+                                        href="<?php echo $path_fix ?>mycomments.php"><?php echo "My Comments" ?></a>
+                            </li>
+                            <!--在线用户等级-->
+                            <li class="dropdown"<?php if ($url == "onlineuser.php") echo " $ACTIVE"; ?>><a
+                                        href="<?php echo $path_fix ?>onlineuser.php"><?php echo "Online User" ?></a>
+                            </li>
                             <li <?php
                             if (!isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
                                 if ($url == "bonus_score.php") echo " $ACTIVE";
-                                echo "><a href='bonus_score.php'> Bonus Scoree </a></li>";
+                                echo "><a href='bonus_score.php'> Bonus Score </a></li>";
                             } else {
                                 echo "></li>";
                             }

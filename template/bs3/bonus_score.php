@@ -9,6 +9,7 @@
     <link rel="icon" href="../../favicon.ico">
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="template/bs3/qiandao_style.css">
+
     <!--    <script src="template/bs3/jquery.min.js"></script>-->
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title><?php echo $OJ_NAME ?></title>
@@ -31,13 +32,124 @@
 
     <div class="jumbotron">
         <ul id="myTab" class="nav nav-tabs">
-            <li class="active"><a href="#home" data-toggle="tab">签到日历</a></li>
-            <li><a href="#level" data-toggle="tab">积分明细</a></li>
+            <li class="active"><a href="#home" data-toggle="tab">积分流水</a></li>
+            <li><a href="#level" data-toggle="tab">签到日历</a></li>
         </ul>
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane fade in active" id="home">
+                <?php
+                $page = empty($_GET['page']) ? 1 : $_GET['page'];
+                $conn = mysqli_connect("localhost", "root", "HRBUXGOJ");
+                mysqli_query($conn, "set names utf8");
+                mysqli_query($conn, "SET time_zone = '+8:00'");
+                if (!$conn) {
+                    echo "失败";
+                }
+                mysqli_select_db($conn, "jol");
+                $user_id = $_SESSION[$OJ_NAME . '_' . 'user_id'];
 
 
+                $sql_c = "SELECT
+	COUNT(*) AS count 
+FROM
+	(( SELECT 'tag1', user_id, 'info', check_time AS time, sign_score FROM sign WHERE user_id = '" . $user_id . "' ) UNION
+( SELECT 'tag2', user_id, problem_id, purchase_time AS time, purchase_score FROM purchase_record WHERE user_id = '" . $user_id . "' ) UNION
+(
+SELECT
+	'tag3',
+	s.user_id,
+	s.problem_id,
+	judgetime AS time,
+	p.difficulty 
+FROM
+	solution s,
+	problem p 
+WHERE
+	p.problem_id = s.problem_id 
+	AND p.difficulty IS NOT NULL 
+	AND result = 4 
+	AND user_id = '" . $user_id . "'
+	) ) AS t";
+                $result = mysqli_query($conn, $sql_c);
+                $pageRes = mysqli_fetch_assoc($result);
+                #var_dump($pageRes);   //13
+                $count = $pageRes['count'];
+
+
+                //2.每页显示数(5)
+                $num = 15;
+
+                //3.根据每页显示数求出总页数
+                $pageCount = ceil($count / $num);  //向上取整
+                #var_dump($pageCount);  //3
+
+                //4.根据总页数求出偏移量
+                $offset = ($page - 1) * $num;  //$page默认为 1, 下一步设置
+
+
+                $sql = "( SELECT 'tag1', user_id, 'info', check_time AS time, sign_score FROM sign WHERE user_id = '" . $user_id . "' ) UNION
+( SELECT 'tag2', user_id, problem_id, purchase_time AS time, purchase_score FROM purchase_record WHERE user_id = '" . $user_id . "' ) UNION
+(
+SELECT
+	'tag3',
+	s.user_id,
+	s.problem_id,
+	judgetime AS time,
+	p.difficulty 
+FROM
+	solution s,
+	problem p 
+WHERE
+	p.problem_id = s.problem_id 
+	AND p.difficulty IS NOT NULL 
+	AND result = 4 
+	AND user_id = '" . $user_id . "'
+	) 
+ORDER BY
+	time DESC 
+	LIMIT ". $offset . ',' . $num;
+                $result = mysqli_query($conn, $sql);
+                echo "<table class=\"table table-hover table-striped\" >";
+                echo "<thead><tr><td>时间<td>流水<td></thead>";
+                foreach ($result as $row) {
+                    echo "<tr>";
+                    echo "<td>" . $row['time'];
+                    if ($row['tag1'] == "tag1") {
+                        echo "<td><span class=\"glyphicon glyphicon-check\"></span>    
+签到入口每日签到,获得" . $row['sign_score'] . "积分";
+                    } elseif ($row['tag1'] == "tag2") {
+                        echo "<td><span class=\"glyphicon glyphicon-shopping-cart\">购买" . $row['info'] . "题的题解,花费" . $row['sign_score'] . "积分";
+                    } elseif ($row['tag1'] == "tag3") {
+                        echo "<td><span class=\"glyphicon glyphicon-book\">练习做" . $row['info'] . "题,获得" . $row['sign_score'] . "积分";
+                    }
+                    echo "</tr>";
+                }
+                echo "</table>";
+                $prev = $page - 1;
+                $next = $page + 1;
+
+                //11.设置页数限制
+                if ($prev < 1) {
+                    $prev = 1;
+                }
+                if ($next > $pageCount) {
+                    $next = $pageCount;
+                }
+                ?>
+                <center>
+                    <a href="bonus_score.php?page=1">首页</a>&nbsp;&nbsp;&nbsp;
+                    <a href="bonus_score.php?page=<?php echo $prev; ?>">上一页</a>&nbsp;&nbsp;&nbsp;
+                    <!--混编简写-->
+                    <a href="bonus_score.php?page=<?= $next; ?>">下一页</a>&nbsp;&nbsp;&nbsp;
+                    <a href="bonus_score.php?page=<?= $pageCount; ?>">尾页</a>
+                </center>
+
+
+
+            </div>
+            <!-- 签到 layer end -->
+
+            <div class="tab-pane fade" id="level">
                 <p align=left>
                     <?php /*echo $MSG_Description*/ ?><!--:<br>
                             <textarea class="kindeditor" rows=13 name=description cols=80 style="width:1px" ></textarea>-->
@@ -165,11 +277,6 @@
                     <!--                                <a href="#" class="qiandao-share qiandao-tran">分享获取双倍收益</a>-->
                 </div>
                 <div class="qiandao-layer-bg"></div>
-            </div>
-            <!-- 签到 layer end -->
-
-            <div class="tab-pane fade" id="level">
-
             </div>
         </div>
     </div>

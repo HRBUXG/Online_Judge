@@ -17,5 +17,8 @@ if (!$conn) {
 }
 
 mysqli_close($conn);
-echo "锁定评论成功！仅管理员可见";
+echo "操作成功！";
+echo "<script>
+    window.history.back(-1);
+</script>"
 ?>

@@ -13,8 +13,14 @@ require_once('./include/iplocation.php');
 $ip = new IpLocation();
 $users = $on->getAll();
 
+/*if (isset($_SESSION[$OJ_NAME . '_' . 'user_id'])) {
+
+} elseif (isset($_SESSION[$OJ_NAME . '_' . 'administrator'])) {
+    $user_id = "admin";
+}*/
 $user_id = $_SESSION[$OJ_NAME . '_' . 'user_id'];
-$sql = "select solved from users where user_id=" . $user_id;
+//$user_id  = $_SESSION['user_id'];
+$sql = "select solved from users where user_id='" . $user_id."'";
 $result = pdo_query($sql);
 foreach ($result as $row) {
     $count_solved = $row['solved'];

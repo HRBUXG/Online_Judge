@@ -37,11 +37,11 @@
             margin: 50px auto;
         }
 
-        .box p {
+/*        .box p {
             width: 100%;
             height: 40px;
-            border-bottom: 1px solid #999;
-        }
+           border-bottom: 1px solid #999;
+        }*/
 
         .box p b {
             width: 80px;
@@ -193,8 +193,21 @@
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
         <?php
-        $con = mysqli_connect('localhost', 'root', 'HRBUXGOJ', 'jol');
+        $con = mysqli_connect('localhost', 'root', 'HRBUXGOJ');
+        if (!$con) {
+            die('连接失败: ' . mysqli_error($con));
+        }
+
+        mysqli_select_db($con, 'jol');
         mysqli_query($con, "set names utf8");
+        session_start();   //开启一个session会话SESSION是全局变量，只要被声明，在不关闭网页或者没有到SESSION的周期在所有页面都是可用的
+        $pid = $_SESSION['ppid'];
+        $sql="select title,description from problem where problem_id=".$pid;
+        $result=mysqli_query($con,$sql);
+        foreach ($result as $row){
+            $title=$row['title'];
+            $description=$row['description'];
+        }
 
 
         ?>
@@ -210,11 +223,19 @@
                 <button type="button" id="close" class="label label-danger" style="float: right;">弹幕关闭</button>
             </h4>
             <center>
-                <p><b>发表评论</b></p>
+                <p style=" width: 100%;height: 40px;border-bottom: 1px solid #999;"><b>发表评论</b></p>
+                <div style="width: 60%;float: left;border:1px solid #ccc;background-color: #f5f5f5">
+                    <?php echo $title;?>
+                    <?php echo $description;?>
+
+                </div>
 
                 <div class="con ">
                     <label class="label label-info">题目号：</label>
-                    <label class="pid "><?php echo $_SESSION['ppid']; ?></label>
+                    <label class="pid" ><?php echo $pid ?></label>
+                    <div>
+
+                    </div>
                     <label class="label label-info">用户名：</label><!--<input type="text" class="name">
                 <small>请输入6到15位字母加数字用户名</small>-->
 
@@ -222,9 +243,9 @@
                     <br>
                     <!--                    <label class="label label-info"> 评论区： </label>-->
                     <br>
-                    <br><textarea cols="60" rows="6" class="text" style="width: 40%"
+                    <br><textarea cols="60" rows="6" class="text" style="width: 20%"
                                   placeholder="请说出您的建议和意见，最多不超过60个字"></textarea>
-                    <input type="button" value="发送" class="btn btn-primary">
+                    <input style="margin-left:60%; " type="button" value="发送" class="btn btn-primary">
                 </div>
             </center>
         </div>
@@ -235,15 +256,7 @@
             <ul class="ull"></ul>
             <div id="content">
                 <?php
-                $con = mysqli_connect('localhost', 'root', 'HRBUXGOJ');
-                if (!$con) {
-                    die('连接失败: ' . mysqli_error($con));
-                }
 
-                mysqli_select_db($con, 'jol');
-                mysqli_query($con, "set names utf8");
-                session_start();   //开启一个session会话SESSION是全局变量，只要被声明，在不关闭网页或者没有到SESSION的周期在所有页面都是可用的
-                $pid = $_SESSION['ppid'];
                 $sql = "select * FROM comment where `lock` =0 and  `problem_id`=" . $pid . " order by sendtime desc limit 10";
                 $result = mysqli_query($con, $sql);
 
