@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="template/bs3/jquery.min.js"></script><!-- 调用js目录下的jquery.js文件 -->
     <script src="template/bs3/bootstrap.min.js"></script>
-<!--    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <!--    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
     <script src="template/bs3/echarts.min.js"></script><!-- 调用js目录下的echarts.js文件 -->
     <title>
         <?php echo $OJ_NAME ?>
@@ -291,10 +291,10 @@
                                 <td class="td-left">题目难度</td>
                                 <td class="td-right">
                                     <?php
-                                    for ($i = 0; $i < ceil($row['difficulty']); $i++) {
+                                    for ($i = 0; $i < ceil(5 * $row['difficulty']); $i++) {
                                         echo '<span class="glyphicon glyphicon-star"></span>';
                                     }
-                                    for ($i = 5; $i > ceil($row['difficulty']); $i--) {
+                                    for ($i = 5; $i > ceil(5 * $row['difficulty']); $i--) {
                                         echo '<span class="glyphicon glyphicon-star-empty"></span>';
                                     }
                                     //  echo $row['difficulty']; ?>
@@ -691,7 +691,7 @@
                         }
                     },
                     data: [
-                       /* {value: qa_i, name: '题目提交量'},*///value 数值  value:[123]
+                        /* {value: qa_i, name: '题目提交量'},*///value 数值  value:[123]
                         {value: qs_i, name: '答题正确量'},
                         {value: qd_i, name: '答题错误量'}
                     ]

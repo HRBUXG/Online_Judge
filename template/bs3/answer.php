@@ -68,7 +68,7 @@
                     $sql_problme_score = "select difficulty from problem where problem_id=" . $pid;
                     $result3 = mysqli_query($con, $sql_problme_score);
                     foreach ($result3 as $row) {
-                        $problem_score = $row['difficulty'];
+                        $problem_score = 5*$row['difficulty'];
                     }
                     $sql_purchase_status = "select * from purchase_record where user_id='" . $user_id . "'and problem_id =" . $pid;
                     $result4 = mysqli_query($con, $sql_purchase_status);

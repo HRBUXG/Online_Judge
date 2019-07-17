@@ -389,10 +389,10 @@ from
                         } else if (counts[i] <= 3) {
                             dif2++;
                             cnt++;
-                        } else if (counts[i] <= 4.5) {
+                        } else if (counts[i] <= 6) {
                             dif3++;
                             cnt++;
-                        } else if (counts[i] <= 6) {
+                        } else if (counts[i] <= 9) {
                             dif4++;
                             cnt++;
                         } else {
