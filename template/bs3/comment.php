@@ -224,11 +224,11 @@
             </h4>
             <center>
                 <p style=" width: 100%;height: 40px;border-bottom: 1px solid #999;"><b>发表评论</b></p>
-                <div style="width: 60%;float: left;border:1px solid #ccc;background-color: #f5f5f5">
-                    <?php echo $title;?>
-                    <?php echo $description;?>
+           <!--     <div style="width: 60%;float: left;border:1px solid #ccc;background-color: #f5f5f5">
+                    <?php /*echo $title;*/?>
+                    <?php /*echo $description;*/?>
 
-                </div>
+                </div>-->
 
                 <div class="con ">
                     <label class="label label-info">题目号：</label>
@@ -243,9 +243,9 @@
                     <br>
                     <!--                    <label class="label label-info"> 评论区： </label>-->
                     <br>
-                    <br><textarea cols="60" rows="6" class="text" style="width: 20%"
+                    <br><textarea cols="60" rows="6" class="text" style="width: 40%;"
                                   placeholder="请说出您的建议和意见，最多不超过60个字"></textarea>
-                    <input style="margin-left:60%; " type="button" value="发送" class="btn btn-primary">
+                    <input  type="button" value="发送" class="btn btn-primary">
                 </div>
             </center>
         </div>

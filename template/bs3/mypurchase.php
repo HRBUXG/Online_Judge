@@ -161,70 +161,70 @@
             </div>
 
 
-            <div class="tab-pane fade" id="search" onclick="load()">
-                <div id="loading" class="loader">
-                    <div class="text">双击进入推荐</div>
-                    <div class="horizontal">
-                        <div class="circlesup">
-                            <div class="circle"></div>
-                            <div class="circle"></div>
-                            <div class="circle"></div>
-                            <div class="circle"></div>
-                            <div class="circle"></div>
-                        </div>
-                        <div class="circlesdwn">
-                            <div class="circle"></div>
-                            <div class="circle"></div>
-                            <div class="circle"></div>
-                            <div class="circle"></div>
-                            <div class="circle"></div>
-                        </div>
+            <div class="tab-pane fade" id="search"  onclick="load()">
+            <div id="loading" class="loader">
+                <div class="text">双击进入推荐</div>
+                <div class="horizontal">
+                    <div class="circlesup">
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                        <div class="circle"></div>
                     </div>
-                    <div class="vertical">
-                        <div class="circlesup">
-                            <div class="circle"></div>
-                            <div class="circle"></div>
-                            <div class="circle"></div>
-                            <div class="circle"></div>
-                            <div class="circle"></div>
-                        </div>
-                        <div class="circlesdwn">
-                            <div class="circle"></div>
-                            <div class="circle"></div>
-                            <div class="circle"></div>
-                            <div class="circle"></div>
-                            <div class="circle"></div>
-                        </div>
+                    <div class="circlesdwn">
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                        <div class="circle"></div>
                     </div>
-
                 </div>
-                <div id="recommend">
-                    <?php
-                    $sql = "select distinct t.problem_id,p.title,p.tags,p.difficulty 
+                <div class="vertical">
+                    <div class="circlesup">
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circlesdwn">
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="recommend">
+                <?php
+                $sql = "select distinct t.problem_id,p.title,p.tags,p.difficulty 
 from
  (select * from solution where result!=4 and user_id=" . $user_id . " order by judgetime) t,problem p 
  where t.problem_id <> all (select problem_id from purchase_record) and p.problem_id=t.problem_id and p.problem_id!=0 
  order by judgetime desc limit 10";
-                    $result = pdo_query($sql);
-                    echo "<table class=\"table table-responsive\" border = 1 cellspacing = '0' cellpadding = '10'>";
-                    //echo "<th>用户编号</th><th>题目题号</th><th>评论内容</th><th>发布时间</th><th>操作</th>";
-                    //                echo "<th>消息内容</th><th>发布时间</th>";
-                    echo "<thead><tr><td>problem_id<td>title<td>tags<td>difficulty</tr></thead>";
-                    foreach ($result as $row) {
-                        echo "<tr>";
-                        echo "<td><a href='problem.php?id=" . $row['problem_id'] . "'>" . $row['problem_id'] . "</a>" ;
-                        echo "<td>" . $row['title'];
-                        echo "<td>" . $row['tags'];
-                        echo "<td>" . $row['difficulty'];
-                        echo "</tr>";
-                    } ?>
-                    </table>
-                </div>
+                $result = pdo_query($sql);
+                echo "<table class=\"table table-responsive\" border = 1 cellspacing = '0' cellpadding = '10'>";
+                //echo "<th>用户编号</th><th>题目题号</th><th>评论内容</th><th>发布时间</th><th>操作</th>";
+                //                echo "<th>消息内容</th><th>发布时间</th>";
+                echo "<thead><tr><td>problem_id<td>title<td>tags<td>difficulty</tr></thead>";
+                foreach ($result as $row) {
+                    echo "<tr>";
+                    echo "<td><a href='problem.php?id=" . $row['problem_id'] . "'>" . $row['problem_id'] . "</a>";
+                    echo "<td>" . $row['title'];
+                    echo "<td>" . $row['tags'];
+                    echo "<td>" . $row['difficulty'];
+                    echo "</tr>";
+                } ?>
+                </table>
             </div>
-
-
         </div>
+
+
     </div>
+</div>
 </div> <!-- /container -->
 
 <!--<script>
@@ -526,11 +526,12 @@ from
 </script>
 <!--隐藏加载动画-->
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         document.getElementById("recommend").style.display = 'none';
     });
+
     function load() {
-        
+
         var a = setTimeout("loading.style.transition='opacity 0.3s'", 0)
         //设置透明度改变的过渡时间为0.3秒
         var b = setTimeout("loading.style.opacity=0", 200)

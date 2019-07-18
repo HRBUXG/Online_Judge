@@ -9,21 +9,33 @@ require_once('./include/setlang.php');
 $view_title = "Welcome To Online Judge";
 $result = false;
 ///////////////////////////MAIN	
-
+$offset = rand(1, 100);
+$num=30;
 $view_category = "";
 $sql = "select distinct source "
     . "FROM `problem` "
-    . "LIMIT 500";
+    . "LIMIT " . $offset . ',' . $num;
 $result = mysql_query_cache($sql);//mysql_escape_string($sql));
-$category = array();
+$category1 = array();
+$category2 = array();
+
+
+$cnt = 0;
 foreach ($result as $row) {
     $cate = explode(",", $row['source']);
     foreach ($cate as $cat) {
-        array_push($category, trim($cat));
+        if ($cnt < 15) {
+            array_push($category1, trim($cat));
+            $cnt++;
+        } else {
+            array_push($category2, trim($cat));
+            $cnt++;
+        }
     }
 }
-$category = array_unique($category);
-if (!$result) {
+$category1 = array_unique($category1);
+$category2 = array_unique($category2);
+/*if (!$result) {
     $view_category = "<h3>No Category Now!</h3>";
 } else {
     $view_category .= "<div><p>";
@@ -34,7 +46,7 @@ if (!$result) {
     }
 
     $view_category .= "</p></div>";
-}
+}*/
 
 /////////////////////////Template
 require("template/" . $OJ_TEMPLATE . "/category.php");

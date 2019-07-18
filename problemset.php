@@ -167,9 +167,9 @@ foreach ($result as $row) {
     //  添加4，改为难度系数
     $view_problemset[$i][4] = "<div class='center'><nobr>" . $row['difficulty'] . "</nobr></div >";
     //  添加4，改为难度系数 结束
-    $view_problemset[$i][5] = "<div class='center'><a href='status.php?problem_id=" . $row['problem_id'] . "&jresult=4'>" . $row['accepted'] . "</a>"."/"."<a href='status.php?problem_id=" . $row['problem_id'] . "'>" . $row['submit'] . "</a></div>";
-   // $view_problemset[$i][6] = "<div class='center'><a href='status.php?problem_id=" . $row['problem_id'] . "'>" . $row['submit'] . "</a></div>";
-    //$view_problemset[$i][7] = "<div class='center'>" . ($row['submit'] > 0 ? number_format($row['accepted'] * 100 / $row['submit'], 2) : 0) . '%' . "</div>";
+    $view_problemset[$i][5] = "<div class='center'><a href='status.php?problem_id=" . $row['problem_id'] . "&jresult=4'>" . $row['accepted'] . "</a></div>";
+    $view_problemset[$i][6] = "<div class='center'><a href='status.php?problem_id=" . $row['problem_id'] . "'>" . $row['submit'] . "</a></div>";
+    $view_problemset[$i][7] = "<div class='center'>" . ($row['submit'] > 0 ? number_format($row['accepted'] * 100 / $row['submit'], 2) : 0) . '%' . "</div>";
     //添加 7  添加标签部分
 
     //判断标签是否为空
