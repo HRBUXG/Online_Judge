@@ -74,10 +74,11 @@
         echo "<h2>我的评论列表</h2>";
         echo "<table class=\"table table-hover table-striped\" border = 1 cellspacing = '0' cellpadding = '10'>";
         //echo "<th>用户编号</th><th>题目题号</th><th>评论内容</th><th>发布时间</th><th>操作</th>";
-        echo "<th>消息内容</th><th>发布时间</th><th>操作</th>";
+        echo "<th>题目号</th><th>消息内容</th><th>发布时间</th><th>操作</th>";
         while ($row = mysqli_fetch_assoc($obj)) {
             echo "<tr>";
             // echo '<td>' . $row['user_id'] . '</td>';
+            echo '<td>' . $row['problem_id'] . '</td>';
             echo '<td>' . $row['content_primary'] . '</td>';
             //  echo '<td>' . $row['groupflag'] . '</td>';
             echo '<td>' . $row['sendtime'] . '</td>';

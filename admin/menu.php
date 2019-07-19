@@ -120,6 +120,16 @@ if (isset($OJ_LANG)) {
                 <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) { ?>
                     <li>
                         <div style="text-indent:20px" class="buttuna">
+                            <a href="prosolution_list.php" target="main"
+                               title="<?php echo $MSG_HELP_ADD_PROBLEM ?>">
+                                <b><?php echo "Problem Solution List" ?></b>
+                            </a>
+                        </div>
+                    </li>
+                <?php } ?>
+                <?php if (isset($_SESSION[$OJ_NAME . '_' . 'administrator']) || isset($_SESSION[$OJ_NAME . '_' . 'problem_editor'])) { ?>
+                    <li>
+                        <div style="text-indent:20px" class="buttuna">
                             <a href="comments_manager.php" target="main" title="<?php echo $MSG_HELP_ADD_PROBLEM ?>">
                                 <b><?php echo "Comments Manager" ?></b>
                             </a>
@@ -416,13 +426,13 @@ if (isset($OJ_LANG)) {
                         </div>
                     </li>
                 <?php } ?>
-                <li>
+              <!--  <li>
                     <div style="text-indent:20px" class="buttuna">
                         <a href="tag_management_page.php" target="main">
-                            <b><?php echo $MSG_TAG . $MSG_MANAGE ?></b>
+                            <b><?php /*echo $MSG_TAG . $MSG_MANAGE */?></b>
                         </a>
                     </div>
-                </li>
+                </li>-->
                 <li>
                     <div style="text-indent:20px" class="buttuna">
                         <a href="../online.php" target="main">
